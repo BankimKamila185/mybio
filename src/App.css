@@ -96,11 +96,14 @@
 
 .profile-bg-img {
   position: absolute;
-  top: 0;
+  top: -60px;
+  /* Physically shift the image UP */
   left: 0;
   width: 100%;
-  height: 100%;
+  height: calc(100% + 60px);
+  /* Compensate for the shift so it still covers the bottom */
   object-fit: cover;
+  object-position: center top;
   z-index: 0;
   border-radius: inherit;
 }
@@ -110,11 +113,11 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 70%;
-  /* Covers bottom 70% */
+  height: 50%;
+  /* Covers bottom 50% only */
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(30, 30, 30, 0.6) 40%, rgba(30, 30, 30, 0.9) 100%);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
   -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 50%);
   mask-image: linear-gradient(to bottom, transparent 0%, black 50%);
   z-index: 1;
@@ -314,30 +317,38 @@
   text-align: left;
 }
 
-/* Instagram Card */
+/* Social / Image Card */
 .image-link-card {
   background: var(--bg-card-dark);
   color: var(--text-inverse);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px;
+  padding: 16px 20px;
   text-decoration: none;
+  min-height: 90px;
 }
 
-.ig-info h3 {
-  font-size: 1rem;
-  margin: 6px 0 2px 0;
-}
-
-.ig-info p {
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 0.7rem;
+.ig-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .ig-info svg {
-  width: 18px;
-  height: 18px;
+  margin-bottom: 6px;
+}
+
+.ig-info h3 {
+  font-size: 1.1rem;
+  margin: 0;
+  font-weight: 600;
+}
+
+.ig-info p {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  margin-top: 2px;
 }
 
 .ig-avatar {
@@ -391,6 +402,166 @@
   text-overflow: ellipsis;
   flex: 1;
   /* Allow it to truncate */
+}
+
+/* --- Unified Social Connect Card --- */
+.social-connect-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 24px 16px;
+  gap: 16px;
+}
+
+.social-connect-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin: 0;
+}
+
+.social-icons-row {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.social-icon-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-light);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-main);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+}
+
+.social-icon-btn svg {
+  transition: transform 0.3s ease;
+}
+
+/* Brand Colors on Hover */
+.social-icon-btn.whatsapp-btn:hover {
+  background: #25D366;
+  border-color: #25D366;
+  color: #fff;
+  transform: translateY(-6px) scale(1.15);
+  box-shadow: 0 12px 24px rgba(37, 211, 102, 0.5);
+}
+
+.social-icon-btn.email-btn:hover {
+  background: var(--accent-orange);
+  border-color: var(--accent-orange);
+  color: #fff;
+  transform: translateY(-6px) scale(1.15);
+  box-shadow: 0 12px 24px rgba(250, 100, 0, 0.5);
+}
+
+.social-icon-btn.instagram-btn:hover {
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  border-color: transparent;
+  color: #fff;
+  transform: translateY(-6px) scale(1.15);
+  box-shadow: 0 12px 24px rgba(220, 39, 67, 0.5);
+}
+
+.social-icon-btn.linkedin-btn:hover {
+  background: #0a66c2;
+  border-color: #0a66c2;
+  color: #fff;
+  transform: translateY(-6px) scale(1.15);
+  box-shadow: 0 12px 24px rgba(10, 102, 194, 0.5);
+}
+
+.social-icon-btn.github-btn:hover {
+  background: #ffffff;
+  border-color: #ffffff;
+  color: #000000;
+  transform: translateY(-6px) scale(1.15);
+  box-shadow: 0 12px 24px rgba(255, 255, 255, 0.3);
+}
+
+.social-icon-btn.discord-btn:hover {
+  background: #5865F2;
+  border-color: #5865F2;
+  color: #fff;
+  transform: translateY(-6px) scale(1.15);
+  box-shadow: 0 12px 24px rgba(88, 101, 242, 0.5);
+}
+
+.social-icon-btn.x-btn:hover {
+  background: #000000;
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  transform: translateY(-6px) scale(1.15);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.social-icon-btn:hover svg {
+  transform: scale(1.1);
+}
+
+/* --- Projects Card --- */
+.projects-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.projects-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.project-link-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  color: var(--text-main);
+  backdrop-filter: blur(8px);
+}
+
+.project-link-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.project-info h4 {
+  margin: 0 0 4px 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.project-info p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.project-link-card svg {
+  color: var(--text-muted);
+  transition: all 0.3s ease;
+}
+
+.project-link-card:hover svg {
+  color: var(--text-main);
+  transform: translate(2px, -2px);
 }
 
 /* --- Right Column --- */
