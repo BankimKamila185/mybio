@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bg-page: #d5ddd5;
+  /* Soft grey-green matching the surrounding area */
+  --bg-card: #ffffff;
+  --bg-card-dark: #000000;
+
+  --text-main: #1a1a1a;
+  --text-muted: #666666;
+  --text-inverse: #ffffff;
+
+  --accent-green: #8dc63f;
+  --accent-orange: #fa6400;
+  --accent-black: #111111;
+  --accent-grey: #e6e6e6;
+  /* Skill bar background */
+
+  --font-main: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --radius-card: 28px;
+  --radius-pill: 50px;
+  --radius-sm: 12px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+}

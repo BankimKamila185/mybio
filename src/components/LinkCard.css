@@ -1,0 +1,110 @@
+.link-card-simple {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: var(--radius-pill);
+    /* nice rounded corners like Linktree */
+    background: rgba(255, 255, 255, 0.05);
+    /* very subtle transparent white */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-decoration: none;
+    color: var(--text-main);
+    transition: all 0.2s ease;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.link-card-simple:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.02);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.link-card-thumbnail {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    /* circular thumbnail */
+    background-size: cover;
+    background-position: center;
+    flex-shrink: 0;
+    /* don't shrink the image */
+    margin-right: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.link-card-thumbnail-placeholder {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    flex-shrink: 0;
+    margin-right: 16px;
+}
+
+.link-card-title {
+    flex-grow: 1;
+    /* take up remaining space */
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: center;
+    margin-right: 16px;
+    /* offset the thumbnail so text is centered if possible, but standard flex handles this okay */
+    /* To truly center text regardless of thumbnail, we might need absolute positioning or flex tricks, but flex-grow with text-align center looks good enough and natural. */
+}
+
+/* Fix true centering by offsetting the left side with right side icon space */
+.link-card-icon {
+    width: 48px;
+    /* match thumbnail width for perfect centering */
+    height: 48px;
+    display: flex;
+    justify-content: flex-end;
+    /* icon on the right */
+    align-items: center;
+    flex-shrink: 0;
+    color: rgba(255, 255, 255, 0.5);
+    transition: color 0.2s;
+}
+
+.link-card-simple:hover .link-card-icon {
+    color: var(--text-main);
+}
+
+/* Staggered Entrance Animation (used in App) */
+.staggered-enter {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: glideUpFade 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: calc(var(--stagger) * 0.1s);
+}
+
+@keyframes glideUpFade {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+    .link-card-simple {
+        padding: 10px 14px;
+    }
+
+    .link-card-thumbnail {
+        width: 40px;
+        height: 40px;
+        margin-right: 12px;
+    }
+
+    .link-card-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .link-card-title {
+        font-size: 0.95rem;
+    }
+}
