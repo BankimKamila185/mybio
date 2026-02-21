@@ -1,20 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --bg-page: #d5ddd5;
-  /* Soft grey-green matching the surrounding area */
-  --bg-card: #ffffff;
-  --bg-card-dark: #000000;
+  --bg-page: #050505;
+  /* Deep dark rich black */
+  --bg-card: rgba(20, 20, 20, 0.6);
+  --bg-card-dark: rgba(10, 10, 10, 0.8);
 
-  --text-main: #1a1a1a;
-  --text-muted: #666666;
+  --text-main: #f5f5f5;
+  --text-muted: #a0a0a0;
   --text-inverse: #ffffff;
 
   --accent-green: #8dc63f;
   --accent-orange: #fa6400;
   --accent-black: #111111;
-  --accent-grey: #e6e6e6;
-  /* Skill bar background */
+  --accent-grey: rgba(255, 255, 255, 0.1);
+  /* Subtle skill bar background */
+  --border-light: rgba(255, 255, 255, 0.08);
 
   --font-main: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
 
