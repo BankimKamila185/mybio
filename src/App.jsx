@@ -34,7 +34,7 @@ function App() {
               </div>
 
               <p className="profile-fog-desc">
-                A Product Designer focused on <br />intuitive user experiences.
+                Frontend Developer | UI/UX Designer<br />AI & Multimedia Creation
               </p>
 
 
@@ -55,7 +55,7 @@ function App() {
               <a href="https://instagram.com/manseris" target="_blank" rel="noopener noreferrer" className="social-icon-btn instagram-btn">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
               </a>
-              <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer" className="social-icon-btn linkedin-btn">
+              <a href="https://www.linkedin.com/in/bankim-chandra-kamila-b07b59236/" target="_blank" rel="noopener noreferrer" className="social-icon-btn linkedin-btn">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
               </a>
               <a href="https://github.com/BankimKamila185" target="_blank" rel="noopener noreferrer" className="social-icon-btn github-btn">
@@ -86,18 +86,18 @@ function App() {
             </div>
 
             <div className="projects-grid">
-              <a href="#" target="_blank" rel="noopener noreferrer" className="project-link-card">
+              <a href="https://github.com/BankimKamila185" target="_blank" rel="noopener noreferrer" className="project-link-card">
                 <div className="project-info">
-                  <h4>Portfolio Website</h4>
-                  <p>Check out my latest works</p>
+                  <h4>GitHub Projects</h4>
+                  <p>Check out my repositories</p>
                 </div>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
               </a>
 
-              <a href="#" target="_blank" rel="noopener noreferrer" className="project-link-card">
+              <a href="https://www.linkedin.com/in/bankim-chandra-kamila-b07b59236/" target="_blank" rel="noopener noreferrer" className="project-link-card">
                 <div className="project-info">
-                  <h4>My Startup</h4>
-                  <p>Building the future</p>
+                  <h4>LinkedIn Profile</h4>
+                  <p>Connect with me professionally</p>
                 </div>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
               </a>
@@ -112,7 +112,7 @@ function App() {
               </div>
               <div className="header-title">Resume</div>
             </div>
-            <div className="job-pill">Graphic Designer</div>
+            <div className="job-pill">Frontend Developer</div>
           </div>
 
           {/* Experience Timeline */}
@@ -121,28 +121,18 @@ function App() {
               <div className="header-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
               </div>
-              <div className="header-title">Experince</div>
+              <div className="header-title">Experience</div>
             </div>
             <div className="timeline">
               <div className="timeline-item">
                 <div className="timeline-dot"></div>
-                <div className="timeline-year">2021</div>
-                <div className="timeline-desc">Intern Graphic Designer in Lavagna, Inc.</div>
+                <div className="timeline-year">2025</div>
+                <div className="timeline-desc">Sales Intern at Kwento<br /><em>Mumbai, Remote · 4 months</em></div>
               </div>
               <div className="timeline-item">
                 <div className="timeline-dot"></div>
-                <div className="timeline-year">2022</div>
-                <div className="timeline-desc">Junior Graphic Designer in Lantario & Co.</div>
-              </div>
-              <div className="timeline-item">
-                <div className="timeline-dot"></div>
-                <div className="timeline-year">2024</div>
-                <div className="timeline-desc">Senior Graphic Designer in Belevere Corp</div>
-              </div>
-              <div className="timeline-item">
-                <div className="timeline-dot"></div>
-                <div className="timeline-year">2026</div>
-                <div className="timeline-desc">Freelancer with many clients globally</div>
+                <div className="timeline-year">2025</div>
+                <div className="timeline-desc">Back End Developer Intern at DESI DESTINY<br /><em>Maharashtra, Hybrid · 4 months</em></div>
               </div>
             </div>
           </div>
@@ -158,18 +148,18 @@ function App() {
             <div className="timeline">
               <div className="timeline-item">
                 <div className="timeline-dot"></div>
-                <div className="timeline-year">2021</div>
-                <div className="timeline-desc">Graduated from Hogwarts University<br /><em>Bachelor of Graphic Design</em></div>
+                <div className="timeline-year">2024</div>
+                <div className="timeline-desc">ITM Skills University<br /><em>BTech, AI & Machine Learning (2024–2028)</em></div>
               </div>
               <div className="timeline-item">
                 <div className="timeline-dot"></div>
-                <div className="timeline-year">2023</div>
-                <div className="timeline-desc">Graduated from Hogwarts University<br /><em>Master of Digital Art</em></div>
+                <div className="timeline-year">2022</div>
+                <div className="timeline-desc">Swami Vivekanand International School<br /><em>11th & 12th, Computer Science (2022–2024)</em></div>
               </div>
               <div className="timeline-item">
                 <div className="timeline-dot"></div>
-                <div className="timeline-year">Now</div>
-                <div className="timeline-desc">Still learn from every course I can find</div>
+                <div className="timeline-year">2009</div>
+                <div className="timeline-desc">St. Xavier's High School, Goregaon<br /><em>10th Grade, Computer Science (2009–2022)</em></div>
               </div>
             </div>
           </div>
