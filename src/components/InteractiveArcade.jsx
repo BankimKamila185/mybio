@@ -16,8 +16,10 @@ const CODE_SNIPPETS = [
   "const ctoVision = { innovation: true, scale: '10x', focus: 'AI' };",
 ];
 
+import { TERMINAL_COMMANDS } from '../data/portfolioData';
+
 export default function InteractiveArcade({ playSound }) {
-  const [activeTab, setActiveTab] = useState('snake'); // 'snake' | 'typer' | 'synapse'
+  const [activeTab, setActiveTab] = useState('snake'); // 'snake' | 'typer' | 'synapse' | 'terminal'
 
   return (
     <div className="arcade-wrapper">
@@ -40,12 +42,19 @@ export default function InteractiveArcade({ playSound }) {
         >
           <span className="tab-icon">🧠</span> Neural Canvas
         </button>
+        <button
+          className={`arcade-tab-btn ${activeTab === 'terminal' ? 'active' : ''}`}
+          onClick={() => { playSound?.(); setActiveTab('terminal'); }}
+        >
+          <span className="tab-icon">💻</span> Terminal CLI
+        </button>
       </div>
 
       <div className="arcade-body">
         {activeTab === 'snake' && <SnakeGame playSound={playSound} />}
         {activeTab === 'typer' && <CodeTyper playSound={playSound} />}
         {activeTab === 'synapse' && <NeuralCanvas />}
+        {activeTab === 'terminal' && <ArcadeTerminal playSound={playSound} />}
       </div>
     </div>
   );
@@ -447,3 +456,97 @@ function NeuralCanvas() {
     </div>
   );
 }
+
+/* ========================================================
+   4. BANKIM OS TERMINAL CLI
+   ======================================================== */
+function ArcadeTerminal({ playSound }) {
+  const [inputVal, setInputVal] = useState('');
+  const [history, setHistory] = useState([
+    { type: 'system', text: "BankimOS [Version 2.5.0-AI]\nType 'help' or click any preset command to explore." }
+  ]);
+  const endRef = useRef(null);
+  const availableCommands = ['help', 'projects', 'skills', 'certs', 'exp', 'contact', 'github', 'clear'];
+
+  useEffect(() => {
+    endRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [history]);
+
+  const executeCommand = (rawCmd) => {
+    const cmd = rawCmd.trim().toLowerCase();
+    if (!cmd) return;
+
+    playSound?.();
+
+    if (cmd === 'clear') {
+      setHistory([]);
+      setInputVal('');
+      return;
+    }
+
+    const output = TERMINAL_COMMANDS[cmd];
+
+    if (output) {
+      setHistory((prev) => [
+        ...prev,
+        { type: 'user', text: `$ ${rawCmd}` },
+        { type: 'response', text: output }
+      ]);
+    } else {
+      setHistory((prev) => [
+        ...prev,
+        { type: 'user', text: `$ ${rawCmd}` },
+        { type: 'error', text: `Command '${rawCmd}' not found. Type 'help' to see valid commands.` }
+      ]);
+    }
+
+    setInputVal('');
+  };
+
+  return (
+    <div className="arcade-terminal-wrap">
+      <div className="terminal-quick-row">
+        <span className="quick-label">Presets:</span>
+        {availableCommands.map((c) => (
+          <button
+            key={c}
+            className="terminal-chip-btn"
+            onClick={() => executeCommand(c)}
+          >
+            {c}
+          </button>
+        ))}
+      </div>
+
+      <div className="arcade-terminal-screen">
+        {history.map((item, idx) => (
+          <div key={idx} className={`terminal-line ${item.type}`}>
+            <pre>{item.text}</pre>
+          </div>
+        ))}
+        <div ref={endRef} />
+      </div>
+
+      <div className="arcade-terminal-input-row">
+        <span className="terminal-prompt">&gt;</span>
+        <input
+          type="text"
+          className="arcade-terminal-input"
+          value={inputVal}
+          onChange={(e) => setInputVal(e.target.value)}
+          onKeyDown={(e) => { if (e.key === 'Enter') executeCommand(inputVal); }}
+          placeholder="Type 'help', 'projects', 'skills', 'certs'..."
+          autoComplete="off"
+          spellCheck="false"
+        />
+        <button
+          className="arcade-terminal-enter-btn"
+          onClick={() => executeCommand(inputVal)}
+        >
+          Run ↵
+        </button>
+      </div>
+    </div>
+  );
+}
+

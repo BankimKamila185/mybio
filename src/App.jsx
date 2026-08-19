@@ -1,159 +1,27 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import InteractiveArcade from './components/InteractiveArcade';
 import LiveStatusWidget from './components/LiveStatusWidget';
+import GitHubRepoExplorer from './components/GitHubRepoExplorer';
 import CommandPalette from './components/CommandPalette';
 import ProjectModal from './components/ProjectModal';
-
-// ========================
-// DATA
-// ========================
-const CERTIFICATIONS = [
-  { title: 'Postman API Fundamentals Student Expert', issuer: 'Postman', date: 'Jul 2024' },
-  { title: 'GenAI 101 with Pieces', issuer: 'Pieces', date: 'Dec 2024' },
-  { title: 'Google IT Support Professional', issuer: 'Google / Coursera', date: 'Mar 2023' },
-  { title: 'Fundamentals of Digital Marketing', issuer: 'Google', date: 'Apr 2022' },
-];
+import { FEATURED_PROJECTS, EXPERIENCE, EDUCATION, CERTIFICATIONS, PERSONAL_INFO } from './data/portfolioData';
 
 const TECH_STACK = [
-  { name: 'React', icon: '⚛️', color: '#61dafb' },
-  { name: 'TypeScript', icon: '🔷', color: '#3178c6' },
-  { name: 'Node.js', icon: '🟢', color: '#68a063' },
-  { name: 'Python', icon: '🐍', color: '#3776ab' },
-  { name: 'FastAPI', icon: '⚡', color: '#009688' },
-  { name: 'MongoDB', icon: '🍃', color: '#47a248' },
-  { name: 'Tailwind CSS', icon: '🎨', color: '#38bdf8' },
-  { name: 'Vite', icon: '⚡', color: '#bd34fe' },
-  { name: 'Figma', icon: '📐', color: '#a259ff' },
-  { name: 'Postman', icon: '🚀', color: '#ff6c37' },
-  { name: 'WebSockets', icon: '🔌', color: '#f59e0b' },
-  { name: 'Git & GitHub', icon: '🐙', color: '#ffffff' },
+  { name: 'React', icon: '⚛️' },
+  { name: 'TypeScript', icon: '🔷' },
+  { name: 'Node.js', icon: '🟢' },
+  { name: 'Python', icon: '🐍' },
+  { name: 'FastAPI', icon: '⚡' },
+  { name: 'MongoDB', icon: '🍃' },
+  { name: 'Tailwind CSS', icon: '🎨' },
+  { name: 'Vite', icon: '⚡' },
+  { name: 'Figma', icon: '📐' },
+  { name: 'Postman', icon: '🚀' },
+  { name: 'WebSockets', icon: '🔌' },
+  { name: 'Git & GitHub', icon: '🐙' },
 ];
 
-const PROJECTS = [
-  {
-    title: 'Reactify',
-    subtitle: 'Live Polling Engine',
-    desc: 'Real-time anonymous voting with WebSockets & live animated charts.',
-    longDesc: 'Engineered high-concurrency anonymous voting rooms with zero-latency WebSocket broadcasting, animated live tally charts, and clean responsive UI.',
-    tags: ['React', 'Node.js', 'Socket.io', 'MongoDB', 'Vite'],
-    link: 'https://reactify-pink.vercel.app',
-    github: 'https://github.com/BankimKamila185/Reactify',
-    live: true,
-    accent: '#f25b2a',
-    category: 'Full-Stack Web'
-  },
-  {
-    title: 'PayIt',
-    subtitle: 'Billing & Invoice Platform',
-    desc: 'Automated payment calculations, invoice rendering, and historical ledger.',
-    longDesc: 'Comprehensive invoicing engine powered by Python REST backend, supporting automated tax calculation, PDF invoice rendering, and historical ledger management.',
-    tags: ['Python', 'FastAPI', 'React', 'Tailwind', 'PostgreSQL'],
-    link: 'https://payit-mu.vercel.app',
-    github: 'https://github.com/BankimKamila185/payit-',
-    live: true,
-    accent: '#c6ff00',
-    category: 'Fintech Tool'
-  },
-  {
-    title: 'Pixora',
-    subtitle: 'AI Image Studio',
-    desc: 'Extract dominant color palettes via K-Means clustering and apply neural filters.',
-    longDesc: 'Computer vision platform using K-Means clustering to extract dominant HEX/RGB palettes from user uploads, with real-time neural filter processing.',
-    tags: ['Python', 'Computer Vision', 'React', 'Canvas API'],
-    link: 'https://pixora-lake.vercel.app',
-    github: 'https://github.com/BankimKamila185/pixora',
-    live: true,
-    accent: '#ec4899',
-    category: 'AI / Image Processing'
-  },
-  {
-    title: 'WastCraft',
-    subtitle: 'Eco Scrap Marketplace',
-    desc: 'Circular economy platform connecting households with localized recyclers.',
-    longDesc: 'Eco-commerce network designed to streamline recyclable scrap categorization, pricing estimation, and localized collection logistics.',
-    tags: ['React', 'JavaScript', 'Tailwind', 'Vercel'],
-    link: 'https://wastcraft.vercel.app',
-    github: 'https://github.com/BankimKamila185/wastcraft',
-    live: true,
-    accent: '#22c55e',
-    category: 'Marketplace'
-  },
-  {
-    title: 'Brand Studio',
-    subtitle: 'Design System Showcase',
-    desc: 'Fluid typography scales, CSS token architecture, and micro-interactions.',
-    longDesc: 'High-performance interactive design showcase implementing dynamic fluid typography scales, CSS token architectures, and micro-animations.',
-    tags: ['React', 'Vite', 'CSS Architecture', 'UI/UX'],
-    link: 'https://brand-two-mocha.vercel.app',
-    github: 'https://github.com/BankimKamila185/brand',
-    live: true,
-    accent: '#a855f7',
-    category: 'Design System'
-  },
-];
-
-const EXPERIENCE = [
-  {
-    role: 'Chief Technology Officer',
-    company: 'The Outliers Studio',
-    location: 'Mumbai · Hybrid',
-    period: 'Jul 2026 — Present',
-    type: 'Full-time · Executive',
-    current: true,
-    desc: 'Directing technical strategy, product architecture, infrastructure scaling, and leading the core engineering team.',
-    skills: ['Executive Leadership', 'Product Architecture', 'Full-Stack Scalability', 'AI Systems'],
-  },
-  {
-    role: 'Chief Operating Officer',
-    company: 'The Outliers Studio',
-    location: 'Mumbai · Hybrid',
-    period: 'Jul 2026 — Present',
-    type: 'Full-time · Executive',
-    current: true,
-    desc: 'Managing business operations, delivery timelines, cross-functional synergy, and strategic growth partnerships.',
-    skills: ['Operations Strategy', 'Team Management', 'Business Growth'],
-  },
-  {
-    role: 'Sales Intern',
-    company: 'Kwento',
-    location: 'Mumbai · Remote',
-    period: 'Jun 2025 — Sep 2025',
-    type: 'Internship',
-    current: false,
-    desc: 'Customer discovery pipelines, lifecycle analytics, and client communication workflows.',
-    skills: ['Client Relations', 'Analytics'],
-  },
-  {
-    role: 'Back End Developer',
-    company: 'DESI DESTINY',
-    location: 'Maharashtra · Hybrid',
-    period: 'Jun 2025 — Sep 2025',
-    type: 'Internship',
-    current: false,
-    desc: 'Built RESTful microservices, normalized relational database schemas, and implemented API test suites.',
-    skills: ['Node.js', 'REST APIs', 'Database Architecture'],
-  },
-];
-
-const EDUCATION = [
-  {
-    institution: 'ITM Skills University',
-    degree: 'B.Tech · Artificial Intelligence & Machine Learning',
-    period: '2024 — 2028',
-    current: true,
-  },
-  {
-    institution: 'Swami Vivekanand International School',
-    degree: '12th Grade · Computer Science',
-    period: '2022 — 2024',
-    current: false,
-  },
-];
-
-// ========================
-// SOUND UTILITY
-// ========================
 function playPopSound() {
   try {
     const ctx = new (window.AudioContext || window.webkitAudioContext)();
@@ -173,25 +41,24 @@ function playPopSound() {
 }
 
 export default function App() {
-  const [theme, setTheme] = useState('dark');
   const [isCmdOpen, setIsCmdOpen] = useState(false);
   const [activeModalProject, setActiveModalProject] = useState(null);
   const [copiedEmail, setCopiedEmail] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState('All');
 
   const homeRef = useRef(null);
   const projectsRef = useRef(null);
+  const reposRef = useRef(null);
   const stackRef = useRef(null);
   const experienceRef = useRef(null);
   const arcadeRef = useRef(null);
   const contactRef = useRef(null);
 
-  const toggleTheme = useCallback(() => {
-    setTheme(prev => {
-      const next = prev === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', next);
-      return next;
-    });
-  }, []);
+  const categories = ['All', 'Full-Stack Web', 'Fintech Tool', 'AI & ML', 'Marketplace', 'Design System'];
+
+  const filteredProjects = selectedCategory === 'All'
+    ? FEATURED_PROJECTS
+    : FEATURED_PROJECTS.filter(p => p.category === selectedCategory);
 
   const copyEmail = () => {
     navigator.clipboard.writeText('bankimkamila185@gmail.com');
@@ -200,7 +67,6 @@ export default function App() {
     setTimeout(() => setCopiedEmail(false), 2200);
   };
 
-  // Scroll reveal observer
   useEffect(() => {
     const observer = new IntersectionObserver(
       entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
@@ -210,7 +76,6 @@ export default function App() {
     return () => observer.disconnect();
   }, []);
 
-  // Global Keyboard Shortcuts
   useEffect(() => {
     const handleGlobalKey = (e) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
@@ -228,6 +93,7 @@ export default function App() {
   const handleCmdNavigate = (destination) => {
     if (destination === 'arcade') arcadeRef.current?.scrollIntoView({ behavior: 'smooth' });
     if (destination === 'projects') projectsRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (destination === 'repos') reposRef.current?.scrollIntoView({ behavior: 'smooth' });
     if (destination === 'role' || destination === 'experience') experienceRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
@@ -238,7 +104,7 @@ export default function App() {
         isOpen={isCmdOpen}
         onClose={() => setIsCmdOpen(false)}
         onNavigate={handleCmdNavigate}
-        onToggleTheme={toggleTheme}
+        onToggleTheme={() => {}}
         playSound={playPopSound}
       />
 
@@ -250,67 +116,57 @@ export default function App() {
       />
 
       {/* ══════════════════════════════════════════
-          TOP FLOATING DOCK NAVBAR (SAWAD STYLE)
+          TOP FLOATING DOCK NAVBAR (6 ICON CAPSULE)
          ══════════════════════════════════════════ */}
       <header className="sawad-nav-wrapper">
         <nav className="sawad-floating-dock">
+          {/* 1. Home Icon */}
           <button
             className="dock-item"
             onClick={() => { playPopSound(); homeRef.current?.scrollIntoView({ behavior: 'smooth' }); }}
             title="Home"
           >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
           </button>
+          {/* 2. Projects Icon */}
           <button
             className="dock-item"
             onClick={() => { playPopSound(); projectsRef.current?.scrollIntoView({ behavior: 'smooth' }); }}
-            title="Projects & Work"
+            title="Projects"
           >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
           </button>
+          {/* 3. GitHub Repos Icon */}
+          <button
+            className="dock-item"
+            onClick={() => { playPopSound(); reposRef.current?.scrollIntoView({ behavior: 'smooth' }); }}
+            title="Open Source Repos"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+          </button>
+          {/* 4. Experience Icon */}
           <button
             className="dock-item"
             onClick={() => { playPopSound(); experienceRef.current?.scrollIntoView({ behavior: 'smooth' }); }}
-            title="Experience & Leadership"
+            title="Experience"
           >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
           </button>
-          <button
-            className="dock-item"
-            onClick={() => { playPopSound(); stackRef.current?.scrollIntoView({ behavior: 'smooth' }); }}
-            title="Tech Stack"
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-          </button>
+          {/* 5. Arcade / Playground Icon */}
           <button
             className="dock-item"
             onClick={() => { playPopSound(); arcadeRef.current?.scrollIntoView({ behavior: 'smooth' }); }}
-            title="Dev Arcade"
+            title="Dev Arcade & Sandbox"
           >
-            <span style={{ fontSize: '1.1rem' }}>🕹️</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
           </button>
+          {/* 6. Contact Icon */}
           <button
             className="dock-item"
             onClick={() => { playPopSound(); contactRef.current?.scrollIntoView({ behavior: 'smooth' }); }}
             title="Contact"
           >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-          </button>
-          <div className="dock-separator" />
-          <button
-            className="dock-item cmd-pill-btn"
-            onClick={() => { playPopSound(); setIsCmdOpen(true); }}
-            title="Search (⌘K)"
-          >
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <span className="dock-kbd">⌘K</span>
-          </button>
-          <button
-            className="dock-item"
-            onClick={() => { playPopSound(); toggleTheme(); }}
-            title="Toggle theme"
-          >
-            {theme === 'dark' ? '☀️' : '🌙'}
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
           </button>
         </nav>
       </header>
@@ -318,18 +174,18 @@ export default function App() {
       <main className="sawad-container">
 
         {/* ══════════════════════════════════════════
-            HERO SECTION (SAWAD 2-COLUMN SPLIT)
+            HERO SECTION (SAWAD HIGH-END PROFILE)
            ══════════════════════════════════════════ */}
         <section ref={homeRef} className="sawad-hero sawad-reveal">
           
-          {/* LEFT: THE SIGNATURE SAWAD WHITE CARD */}
+          {/* LEFT: WHITE PROFILE CARD */}
           <div className="sawad-profile-card">
             {/* Top decorative dashed curve */}
-            <svg className="sawad-curve-top" viewBox="0 0 140 70" fill="none">
-              <path d="M10,60 Q70,5 130,20" stroke="#f25b2a" strokeWidth="2.5" strokeDasharray="5 5" />
+            <svg className="sawad-curve-top-svg" viewBox="0 0 160 80" fill="none">
+              <path d="M0,70 Q60,10 160,25" stroke="#f46c38" strokeWidth="2.5" strokeDasharray="6 6" />
             </svg>
 
-            {/* Profile Avatar Box with Orange Backdrop */}
+            {/* Profile Avatar Box with Vibrant Orange/Coral Backdrop */}
             <div className="sawad-avatar-box">
               <img
                 src="/profile.png"
@@ -339,71 +195,82 @@ export default function App() {
               />
             </div>
 
-            {/* Name & Title */}
+            {/* Name */}
             <h2 className="sawad-profile-name">Bankim Chandra Kamila</h2>
 
-            {/* Middle Fire Badge on Curve */}
-            <div className="sawad-fire-badge-wrap">
-              <svg className="sawad-curve-mid" viewBox="0 0 140 40" fill="none">
-                <path d="M10,20 Q70,40 130,10" stroke="#f25b2a" strokeWidth="2" strokeDasharray="4 4" />
+            {/* Middle Curved line with Flame Badge */}
+            <div className="sawad-flame-track">
+              <svg className="sawad-curve-mid-svg" viewBox="0 0 240 50" fill="none">
+                <path d="M0,40 Q100,5 240,35" stroke="#f46c38" strokeWidth="2.5" strokeDasharray="5 5" />
               </svg>
-              <div className="sawad-fire-circle">
-                <span>🔥</span>
+              <div className="sawad-flame-badge">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffffff"><path d="M12 23c-4.97 0-9-4.03-9-9 0-3.32 1.77-6.22 4.41-7.83l.59-.36-.09.68C7.62 8.35 8.1 10.3 9.17 11.7l.45.59.38-.64C10.96 10.02 12.01 7.29 12 4c2.81 2.37 5 6.08 5 10 0 4.97-4.03 9-9 9h4z"/></svg>
               </div>
             </div>
 
-            {/* Bio Blurb */}
+            {/* Subtitle */}
             <p className="sawad-profile-bio">
-              CTO & COO who has architected and shipped scalable AI & full-stack software products.
+              CTO & COO at The Outliers Studio · AI & ML Engineer shipping real-time products.
             </p>
 
-            {/* Social Icons Row */}
+            {/* 4 Social Icons (Accurate Branded SVGs) */}
             <div className="sawad-social-row">
-              <a href="https://github.com/BankimKamila185" target="_blank" rel="noopener noreferrer" className="sawad-social-icon" title="GitHub">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+              {/* GitHub */}
+              <a href={PERSONAL_INFO.github} target="_blank" rel="noopener noreferrer" className="sawad-social-icon" title="GitHub Profile">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                </svg>
               </a>
-              <a href="https://www.linkedin.com/in/bankim-chandra-kamila-b07b59236/" target="_blank" rel="noopener noreferrer" className="sawad-social-icon" title="LinkedIn">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.45 1.45 0 1 0 0-2.9 1.45 1.45 0 0 0 0 2.9m1.39 9.74v-8.37H5.07v8.37h2.78z"/></svg>
+              {/* LinkedIn */}
+              <a href={PERSONAL_INFO.linkedin} target="_blank" rel="noopener noreferrer" className="sawad-social-icon" title="LinkedIn Profile">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
+                </svg>
               </a>
-              <a href="https://www.instagram.com/bankimkamila.23/" target="_blank" rel="noopener noreferrer" className="sawad-social-icon" title="Instagram">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+              {/* Instagram */}
+              <a href={PERSONAL_INFO.instagram} target="_blank" rel="noopener noreferrer" className="sawad-social-icon" title="Instagram">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
               </a>
-              <a href="https://wa.me/919324634516" target="_blank" rel="noopener noreferrer" className="sawad-social-icon" title="WhatsApp">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+              {/* WhatsApp */}
+              <a href={PERSONAL_INFO.whatsapp} target="_blank" rel="noopener noreferrer" className="sawad-social-icon" title="WhatsApp Message">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                </svg>
               </a>
             </div>
           </div>
 
-          {/* RIGHT: EDITORIAL BIG TYPOGRAPHY & STATS */}
+          {/* RIGHT: TYPOGRAPHY, STATS & LIVE METRICS */}
           <div className="sawad-hero-right">
             <div className="sawad-hero-titles">
               <h1 className="sawad-title-solid">SOFTWARE</h1>
               <h1 className="sawad-title-muted">ENGINEER</h1>
-              <h2 className="sawad-title-sub">& CTO @ THE OUTLIERS STUDIO</h2>
             </div>
 
             <p className="sawad-hero-desc">
-              Passionate about architecting intuitive, high-performance systems and leading digital product innovation. Specialize in transforming ambitious ideas into production-ready software.
+              Passionate technologist architecting scalable full-stack applications, AI/ML tools, and real-time systems. Leading innovation and engineering at The Outliers Studio.
             </p>
 
-            {/* Stats Row (Exact Sawad Format) */}
+            {/* 3 Real, Impactful Stats Columns */}
             <div className="sawad-stats-row">
               <div className="sawad-stat-box">
-                <span className="stat-number">+2</span>
-                <span className="stat-label">EXECUTIVE ROLES (CTO & COO)</span>
+                <span className="stat-number">+55</span>
+                <span className="stat-label">OPEN SOURCE<br />REPOSITORIES</span>
               </div>
               <div className="sawad-stat-box">
                 <span className="stat-number">+10</span>
-                <span className="stat-label">PROJECTS COMPLETED</span>
+                <span className="stat-label">PRODUCTION<br />APPS SHIPPED</span>
               </div>
               <div className="sawad-stat-box">
-                <span className="stat-number">+55</span>
-                <span className="stat-label">GITHUB REPOSITORIES</span>
+                <span className="stat-number">2x</span>
+                <span className="stat-label">EXECUTIVE<br />ROLES (CTO & COO)</span>
               </div>
             </div>
 
-            {/* Live Status Widget embedded */}
-            <div className="sawad-status-embed">
+            {/* Mounted Live Status Widget */}
+            <div className="hero-status-widget-container">
               <LiveStatusWidget />
             </div>
           </div>
@@ -411,53 +278,74 @@ export default function App() {
         </section>
 
         {/* ══════════════════════════════════════════
-            HIGHLIGHT CARDS (ORANGE & LIME BANNER CARDS)
+            HIGHLIGHT BANNER CARDS
            ══════════════════════════════════════════ */}
         <section className="sawad-banner-grid sawad-reveal">
           {/* Orange Feature Banner */}
           <div className="sawad-banner-card orange-card">
-            <div className="banner-icon">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+            <div className="banner-icon-box">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
             </div>
-            <h3 className="banner-title">DYNAMIC FULL-STACK & SYSTEM ARCHITECTURE</h3>
-            <p className="banner-desc">React, Node.js, WebSockets, Python REST microservices, scalable databases, and zero-downtime deployments.</p>
+            <h3 className="banner-title">FULL-STACK SCALABILITY & REAL-TIME WEBSOCKETS</h3>
           </div>
 
           {/* Lime Neon Feature Banner */}
           <div className="sawad-banner-card lime-card">
-            <div className="banner-icon">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+            <div className="banner-icon-box">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
             </div>
-            <h3 className="banner-title">AI & MACHINE LEARNING / COMPUTER VISION</h3>
-            <p className="banner-desc">K-Means clustering, Neural Filter Processing, FastAPI integration, Model evaluation, and ITM Skills University AI/ML research.</p>
+            <h3 className="banner-title">AI & MACHINE LEARNING · PYTHON REST SERVICES</h3>
           </div>
         </section>
 
         {/* ══════════════════════════════════════════
-            PROJECTS & CASE STUDIES SECTION
+            FEATURED PROJECTS SECTION WITH CATEGORY FILTER
            ══════════════════════════════════════════ */}
         <section ref={projectsRef} className="sawad-section sawad-reveal">
           <div className="section-header-row">
             <div>
-              <span className="section-tag">SELECTED WORK</span>
-              <h2 className="section-title">Featured Projects</h2>
+              <span className="section-tag">PORTFOLIO</span>
+              <h2 className="section-title">Selected Projects</h2>
             </div>
-            <a href="https://github.com/BankimKamila185" target="_blank" rel="noopener noreferrer" className="sawad-view-all-btn">
-              Explore all repos ↗
+            <a href={PERSONAL_INFO.github} target="_blank" rel="noopener noreferrer" className="sawad-view-all-btn">
+              All 55+ on GitHub ↗
             </a>
           </div>
 
+          {/* Project Category Filter Pills */}
+          <div className="project-filter-pills-row">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                className={`project-cat-pill ${selectedCategory === cat ? 'active' : ''}`}
+                onClick={() => { playPopSound(); setSelectedCategory(cat); }}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+
           <div className="sawad-projects-grid">
-            {PROJECTS.map((proj, i) => (
+            {filteredProjects.map((proj) => (
               <div
                 key={proj.title}
                 className="sawad-project-card"
                 onClick={() => { playPopSound(); setActiveModalProject(proj); }}
-                style={{ '--proj-accent': proj.accent }}
               >
                 <div className="proj-card-top">
                   <span className="proj-tag-pill">{proj.category}</span>
-                  <span className="proj-arrow-circle">↗</span>
+                  <div className="proj-action-group" onClick={(e) => e.stopPropagation()}>
+                    {proj.link && (
+                      <a href={proj.link} target="_blank" rel="noopener noreferrer" className="proj-link-mini-btn" title="Live Preview">
+                        Live ↗
+                      </a>
+                    )}
+                    {proj.github && (
+                      <a href={proj.github} target="_blank" rel="noopener noreferrer" className="proj-link-mini-btn" title="Source Code">
+                        Code ↗
+                      </a>
+                    )}
+                  </div>
                 </div>
 
                 <div className="proj-card-content">
@@ -477,15 +365,30 @@ export default function App() {
         </section>
 
         {/* ══════════════════════════════════════════
+            OPEN SOURCE ECOSYSTEM (GITHUB REPO EXPLORER)
+           ══════════════════════════════════════════ */}
+        <section ref={reposRef} className="sawad-section sawad-reveal">
+          <div className="section-header-row">
+            <div>
+              <span className="section-tag">OPEN SOURCE</span>
+              <h2 className="section-title">Live GitHub Repositories</h2>
+            </div>
+            <span className="arcade-live-indicator">● 55+ Public Repos</span>
+          </div>
+
+          <GitHubRepoExplorer playSound={playPopSound} />
+        </section>
+
+        {/* ══════════════════════════════════════════
             DEV ARCADE & INTERACTIVE SANDBOX
            ══════════════════════════════════════════ */}
         <section ref={arcadeRef} className="sawad-section sawad-reveal">
           <div className="section-header-row">
             <div>
-              <span className="section-tag">INTERACTIVE EXPERIENCE</span>
-              <h2 className="section-title">Dev Arcade & AI Sandbox</h2>
+              <span className="section-tag">INTERACTIVE</span>
+              <h2 className="section-title">Dev Arcade &amp; Sandbox</h2>
             </div>
-            <span className="arcade-live-indicator">● Playable in Browser</span>
+            <span className="arcade-live-indicator">● Playable</span>
           </div>
 
           <div className="sawad-arcade-card">
@@ -499,8 +402,8 @@ export default function App() {
         <section ref={stackRef} className="sawad-section sawad-reveal">
           <div className="section-header-row">
             <div>
-              <span className="section-tag">ENGINEERING TOOLBOX</span>
-              <h2 className="section-title">Technologies & Stacks</h2>
+              <span className="section-tag">STACK</span>
+              <h2 className="section-title">Core Technologies</h2>
             </div>
           </div>
 
@@ -520,15 +423,15 @@ export default function App() {
         <section ref={experienceRef} className="sawad-section sawad-reveal">
           <div className="section-header-row">
             <div>
-              <span className="section-tag">TRACK RECORD</span>
-              <h2 className="section-title">Experience & Education</h2>
+              <span className="section-tag">EXPERIENCE</span>
+              <h2 className="section-title">Career &amp; Credentials</h2>
             </div>
           </div>
 
           <div className="sawad-timeline-grid">
             {/* Experience Column */}
             <div className="sawad-timeline-col">
-              <h3 className="timeline-col-title">💼 Leadership & Work Experience</h3>
+              <h3 className="timeline-col-title">Leadership &amp; Work Experience</h3>
               <div className="timeline-items-wrap">
                 {EXPERIENCE.map((exp, idx) => (
                   <div key={idx} className={`sawad-tl-card ${exp.current ? 'current-active' : ''}`}>
@@ -539,9 +442,6 @@ export default function App() {
                     <h4 className="tl-role-title">{exp.role}</h4>
                     <p className="tl-company-info">{exp.company} · {exp.location}</p>
                     <p className="tl-desc-text">{exp.desc}</p>
-                    <div className="tl-chips-row">
-                      {exp.skills.map(s => <span key={s} className="tl-skill-chip">{s}</span>)}
-                    </div>
                   </div>
                 ))}
               </div>
@@ -549,7 +449,7 @@ export default function App() {
 
             {/* Education & Certs Column */}
             <div className="sawad-timeline-col">
-              <h3 className="timeline-col-title">🎓 Education & Certifications</h3>
+              <h3 className="timeline-col-title">Education &amp; Credentials</h3>
               <div className="timeline-items-wrap">
                 {EDUCATION.map((edu, idx) => (
                   <div key={idx} className="sawad-tl-card">
@@ -563,7 +463,7 @@ export default function App() {
                 ))}
 
                 <div className="sawad-certs-card">
-                  <h4 className="certs-heading">Professional Credentials</h4>
+                  <h4 className="certs-heading">Verified Certifications</h4>
                   <div className="certs-chips-list">
                     {CERTIFICATIONS.map((c, i) => (
                       <div key={i} className="cert-mini-row">
@@ -586,19 +486,22 @@ export default function App() {
            ══════════════════════════════════════════ */}
         <section ref={contactRef} className="sawad-contact-section sawad-reveal">
           <div className="sawad-contact-card">
-            <span className="contact-kicker">LET'S BUILD SOMETHING GREAT</span>
-            <h2 className="contact-heading">Have a project or leadership opportunity in mind?</h2>
-            <p className="contact-sub">I'm always open to discussing new technology ventures, AI products, and engineering leadership.</p>
+            <span className="contact-kicker">CONTACT</span>
+            <h2 className="contact-heading">Let's build something remarkable together.</h2>
+            <p className="contact-sub">Available for tech leadership, full-stack architecture & AI engineering.</p>
 
             <div className="contact-actions-row">
               <button className="sawad-btn-primary" onClick={copyEmail}>
-                {copiedEmail ? 'Email Copied to Clipboard ✓' : 'Copy Email: bankimkamila185@gmail.com'}
+                {copiedEmail ? 'Email Copied ✓' : `Copy Email: ${PERSONAL_INFO.email}`}
               </button>
-              <a href="https://wa.me/919324634516" target="_blank" rel="noopener noreferrer" className="sawad-btn-secondary">
-                WhatsApp Direct ↗
+              <a href={PERSONAL_INFO.whatsapp} target="_blank" rel="noopener noreferrer" className="sawad-btn-secondary">
+                WhatsApp ↗
               </a>
-              <a href="https://www.linkedin.com/in/bankim-chandra-kamila-b07b59236/" target="_blank" rel="noopener noreferrer" className="sawad-btn-secondary">
+              <a href={PERSONAL_INFO.linkedin} target="_blank" rel="noopener noreferrer" className="sawad-btn-secondary">
                 LinkedIn ↗
+              </a>
+              <a href={PERSONAL_INFO.github} target="_blank" rel="noopener noreferrer" className="sawad-btn-secondary">
+                GitHub ↗
               </a>
             </div>
           </div>
@@ -608,7 +511,7 @@ export default function App() {
 
       {/* FOOTER */}
       <footer className="sawad-footer">
-        <p>© {new Date().getFullYear()} Bankim Chandra Kamila · Crafted with Framer-grade aesthetics · Press <kbd className="footer-kbd">⌘K</kbd> for Search</p>
+        <p>© {new Date().getFullYear()} {PERSONAL_INFO.name} · Built with React &amp; Vite</p>
       </footer>
     </div>
   );
