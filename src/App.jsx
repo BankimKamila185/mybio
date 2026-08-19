@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
-import InteractiveArcade from './components/InteractiveArcade';
+import SystemArchitectureBlueprint from './components/SystemArchitectureBlueprint';
 import GitHubRepoExplorer from './components/GitHubRepoExplorer';
 import CommandPalette from './components/CommandPalette';
 import ProjectModal from './components/ProjectModal';
@@ -151,13 +151,13 @@ export default function App() {
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
           </button>
-          {/* 5. Arcade / Playground Icon */}
+          {/* 5. Architecture Blueprint Icon */}
           <button
             className="dock-item"
             onClick={() => { playPopSound(); arcadeRef.current?.scrollIntoView({ behavior: 'smooth' }); }}
-            title="Dev Arcade & Sandbox"
+            title="System Architecture"
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="2" width="6" height="6" rx="1"/><rect x="16" y="2" width="6" height="6" rx="1"/><rect x="9" y="16" width="6" height="6" rx="1"/><path d="M5 8v3a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8"/><line x1="12" y1="12" x2="12" y2="16"/></svg>
           </button>
           {/* 6. Contact Icon */}
           <button
@@ -386,19 +386,19 @@ export default function App() {
         </section>
 
         {/* ══════════════════════════════════════════
-            DEV ARCADE & INTERACTIVE SANDBOX
+            SYSTEM ARCHITECTURE & ENGINEERING BLUEPRINT
            ══════════════════════════════════════════ */}
         <section ref={arcadeRef} className="sawad-section sawad-reveal">
           <div className="section-header-row">
             <div>
-              <span className="section-tag">INTERACTIVE</span>
-              <h2 className="section-title">Dev Arcade &amp; Sandbox</h2>
+              <span className="section-tag">ENGINEERING TOPOLOGY</span>
+              <h2 className="section-title">System Architecture Blueprint</h2>
             </div>
-            <span className="arcade-live-indicator">● Playable</span>
+            <span className="arcade-live-indicator">● Interactive Pipeline Flow</span>
           </div>
 
-          <div className="sawad-arcade-card">
-            <InteractiveArcade playSound={playPopSound} />
+          <div className="sawad-blueprint-card">
+            <SystemArchitectureBlueprint playSound={playPopSound} />
           </div>
         </section>
 
