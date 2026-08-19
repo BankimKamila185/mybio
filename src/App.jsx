@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import InteractiveArcade from './components/InteractiveArcade';
-import LiveStatusWidget from './components/LiveStatusWidget';
 import GitHubRepoExplorer from './components/GitHubRepoExplorer';
 import CommandPalette from './components/CommandPalette';
 import ProjectModal from './components/ProjectModal';
@@ -208,6 +207,12 @@ export default function App() {
               </div>
             </div>
 
+            {/* Clean Availability Badge */}
+            <div className="sawad-avail-badge">
+              <span className="sawad-avail-dot"></span>
+              <span>Available for Advisory &amp; Tech Roles</span>
+            </div>
+
             {/* Subtitle */}
             <p className="sawad-profile-bio">
               CTO & COO at The Outliers Studio · AI & ML Engineer shipping real-time products.
@@ -242,7 +247,7 @@ export default function App() {
             </div>
           </div>
 
-          {/* RIGHT: TYPOGRAPHY, STATS & LIVE METRICS */}
+          {/* RIGHT: TYPOGRAPHY & STATS */}
           <div className="sawad-hero-right">
             <div className="sawad-hero-titles">
               <h1 className="sawad-title-solid">SOFTWARE</h1>
@@ -267,11 +272,6 @@ export default function App() {
                 <span className="stat-number">2x</span>
                 <span className="stat-label">EXECUTIVE<br />ROLES (CTO & COO)</span>
               </div>
-            </div>
-
-            {/* Mounted Live Status Widget */}
-            <div className="hero-status-widget-container">
-              <LiveStatusWidget />
             </div>
           </div>
 
