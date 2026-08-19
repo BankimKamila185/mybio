@@ -131,50 +131,75 @@ export default function GitHubRepoExplorer({ playSound }) {
         ))}
       </div>
 
-      {/* Repository Grid */}
+      {/* Repository Grid (Sleek 2-Column Bento Flow) */}
       <div className="repo-cards-grid">
         {filteredRepos.slice(0, visibleLimit).map((repo) => {
           const langColor = LANGUAGE_COLORS[repo.language] || '#9ca3af';
+          const cleanDesc = repo.description && !repo.description.includes('Public repository engineered')
+            ? repo.description
+            : (FALLBACK_REPOS.find(f => f.name.toLowerCase() === repo.name.toLowerCase())?.description || "Open source software project engineered with clean architecture & modern tooling.");
+
           return (
-            <a
+            <div
               key={repo.name}
-              href={repo.html_url}
-              target="_blank"
-              rel="noopener noreferrer"
               className="sawad-repo-item-card"
-              onClick={() => playSound?.()}
             >
               <div className="repo-card-head">
                 <div className="repo-title-row">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f46c38" strokeWidth="2">
-                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
-                  </svg>
+                  <div className="repo-icon-cube">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                    </svg>
+                  </div>
                   <h4 className="repo-card-name">{repo.name}</h4>
                 </div>
-                <span className="repo-card-arrow">↗</span>
+
+                <a
+                  href={repo.html_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="repo-action-chip"
+                  onClick={() => playSound?.()}
+                  title="View on GitHub"
+                >
+                  <span>Code</span>
+                  <span className="repo-card-arrow">↗</span>
+                </a>
               </div>
 
               <p className="repo-card-description">
-                {repo.description || "Public repository engineered and maintained by Bankim Chandra Kamila."}
+                {cleanDesc}
               </p>
 
               <div className="repo-card-footer">
-                {repo.language && (
-                  <div className="repo-badge-lang">
-                    <span className="lang-color-indicator" style={{ backgroundColor: langColor }}></span>
-                    <span>{repo.language}</span>
-                  </div>
-                )}
-                {repo.stargazers_count > 0 && (
-                  <div className="repo-badge-stars">
-                    <span>★ {repo.stargazers_count}</span>
-                  </div>
-                )}
+                <div className="repo-footer-left">
+                  {repo.language && (
+                    <div className="repo-badge-lang">
+                      <span className="lang-color-indicator" style={{ backgroundColor: langColor }}></span>
+                      <span>{repo.language}</span>
+                    </div>
+                  )}
+                  {repo.stargazers_count > 0 && (
+                    <div className="repo-badge-stars">
+                      <span>★ {repo.stargazers_count}</span>
+                    </div>
+                  )}
+                </div>
+
                 {repo.homepage && (
-                  <span className="repo-badge-live">Live Demo</span>
+                  <a
+                    href={repo.homepage}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="repo-badge-live"
+                    onClick={(e) => { e.stopPropagation(); playSound?.(); }}
+                  >
+                    <span className="live-pulse-dot"></span>
+                    <span>Live Demo ↗</span>
+                  </a>
                 )}
               </div>
-            </a>
+            </div>
           );
         })}
       </div>
