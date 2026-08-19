@@ -832,6 +832,181 @@ button { font-family: inherit; }
 
 
 /* ══════════════════════════════════════════════
+   6. BUSINESS STRATEGY & ADVISORY SECTION
+   ══════════════════════════════════════════════ */
+.strategy-executive-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  background: rgba(244, 108, 56, 0.1);
+  border: 1px solid rgba(244, 108, 56, 0.3);
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--color-orange);
+}
+.badge-pulse-glow {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-orange);
+  box-shadow: 0 0 8px var(--color-orange);
+  animation: beaconPulse 1.8s infinite;
+}
+
+.strategy-bento-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+@media (max-width: 768px) {
+  .strategy-bento-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.strategy-card {
+  background: #0c0e17;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  padding: 26px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease, box-shadow 0.35s ease;
+  position: relative;
+  overflow: hidden;
+}
+.strategy-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--accent-color, var(--color-orange));
+  opacity: 0.3;
+  transition: opacity 0.3s ease, height 0.3s ease;
+}
+.strategy-card:hover {
+  background: #111420;
+  border-color: var(--accent-color, rgba(244, 108, 56, 0.4));
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 24px rgba(244, 108, 56, 0.1);
+}
+.strategy-card:hover::before {
+  opacity: 1;
+  height: 3px;
+}
+
+.strategy-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.strategy-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--accent-color, var(--color-orange));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+.strategy-card:hover .strategy-icon-box {
+  transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--accent-color);
+}
+.strategy-num-tag {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.strategy-tag-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.strategy-pill-tag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent-color, var(--color-orange));
+  letter-spacing: 0.06em;
+}
+.strategy-impact-badge {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+}
+
+.strategy-card-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.3;
+}
+.strategy-card-desc {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.strategy-deliverables-box {
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.deliverables-heading {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 0.08em;
+}
+.deliverables-tags-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.deliverable-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 3px 9px;
+  border-radius: 6px;
+}
+.chip-bullet {
+  color: var(--accent-color, var(--color-orange));
+  font-size: 0.65rem;
+}
+
+/* ══════════════════════════════════════════════
    7. TECH STACK GRID
    ══════════════════════════════════════════════ */
 .sawad-stack-grid {
