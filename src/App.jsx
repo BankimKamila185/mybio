@@ -40,6 +40,16 @@ export default function App() {
   const arcadeRef = useRef(null);
   const contactRef = useRef(null);
 
+  const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setMousePos({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
   const categories = ['All', 'Full-Stack Web', 'Fintech Tool', 'AI & ML', 'Marketplace', 'Design System'];
 
   const filteredProjects = selectedCategory === 'All'
@@ -68,8 +78,6 @@ export default function App() {
         e.preventDefault();
         playPopSound();
         setIsCmdOpen(prev => !prev);
-      } else if ((e.key === 'g' || e.key === 'G') && e.target.tagName !== 'INPUT') {
-        arcadeRef.current?.scrollIntoView({ behavior: 'smooth' });
       }
     };
     window.addEventListener('keydown', handleGlobalKey);
@@ -77,14 +85,23 @@ export default function App() {
   }, []);
 
   const handleCmdNavigate = (destination) => {
-    if (destination === 'arcade') arcadeRef.current?.scrollIntoView({ behavior: 'smooth' });
     if (destination === 'projects') projectsRef.current?.scrollIntoView({ behavior: 'smooth' });
     if (destination === 'repos') reposRef.current?.scrollIntoView({ behavior: 'smooth' });
     if (destination === 'role' || destination === 'experience') experienceRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (destination === 'contact') contactRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
     <div className="sawad-app">
+      {/* Interactive Cursor Spotlight Glow */}
+      <div
+        className="sawad-cursor-spotlight"
+        style={{
+          left: `${mousePos.x}px`,
+          top: `${mousePos.y}px`,
+        }}
+      />
+
       {/* ⌘K Spotlight Command Palette */}
       <CommandPalette
         isOpen={isCmdOpen}
@@ -102,7 +119,7 @@ export default function App() {
       />
 
       {/* ══════════════════════════════════════════
-          TOP FLOATING DOCK NAVBAR (6 ICON CAPSULE)
+          TOP FLOATING DOCK NAVBAR (5 ICON CAPSULE)
          ══════════════════════════════════════════ */}
       <header className="sawad-nav-wrapper">
         <nav className="sawad-floating-dock">
@@ -139,7 +156,7 @@ export default function App() {
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
           </button>
 
-          {/* 6. Contact Icon */}
+          {/* 5. Contact Icon */}
           <button
             className="dock-item"
             onClick={() => { playPopSound(); contactRef.current?.scrollIntoView({ behavior: 'smooth' }); }}
@@ -270,6 +287,36 @@ export default function App() {
           </div>
 
         </section>
+
+        {/* ══════════════════════════════════════════
+            SAWAD INFINITE MARQUEE TICKER (EXACT MOTION)
+           ══════════════════════════════════════════ */}
+        <div className="sawad-marquee-wrap sawad-reveal">
+          <div className="sawad-marquee-track">
+            <div className="sawad-marquee-content">
+              <span>✦ FULL-STACK ARCHITECTURE</span>
+              <span>✦ REAL-TIME WEBSOCKETS</span>
+              <span>✦ AI &amp; MACHINE LEARNING</span>
+              <span>✦ DISTRIBUTED SYSTEMS</span>
+              <span>✦ FASTAPI &amp; PYTHON</span>
+              <span>✦ NEXT.JS &amp; REACT</span>
+              <span>✦ +55 GITHUB REPOSITORIES</span>
+              <span>✦ +10 PRODUCTION APPS</span>
+              <span>✦ CTO &amp; COO LEADERSHIP</span>
+            </div>
+            <div className="sawad-marquee-content" aria-hidden="true">
+              <span>✦ FULL-STACK ARCHITECTURE</span>
+              <span>✦ REAL-TIME WEBSOCKETS</span>
+              <span>✦ AI &amp; MACHINE LEARNING</span>
+              <span>✦ DISTRIBUTED SYSTEMS</span>
+              <span>✦ FASTAPI &amp; PYTHON</span>
+              <span>✦ NEXT.JS &amp; REACT</span>
+              <span>✦ +55 GITHUB REPOSITORIES</span>
+              <span>✦ +10 PRODUCTION APPS</span>
+              <span>✦ CTO &amp; COO LEADERSHIP</span>
+            </div>
+          </div>
+        </div>
 
         {/* ══════════════════════════════════════════
             HIGHLIGHT BANNER CARDS
