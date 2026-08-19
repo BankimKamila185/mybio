@@ -622,21 +622,362 @@ button { font-family: inherit; }
 }
 
 /* ══════════════════════════════════════════════
-   6. DEV ARCADE CARD
+   6. DEV ARCADE & INTERACTIVE SANDBOX
    ══════════════════════════════════════════════ */
 .sawad-arcade-card {
-  background: var(--bg-card-dark);
-  border: 1px solid rgba(242, 91, 42, 0.2);
+  background: #0d0f17;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-xl);
-  padding: 28px;
-  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.5);
+  padding: 24px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6);
+  position: relative;
+  overflow: hidden;
 }
 .arcade-live-indicator {
   font-family: var(--font-mono);
   font-size: 0.75rem;
   font-weight: 700;
-  color: var(--color-emerald);
+  color: #22c55e;
+  background: rgba(34, 197, 94, 0.12);
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(34, 197, 94, 0.25);
 }
+
+.arcade-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.arcade-nav-tabs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.arcade-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 18px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text-secondary);
+  font-size: 0.84rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.arcade-tab-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+.arcade-tab-btn.active {
+  background: var(--color-orange);
+  color: #ffffff;
+  border-color: var(--color-orange);
+  box-shadow: 0 4px 16px var(--color-orange-glow);
+}
+.arcade-tab-btn .tab-icon {
+  font-size: 1rem;
+}
+.arcade-body {
+  background: #08090e;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  min-height: 380px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+
+/* ── 1. SNAKE GAME ── */
+.snake-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.game-stats-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.stat-pill {
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+.stat-pill strong {
+  color: #ffffff;
+}
+.stat-pill.highlight {
+  border-color: rgba(244, 108, 56, 0.4);
+  color: var(--color-orange);
+}
+.stat-pill.target-pill {
+  border-color: rgba(34, 197, 94, 0.35);
+  color: #22c55e;
+}
+.stat-pill.refresh-btn {
+  background: var(--color-orange);
+  color: #ffffff;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+.stat-pill.refresh-btn:hover {
+  transform: translateY(-2px);
+}
+
+.snake-board {
+  width: 320px;
+  height: 320px;
+  display: grid;
+  grid-template-columns: repeat(16, 1fr);
+  grid-template-rows: repeat(16, 1fr);
+  background: #05060a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.8), 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+.grid-cell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.015);
+}
+.grid-cell.snake-head {
+  background: var(--color-orange);
+  border-radius: 4px;
+  box-shadow: 0 0 12px var(--color-orange-glow);
+  z-index: 2;
+}
+.grid-cell.snake-body {
+  background: linear-gradient(135deg, #ff8a65, #f46c38);
+  border-radius: 3px;
+  opacity: 0.9;
+}
+.grid-cell.snake-food {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: pulseFood 1.2s infinite ease-in-out;
+}
+.food-icon {
+  font-size: 0.9rem;
+}
+@keyframes pulseFood {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+}
+
+.game-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 6, 10, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  border-radius: var(--radius-md);
+}
+.overlay-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+  padding: 20px;
+}
+.game-hero-icon {
+  font-size: 2.2rem;
+}
+.game-over-title {
+  font-size: 1.4rem;
+  font-weight: 900;
+  font-family: var(--font-display);
+  color: #ef4444;
+  letter-spacing: 0.05em;
+}
+.overlay-content h3 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+}
+.overlay-content p {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+.play-btn {
+  padding: 10px 24px;
+  border-radius: var(--radius-pill);
+  background: var(--color-orange);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.86rem;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 16px var(--color-orange-glow);
+  transition: all 0.2s;
+}
+.play-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px var(--color-orange-glow);
+}
+.play-btn.sm {
+  padding: 8px 18px;
+  font-size: 0.8rem;
+}
+
+.mobile-dpad {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+}
+.mobile-dpad button {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+.mobile-dpad button:active {
+  background: var(--color-orange);
+  transform: scale(0.92);
+}
+.dpad-row {
+  display: flex;
+  gap: 10px;
+}
+
+/* ── 2. SPEED CODE TYPER ── */
+.typer-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+}
+.typer-display {
+  background: #040508;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  min-height: 90px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1px;
+}
+.typer-char {
+  color: rgba(255, 255, 255, 0.35);
+  transition: color 0.1s;
+}
+.typer-char.char-correct {
+  color: #22c55e;
+}
+.typer-char.char-wrong {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.2);
+  border-radius: 2px;
+}
+.typer-char.char-current {
+  color: #ffffff;
+  border-bottom: 2px solid var(--color-orange);
+}
+.typer-input {
+  width: 100%;
+  background: #040508;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  color: #ffffff;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.typer-input:focus {
+  border-color: var(--color-orange);
+  box-shadow: 0 0 16px var(--color-orange-glow);
+}
+.typer-success {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  background: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  padding: 14px 18px;
+  border-radius: var(--radius-md);
+  color: #22c55e;
+  font-size: 0.85rem;
+  flex-wrap: wrap;
+}
+
+/* ── 3. NEURAL SYNAPSE CANVAS ── */
+.synapse-container {
+  position: relative;
+  width: 100%;
+  height: 320px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: #040508;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.synapse-instructions {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  right: 14px;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  background: rgba(0, 0, 0, 0.5);
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  backdrop-filter: blur(4px);
+}
+.synapse-canvas {
+  width: 100%;
+  height: 100%;
+  cursor: crosshair;
+}
+
 
 /* ══════════════════════════════════════════════
    7. TECH STACK GRID
