@@ -186,12 +186,6 @@ export default function App() {
                 className="sawad-avatar-img"
                 onError={(e) => { e.target.onerror = null; e.target.src = "https://avatars.githubusercontent.com/u/174135567?v=4"; }}
               />
-              <div className="avatar-glass-overlay">
-                <span className="avatar-status-pill">
-                  <span className="status-ping-dot"></span>
-                  <span>Available for Advisory &amp; Roles</span>
-                </span>
-              </div>
             </div>
 
             {/* Name & Title */}
