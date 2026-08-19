@@ -160,18 +160,17 @@ export default function App() {
       <main className="sawad-container">
 
         {/* ══════════════════════════════════════════
-            HERO SECTION (SAWAD HIGH-END PROFILE)
+            HERO SECTION (DARK OBSIDIAN EXECUTIVE HERO)
            ══════════════════════════════════════════ */}
         <section ref={homeRef} className="sawad-hero sawad-reveal">
           
-          {/* LEFT: WHITE SIGNATURE CARD */}
+          {/* LEFT: OBSIDIAN GLASS PROFILE CARD */}
           <div className="sawad-profile-card">
-            {/* Top decorative dashed curve */}
-            <svg className="sawad-curve-top" viewBox="0 0 160 80" fill="none">
-              <path d="M0,70 Q60,10 160,25" stroke="#f46c38" strokeWidth="2.5" strokeDasharray="6 6" />
-            </svg>
+            
+            {/* Ambient Profile Glow Backdrop */}
+            <div className="card-ambient-glow"></div>
 
-            {/* Profile Avatar Box with Vibrant Orange Backdrop */}
+            {/* Profile Avatar Box */}
             <div className="sawad-avatar-box">
               <img
                 src="/profile.png"
@@ -179,25 +178,33 @@ export default function App() {
                 className="sawad-avatar-img"
                 onError={(e) => { e.target.onerror = null; e.target.src = "https://avatars.githubusercontent.com/u/174135567?v=4"; }}
               />
-            </div>
-
-            {/* Name */}
-            <h2 className="sawad-profile-name">Bankim Chandra Kamila</h2>
-
-            {/* Middle Curved line with Flame Badge */}
-            <div className="sawad-fire-badge-wrap">
-              <svg className="sawad-curve-mid" viewBox="0 0 240 50" fill="none">
-                <path d="M0,40 Q100,5 240,35" stroke="#f46c38" strokeWidth="2.5" strokeDasharray="5 5" />
-              </svg>
-              <div className="sawad-fire-circle">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="#ffffff"><path d="M12 23c-4.97 0-9-4.03-9-9 0-3.32 1.77-6.22 4.41-7.83l.59-.36-.09.68C7.62 8.35 8.1 10.3 9.17 11.7l.45.59.38-.64C10.96 10.02 12.01 7.29 12 4c2.81 2.37 5 6.08 5 10 0 4.97-4.03 9-9 9h4z"/></svg>
+              <div className="avatar-glass-overlay">
+                <span className="avatar-status-pill">
+                  <span className="status-ping-dot"></span>
+                  <span>Available for Advisory &amp; Roles</span>
+                </span>
               </div>
             </div>
 
-            {/* Subtitle / Bio */}
-            <p className="sawad-profile-bio">
-              CTO &amp; COO at The Outliers Studio · AI &amp; Machine Learning Engineer shipping real-time products.
-            </p>
+            {/* Name & Title */}
+            <div className="profile-text-body">
+              <h2 className="sawad-profile-name">Bankim Chandra Kamila</h2>
+              <div className="profile-role-tag">
+                <span className="role-prefix">CTO &amp; COO</span>
+                <span className="role-company">@ The Outliers Studio</span>
+              </div>
+
+              <p className="sawad-profile-bio">
+                Software Engineer architecting scalable full-stack applications, real-time WebSockets, and AI/ML systems.
+              </p>
+
+              <div className="profile-skill-pills">
+                <span className="skill-chip">AI &amp; ML</span>
+                <span className="skill-chip">FastAPI</span>
+                <span className="skill-chip">MERN</span>
+                <span className="skill-chip">WebSockets</span>
+              </div>
+            </div>
 
             {/* 4 Social Icons */}
             <div className="sawad-social-row">
@@ -227,12 +234,13 @@ export default function App() {
           {/* RIGHT: BIG EDITORIAL TITLES, HERO CTA & STATS */}
           <div className="sawad-hero-right">
             <div className="sawad-hero-titles">
+              <span className="hero-kicker-tag">LEADERSHIP &amp; ARCHITECTURE</span>
               <h1 className="sawad-title-solid">SOFTWARE</h1>
               <h1 className="sawad-title-muted">ENGINEER</h1>
             </div>
 
             <p className="sawad-hero-desc">
-              Passionate technologist architecting scalable full-stack applications, AI/ML tools, and real-time systems. Leading engineering and operations at The Outliers Studio.
+              Passionate technologist architecting high-performance full-stack applications, real-time WebSockets, and AI/ML tools. Leading engineering and operations at <strong>The Outliers Studio</strong>.
             </p>
 
             {/* Hero Quick Action Buttons */}
