@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 
 import GitHubRepoExplorer from './components/GitHubRepoExplorer';
-import BusinessStrategy from './components/BusinessStrategy';
 import CommandPalette from './components/CommandPalette';
 import ProjectModal from './components/ProjectModal';
 import { FEATURED_PROJECTS, EXPERIENCE, EDUCATION, CERTIFICATIONS, PERSONAL_INFO } from './data/portfolioData';
@@ -36,7 +35,6 @@ export default function App() {
   const homeRef = useRef(null);
   const projectsRef = useRef(null);
   const reposRef = useRef(null);
-  const strategyRef = useRef(null);
   const stackRef = useRef(null);
   const experienceRef = useRef(null);
   const arcadeRef = useRef(null);
@@ -99,7 +97,6 @@ export default function App() {
   const handleCmdNavigate = (destination) => {
     if (destination === 'projects') projectsRef.current?.scrollIntoView({ behavior: 'smooth' });
     if (destination === 'repos') reposRef.current?.scrollIntoView({ behavior: 'smooth' });
-    if (destination === 'strategy') strategyRef.current?.scrollIntoView({ behavior: 'smooth' });
     if (destination === 'role' || destination === 'experience') experienceRef.current?.scrollIntoView({ behavior: 'smooth' });
     if (destination === 'contact') contactRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -132,7 +129,7 @@ export default function App() {
       />
 
       {/* ══════════════════════════════════════════
-          TOP FLOATING DOCK NAVBAR (6 ICON CAPSULE)
+          TOP FLOATING DOCK NAVBAR (5 ICON CAPSULE)
          ══════════════════════════════════════════ */}
       <header className="sawad-nav-wrapper">
         <nav className="sawad-floating-dock">
@@ -160,15 +157,7 @@ export default function App() {
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
           </button>
-          {/* 4. Business Strategy Icon */}
-          <button
-            className="dock-item"
-            onClick={() => { playPopSound(); strategyRef.current?.scrollIntoView({ behavior: 'smooth' }); }}
-            title="Business Strategy"
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-          </button>
-          {/* 5. Experience Icon */}
+          {/* 4. Experience Icon */}
           <button
             className="dock-item"
             onClick={() => { playPopSound(); experienceRef.current?.scrollIntoView({ behavior: 'smooth' }); }}
@@ -176,7 +165,7 @@ export default function App() {
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
           </button>
-          {/* 6. Contact Icon */}
+          {/* 5. Contact Icon */}
           <button
             className="dock-item"
             onClick={() => { playPopSound(); contactRef.current?.scrollIntoView({ behavior: 'smooth' }); }}
@@ -440,12 +429,7 @@ export default function App() {
             <GitHubRepoExplorer playSound={playPopSound} />
           </section>
 
-          {/* 6. BUSINESS STRATEGY & ADVISORY */}
-          <div ref={strategyRef}>
-            <BusinessStrategy playSound={playPopSound} />
-          </div>
-
-          {/* 7. TECH STACK MATRIX */}
+          {/* 6. TECH STACK & CORE SKILLS MATRIX */}
           <section ref={stackRef} className="sawad-section sawad-reveal">
             <div className="section-header-row">
               <div>

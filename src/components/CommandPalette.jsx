@@ -7,7 +7,6 @@ export default function CommandPalette({ isOpen, onClose, onNavigate, onToggleTh
 
   const ACTIONS = [
     { id: 'role', icon: '💼', title: 'Current Role', desc: 'CTO & COO @ The Outliers Studio', category: 'About', action: () => onNavigate('role') },
-    { id: 'strategy', icon: '📈', title: 'Business Strategy & Advisory', desc: '0→1 Architecture, COO Operations, Fintech & AI', category: 'About', action: () => onNavigate('strategy') },
     { id: 'reactify', icon: '⚛️', title: 'Reactify', desc: 'Live Polling Engine (MERN + Socket.io)', category: 'Projects', link: 'https://reactify-pink.vercel.app' },
     { id: 'payit', icon: '💳', title: 'PayIt', desc: 'Automated Billing & Invoice Platform', category: 'Projects', link: 'https://payit-mu.vercel.app' },
     { id: 'pixora', icon: '🎨', title: 'Pixora', desc: 'AI Image Palette Extraction Studio', category: 'Projects', link: 'https://pixora-lake.vercel.app' },
