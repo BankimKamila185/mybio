@@ -985,26 +985,63 @@ button { font-family: inherit; }
    ══════════════════════════════════════════════ */
 .sawad-stack-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 16px;
 }
 .sawad-stack-item {
-  background: var(--bg-card-dark);
-  border: 1px solid var(--border-subtle);
+  background: #0b0d14;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-md);
-  padding: 16px 20px;
+  padding: 16px 18px;
   display: flex;
   align-items: center;
-  gap: 12px;
-  transition: all 0.25s ease;
+  gap: 14px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
 }
 .sawad-stack-item:hover {
   transform: translateY(-3px);
-  border-color: var(--color-orange);
-  background: var(--bg-card-elevated);
+  border-color: rgba(244, 108, 56, 0.4);
+  background: #111420;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5), 0 0 16px rgba(244, 108, 56, 0.15);
 }
-.stack-icon { font-size: 1.3rem; }
-.stack-name { font-size: 0.88rem; font-weight: 600; }
+.stack-icon-wrap {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
+}
+.sawad-stack-item:hover .stack-icon-wrap {
+  transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+.stack-text-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.stack-name {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+}
+.stack-cat {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
 
 /* ══════════════════════════════════════════════
    8. TIMELINE & CERTS GRID

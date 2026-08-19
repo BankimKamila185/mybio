@@ -6,20 +6,7 @@ import CommandPalette from './components/CommandPalette';
 import ProjectModal from './components/ProjectModal';
 import { FEATURED_PROJECTS, EXPERIENCE, EDUCATION, CERTIFICATIONS, PERSONAL_INFO } from './data/portfolioData';
 
-const TECH_STACK = [
-  { name: 'React', icon: '⚛️' },
-  { name: 'TypeScript', icon: '🔷' },
-  { name: 'Node.js', icon: '🟢' },
-  { name: 'Python', icon: '🐍' },
-  { name: 'FastAPI', icon: '⚡' },
-  { name: 'MongoDB', icon: '🍃' },
-  { name: 'Tailwind CSS', icon: '🎨' },
-  { name: 'Vite', icon: '⚡' },
-  { name: 'Figma', icon: '📐' },
-  { name: 'Postman', icon: '🚀' },
-  { name: 'WebSockets', icon: '🔌' },
-  { name: 'Git & GitHub', icon: '🐙' },
-];
+import { TECH_STACK_ITEMS } from './data/techIcons';
 
 function playPopSound() {
   try {
@@ -414,10 +401,13 @@ export default function App() {
           </div>
 
           <div className="sawad-stack-grid">
-            {TECH_STACK.map(tech => (
+            {TECH_STACK_ITEMS.map(tech => (
               <div key={tech.name} className="sawad-stack-item">
-                <span className="stack-icon">{tech.icon}</span>
-                <span className="stack-name">{tech.name}</span>
+                <div className="stack-icon-wrap">{tech.icon}</div>
+                <div className="stack-text-group">
+                  <span className="stack-name">{tech.name}</span>
+                  <span className="stack-cat">{tech.category}</span>
+                </div>
               </div>
             ))}
           </div>
