@@ -167,14 +167,12 @@ export default function App() {
         </nav>
       </header>
 
-      <main className="sawad-container">
+      <div className="sawad-container">
 
         {/* ══════════════════════════════════════════
-            HERO SECTION (DARK OBSIDIAN EXECUTIVE HERO)
+            LEFT COLUMN: PERMANENT STICKY PROFILE SIDEBAR
            ══════════════════════════════════════════ */}
-        <section ref={homeRef} className="sawad-hero sawad-reveal">
-          
-          {/* LEFT: OBSIDIAN GLASS PROFILE CARD */}
+        <aside className="sawad-sidebar-col">
           <div className="sawad-profile-card">
             
             {/* Ambient Profile Glow Backdrop */}
@@ -240,9 +238,15 @@ export default function App() {
               </a>
             </div>
           </div>
+        </aside>
 
-          {/* RIGHT: BIG EDITORIAL TITLES, HERO CTA & STATS */}
-          <div className="sawad-hero-right">
+        {/* ══════════════════════════════════════════
+            RIGHT COLUMN: SCROLLABLE MAIN PORTFOLIO
+           ══════════════════════════════════════════ */}
+        <main className="sawad-main-col">
+
+          {/* 1. HERO SECTION */}
+          <section ref={homeRef} className="sawad-hero-right sawad-reveal">
             <div className="sawad-hero-titles">
               <span className="hero-kicker-tag">LEADERSHIP &amp; ARCHITECTURE</span>
               <h1 className="sawad-title-solid">SOFTWARE</h1>
@@ -284,259 +288,242 @@ export default function App() {
                 <span className="stat-label">EXECUTIVE<br />ROLES (CTO & COO)</span>
               </div>
             </div>
-          </div>
+          </section>
 
-        </section>
-
-        {/* ══════════════════════════════════════════
-            SAWAD INFINITE MARQUEE TICKER (EXACT MOTION)
-           ══════════════════════════════════════════ */}
-        <div className="sawad-marquee-wrap sawad-reveal">
-          <div className="sawad-marquee-track">
-            <div className="sawad-marquee-content">
-              <span>✦ FULL-STACK ARCHITECTURE</span>
-              <span>✦ REAL-TIME WEBSOCKETS</span>
-              <span>✦ AI &amp; MACHINE LEARNING</span>
-              <span>✦ DISTRIBUTED SYSTEMS</span>
-              <span>✦ FASTAPI &amp; PYTHON</span>
-              <span>✦ NEXT.JS &amp; REACT</span>
-              <span>✦ +55 GITHUB REPOSITORIES</span>
-              <span>✦ +10 PRODUCTION APPS</span>
-              <span>✦ CTO &amp; COO LEADERSHIP</span>
-            </div>
-            <div className="sawad-marquee-content" aria-hidden="true">
-              <span>✦ FULL-STACK ARCHITECTURE</span>
-              <span>✦ REAL-TIME WEBSOCKETS</span>
-              <span>✦ AI &amp; MACHINE LEARNING</span>
-              <span>✦ DISTRIBUTED SYSTEMS</span>
-              <span>✦ FASTAPI &amp; PYTHON</span>
-              <span>✦ NEXT.JS &amp; REACT</span>
-              <span>✦ +55 GITHUB REPOSITORIES</span>
-              <span>✦ +10 PRODUCTION APPS</span>
-              <span>✦ CTO &amp; COO LEADERSHIP</span>
-            </div>
-          </div>
-        </div>
-
-        {/* ══════════════════════════════════════════
-            HIGHLIGHT BANNER CARDS
-           ══════════════════════════════════════════ */}
-        <section className="sawad-banner-grid sawad-reveal">
-          {/* Orange Feature Banner */}
-          <div className="sawad-banner-card orange-card">
-            <div className="banner-icon-box">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-            </div>
-            <h3 className="banner-title">FULL-STACK SCALABILITY & REAL-TIME WEBSOCKETS</h3>
-          </div>
-
-          {/* Lime Neon Feature Banner */}
-          <div className="sawad-banner-card lime-card">
-            <div className="banner-icon-box">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
-            </div>
-            <h3 className="banner-title">AI & MACHINE LEARNING · PYTHON REST SERVICES</h3>
-          </div>
-        </section>
-
-        {/* ══════════════════════════════════════════
-            FEATURED PROJECTS SECTION WITH CATEGORY FILTER
-           ══════════════════════════════════════════ */}
-        <section ref={projectsRef} className="sawad-section sawad-reveal">
-          <div className="section-header-row">
-            <div>
-              <span className="section-tag">PORTFOLIO</span>
-              <h2 className="section-title">Selected Projects</h2>
-            </div>
-            <a href={PERSONAL_INFO.github} target="_blank" rel="noopener noreferrer" className="sawad-view-all-btn">
-              All 55+ on GitHub ↗
-            </a>
-          </div>
-
-          {/* Project Category Filter Pills */}
-          <div className="project-filter-pills-row">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                className={`project-cat-pill ${selectedCategory === cat ? 'active' : ''}`}
-                onClick={() => { playPopSound(); setSelectedCategory(cat); }}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-
-          <div className="sawad-projects-grid">
-            {filteredProjects.map((proj) => (
-              <div
-                key={proj.title}
-                className="sawad-project-card"
-                onClick={() => { playPopSound(); setActiveModalProject(proj); }}
-              >
-                <div className="proj-card-top">
-                  <span className="proj-tag-pill">{proj.category}</span>
-                  <div className="proj-action-group" onClick={(e) => e.stopPropagation()}>
-                    {proj.link && (
-                      <a href={proj.link} target="_blank" rel="noopener noreferrer" className="proj-link-mini-btn" title="Live Preview">
-                        Live ↗
-                      </a>
-                    )}
-                    {proj.github && (
-                      <a href={proj.github} target="_blank" rel="noopener noreferrer" className="proj-link-mini-btn" title="Source Code">
-                        Code ↗
-                      </a>
-                    )}
-                  </div>
-                </div>
-
-                <div className="proj-card-content">
-                  <h3 className="proj-main-title">{proj.title}</h3>
-                  <span className="proj-subtitle-text">{proj.subtitle}</span>
-                  <p className="proj-card-desc">{proj.desc}</p>
-                </div>
-
-                <div className="proj-tags-footer">
-                  {proj.tags.slice(0, 4).map(t => (
-                    <span key={t} className="proj-mini-tag">{t}</span>
-                  ))}
-                </div>
+          {/* 2. SAWAD INFINITE MARQUEE TICKER */}
+          <div className="sawad-marquee-wrap sawad-reveal">
+            <div className="sawad-marquee-track">
+              <div className="sawad-marquee-content">
+                <span>✦ FULL-STACK ARCHITECTURE</span>
+                <span>✦ REAL-TIME WEBSOCKETS</span>
+                <span>✦ AI &amp; MACHINE LEARNING</span>
+                <span>✦ DISTRIBUTED SYSTEMS</span>
+                <span>✦ FASTAPI &amp; PYTHON</span>
+                <span>✦ NEXT.JS &amp; REACT</span>
+                <span>✦ +55 GITHUB REPOSITORIES</span>
+                <span>✦ +10 PRODUCTION APPS</span>
+                <span>✦ CTO &amp; COO LEADERSHIP</span>
               </div>
-            ))}
-          </div>
-        </section>
-
-        {/* ══════════════════════════════════════════
-            OPEN SOURCE ECOSYSTEM (GITHUB REPO EXPLORER)
-           ══════════════════════════════════════════ */}
-        <section ref={reposRef} className="sawad-section sawad-reveal">
-          <div className="section-header-row">
-            <div>
-              <span className="section-tag">OPEN SOURCE</span>
-              <h2 className="section-title">Live GitHub Repositories</h2>
-            </div>
-            <span className="arcade-live-indicator">● 55+ Public Repos</span>
-          </div>
-
-          <GitHubRepoExplorer playSound={playPopSound} />
-        </section>
-
-
-
-        {/* ══════════════════════════════════════════
-            TECH STACK MATRIX
-           ══════════════════════════════════════════ */}
-        <section ref={stackRef} className="sawad-section sawad-reveal">
-          <div className="section-header-row">
-            <div>
-              <span className="section-tag">STACK</span>
-              <h2 className="section-title">Core Technologies</h2>
-            </div>
-          </div>
-
-          <div className="sawad-stack-grid">
-            {TECH_STACK_ITEMS.map(tech => (
-              <div key={tech.name} className="sawad-stack-item">
-                <div className="stack-icon-wrap">{tech.icon}</div>
-                <div className="stack-text-group">
-                  <span className="stack-name">{tech.name}</span>
-                  <span className="stack-cat">{tech.category}</span>
-                </div>
+              <div className="sawad-marquee-content" aria-hidden="true">
+                <span>✦ FULL-STACK ARCHITECTURE</span>
+                <span>✦ REAL-TIME WEBSOCKETS</span>
+                <span>✦ AI &amp; MACHINE LEARNING</span>
+                <span>✦ DISTRIBUTED SYSTEMS</span>
+                <span>✦ FASTAPI &amp; PYTHON</span>
+                <span>✦ NEXT.JS &amp; REACT</span>
+                <span>✦ +55 GITHUB REPOSITORIES</span>
+                <span>✦ +10 PRODUCTION APPS</span>
+                <span>✦ CTO &amp; COO LEADERSHIP</span>
               </div>
-            ))}
-          </div>
-        </section>
-
-        {/* ══════════════════════════════════════════
-            EXPERIENCE & LEADERSHIP TIMELINE
-           ══════════════════════════════════════════ */}
-        <section ref={experienceRef} className="sawad-section sawad-reveal">
-          <div className="section-header-row">
-            <div>
-              <span className="section-tag">EXPERIENCE</span>
-              <h2 className="section-title">Career &amp; Credentials</h2>
             </div>
           </div>
 
-          <div className="sawad-timeline-grid">
-            {/* Experience Column */}
-            <div className="sawad-timeline-col">
-              <h3 className="timeline-col-title">Leadership &amp; Work Experience</h3>
-              <div className="timeline-items-wrap">
-                {EXPERIENCE.map((exp, idx) => (
-                  <div key={idx} className={`sawad-tl-card ${exp.current ? 'current-active' : ''}`}>
-                    <div className="tl-card-header">
-                      <span className="tl-period-badge">{exp.period}</span>
-                      {exp.current && <span className="tl-now-badge">Current</span>}
+          {/* 3. HIGHLIGHT BANNER CARDS */}
+          <section className="sawad-banner-grid sawad-reveal">
+            {/* Orange Feature Banner */}
+            <div className="sawad-banner-card orange-card">
+              <div className="banner-icon-box">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+              </div>
+              <h3 className="banner-title">FULL-STACK SCALABILITY & REAL-TIME WEBSOCKETS</h3>
+            </div>
+
+            {/* Lime Neon Feature Banner */}
+            <div className="sawad-banner-card lime-card">
+              <div className="banner-icon-box">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+              </div>
+              <h3 className="banner-title">AI & MACHINE LEARNING · PYTHON REST SERVICES</h3>
+            </div>
+          </section>
+
+          {/* 4. FEATURED PROJECTS */}
+          <section ref={projectsRef} className="sawad-section sawad-reveal">
+            <div className="section-header-row">
+              <div>
+                <span className="section-tag">PORTFOLIO</span>
+                <h2 className="section-title">Selected Projects</h2>
+              </div>
+              <a href={PERSONAL_INFO.github} target="_blank" rel="noopener noreferrer" className="sawad-view-all-btn">
+                All 55+ on GitHub ↗
+              </a>
+            </div>
+
+            {/* Project Category Filter Pills */}
+            <div className="project-filter-pills-row">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  className={`project-cat-pill ${selectedCategory === cat ? 'active' : ''}`}
+                  onClick={() => { playPopSound(); setSelectedCategory(cat); }}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+
+            <div className="sawad-projects-grid">
+              {filteredProjects.map((proj) => (
+                <div
+                  key={proj.title}
+                  className="sawad-project-card"
+                  onClick={() => { playPopSound(); setActiveModalProject(proj); }}
+                >
+                  <div className="proj-card-top">
+                    <span className="proj-tag-pill">{proj.category}</span>
+                    <div className="proj-action-group" onClick={(e) => e.stopPropagation()}>
+                      {proj.link && (
+                        <a href={proj.link} target="_blank" rel="noopener noreferrer" className="proj-link-mini-btn" title="Live Preview">
+                          Live ↗
+                        </a>
+                      )}
+                      {proj.github && (
+                        <a href={proj.github} target="_blank" rel="noopener noreferrer" className="proj-link-mini-btn" title="Source Code">
+                          Code ↗
+                        </a>
+                      )}
                     </div>
-                    <h4 className="tl-role-title">{exp.role}</h4>
-                    <p className="tl-company-info">{exp.company} · {exp.location}</p>
-                    <p className="tl-desc-text">{exp.desc}</p>
                   </div>
-                ))}
-              </div>
-            </div>
 
-            {/* Education & Certs Column */}
-            <div className="sawad-timeline-col">
-              <h3 className="timeline-col-title">Education &amp; Credentials</h3>
-              <div className="timeline-items-wrap">
-                {EDUCATION.map((edu, idx) => (
-                  <div key={idx} className="sawad-tl-card">
-                    <div className="tl-card-header">
-                      <span className="tl-period-badge">{edu.period}</span>
-                      {edu.current && <span className="tl-now-badge">Ongoing</span>}
-                    </div>
-                    <h4 className="tl-role-title">{edu.degree}</h4>
-                    <p className="tl-company-info">{edu.institution}</p>
+                  <div className="proj-card-content">
+                    <h3 className="proj-main-title">{proj.title}</h3>
+                    <span className="proj-subtitle-text">{proj.subtitle}</span>
+                    <p className="proj-card-desc">{proj.desc}</p>
                   </div>
-                ))}
 
-                <div className="sawad-certs-card">
-                  <h4 className="certs-heading">Verified Certifications</h4>
-                  <div className="certs-chips-list">
-                    {CERTIFICATIONS.map((c, i) => (
-                      <div key={i} className="cert-mini-row">
-                        <div>
-                          <strong>{c.title}</strong>
-                          <div className="cert-meta">{c.issuer} · {c.date}</div>
-                        </div>
-                      </div>
+                  <div className="proj-tags-footer">
+                    {proj.tags.slice(0, 4).map(t => (
+                      <span key={t} className="proj-mini-tag">{t}</span>
                     ))}
                   </div>
                 </div>
+              ))}
+            </div>
+          </section>
 
+          {/* 5. OPEN SOURCE ECOSYSTEM */}
+          <section ref={reposRef} className="sawad-section sawad-reveal">
+            <div className="section-header-row">
+              <div>
+                <span className="section-tag">OPEN SOURCE</span>
+                <h2 className="section-title">Live GitHub Repositories</h2>
+              </div>
+              <span className="arcade-live-indicator">● 55+ Public Repos</span>
+            </div>
+
+            <GitHubRepoExplorer playSound={playPopSound} />
+          </section>
+
+          {/* 6. TECH STACK MATRIX */}
+          <section ref={stackRef} className="sawad-section sawad-reveal">
+            <div className="section-header-row">
+              <div>
+                <span className="section-tag">STACK</span>
+                <h2 className="section-title">Core Technologies</h2>
               </div>
             </div>
-          </div>
-        </section>
 
-        {/* ══════════════════════════════════════════
-            CONTACT & CALL TO ACTION
-           ══════════════════════════════════════════ */}
-        <section ref={contactRef} className="sawad-contact-section sawad-reveal">
-          <div className="sawad-contact-card">
-            <span className="contact-kicker">CONTACT</span>
-            <h2 className="contact-heading">Let's build something remarkable together.</h2>
-            <p className="contact-sub">Available for tech leadership, full-stack architecture & AI engineering.</p>
-
-            <div className="contact-actions-row">
-              <button className="sawad-btn-primary" onClick={copyEmail}>
-                {copiedEmail ? 'Email Copied ✓' : `Copy Email: ${PERSONAL_INFO.email}`}
-              </button>
-              <a href={PERSONAL_INFO.whatsapp} target="_blank" rel="noopener noreferrer" className="sawad-btn-secondary">
-                WhatsApp ↗
-              </a>
-              <a href={PERSONAL_INFO.linkedin} target="_blank" rel="noopener noreferrer" className="sawad-btn-secondary">
-                LinkedIn ↗
-              </a>
-              <a href={PERSONAL_INFO.github} target="_blank" rel="noopener noreferrer" className="sawad-btn-secondary">
-                GitHub ↗
-              </a>
+            <div className="sawad-stack-grid">
+              {TECH_STACK_ITEMS.map(tech => (
+                <div key={tech.name} className="sawad-stack-item">
+                  <div className="stack-icon-wrap">{tech.icon}</div>
+                  <div className="stack-text-group">
+                    <span className="stack-name">{tech.name}</span>
+                    <span className="stack-cat">{tech.category}</span>
+                  </div>
+                </div>
+              ))}
             </div>
-          </div>
-        </section>
+          </section>
 
-      </main>
+          {/* 7. EXPERIENCE & LEADERSHIP TIMELINE */}
+          <section ref={experienceRef} className="sawad-section sawad-reveal">
+            <div className="section-header-row">
+              <div>
+                <span className="section-tag">EXPERIENCE</span>
+                <h2 className="section-title">Career &amp; Credentials</h2>
+              </div>
+            </div>
+
+            <div className="sawad-timeline-grid">
+              {/* Experience Column */}
+              <div className="sawad-timeline-col">
+                <h3 className="timeline-col-title">Leadership &amp; Work Experience</h3>
+                <div className="timeline-items-wrap">
+                  {EXPERIENCE.map((exp, idx) => (
+                    <div key={idx} className={`sawad-tl-card ${exp.current ? 'current-active' : ''}`}>
+                      <div className="tl-card-header">
+                        <span className="tl-period-badge">{exp.period}</span>
+                        {exp.current && <span className="tl-now-badge">Current</span>}
+                      </div>
+                      <h4 className="tl-role-title">{exp.role}</h4>
+                      <p className="tl-company-info">{exp.company} · {exp.location}</p>
+                      <p className="tl-desc-text">{exp.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Education & Certs Column */}
+              <div className="sawad-timeline-col">
+                <h3 className="timeline-col-title">Education &amp; Credentials</h3>
+                <div className="timeline-items-wrap">
+                  {EDUCATION.map((edu, idx) => (
+                    <div key={idx} className="sawad-tl-card">
+                      <div className="tl-card-header">
+                        <span className="tl-period-badge">{edu.period}</span>
+                        {edu.current && <span className="tl-now-badge">Ongoing</span>}
+                      </div>
+                      <h4 className="tl-role-title">{edu.degree}</h4>
+                      <p className="tl-company-info">{edu.institution}</p>
+                    </div>
+                  ))}
+
+                  <div className="sawad-certs-card">
+                    <h4 className="certs-heading">Verified Certifications</h4>
+                    <div className="certs-chips-list">
+                      {CERTIFICATIONS.map((c, i) => (
+                        <div key={i} className="cert-mini-row">
+                          <div>
+                            <strong>{c.title}</strong>
+                            <div className="cert-meta">{c.issuer} · {c.date}</div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* 8. CONTACT & CALL TO ACTION */}
+          <section ref={contactRef} className="sawad-contact-section sawad-reveal">
+            <div className="sawad-contact-card">
+              <span className="contact-kicker">CONTACT</span>
+              <h2 className="contact-heading">Let's build something remarkable together.</h2>
+              <p className="contact-sub">Available for tech leadership, full-stack architecture & AI engineering.</p>
+
+              <div className="contact-actions-row">
+                <button className="sawad-btn-primary" onClick={copyEmail}>
+                  {copiedEmail ? 'Email Copied ✓' : `Copy Email: ${PERSONAL_INFO.email}`}
+                </button>
+                <a href={PERSONAL_INFO.whatsapp} target="_blank" rel="noopener noreferrer" className="sawad-btn-secondary">
+                  WhatsApp ↗
+                </a>
+                <a href={PERSONAL_INFO.linkedin} target="_blank" rel="noopener noreferrer" className="sawad-btn-secondary">
+                  LinkedIn ↗
+                </a>
+                <a href={PERSONAL_INFO.github} target="_blank" rel="noopener noreferrer" className="sawad-btn-secondary">
+                  GitHub ↗
+                </a>
+              </div>
+            </div>
+          </section>
+
+        </main>
+      </div>
 
       {/* FOOTER */}
       <footer className="sawad-footer">

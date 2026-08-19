@@ -82,14 +82,46 @@ button { font-family: inherit; }
   flex-direction: column;
 }
 
+/* ══════════════════════════════════════════════
+   SAWAD 2-COLUMN MASTER PAGE LAYOUT
+   ══════════════════════════════════════════════ */
 .sawad-container {
-  max-width: 1180px;
+  max-width: 1220px;
   width: 100%;
   margin: 0 auto;
   padding: 100px 24px 60px;
+  display: grid;
+  grid-template-columns: 370px 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+/* ── LEFT: PERMANENT STICKY PROFILE SIDEBAR ── */
+.sawad-sidebar-col {
+  position: sticky;
+  top: 96px;
+  align-self: start;
+  height: fit-content;
+  z-index: 10;
+}
+
+/* ── RIGHT: SCROLLABLE MAIN PORTFOLIO COLUMN ── */
+.sawad-main-col {
   display: flex;
   flex-direction: column;
   gap: 80px;
+  min-width: 0;
+}
+
+@media (max-width: 960px) {
+  .sawad-container {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    padding: 90px 18px 40px;
+  }
+  .sawad-sidebar-col {
+    position: static;
+  }
 }
 
 /* ══════════════════════════════════════════════
@@ -171,20 +203,10 @@ button { font-family: inherit; }
 }
 
 /* ══════════════════════════════════════════════
-   2. HERO SECTION (DARK OBSIDIAN EXECUTIVE HERO)
+   2. OBSIDIAN GLASS PROFILE CARD
    ══════════════════════════════════════════════ */
-.sawad-hero {
-  display: grid;
-  grid-template-columns: 370px 1fr;
-  gap: 48px;
-  align-items: start;
-}
-
-/* ── LEFT: OBSIDIAN GLASS PROFILE CARD (STEADY & STICKY) ── */
 .sawad-profile-card {
-  position: sticky;
-  top: 96px;
-  align-self: start;
+  position: relative;
   background: #0c0e17;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-xl);
@@ -198,7 +220,6 @@ button { font-family: inherit; }
     0 1px 2px rgba(255, 255, 255, 0.05);
   overflow: hidden;
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease;
-  z-index: 10;
 }
 .sawad-profile-card:hover {
   transform: translateY(-4px);
