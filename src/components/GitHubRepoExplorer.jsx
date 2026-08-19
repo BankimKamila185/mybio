@@ -1,24 +1,116 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { PERSONAL_INFO } from '../data/portfolioData';
 
-// Curated fallback list of Bankim's 55+ GitHub repositories
-const FALLBACK_REPOS = [
-  { name: "Reactify", description: "Real-time anonymous live polling and instant feedback system on MERN + WebSockets with live charts.", language: "JavaScript", stargazers_count: 3, html_url: "https://github.com/BankimKamila185/Reactify", homepage: "https://reactify-pink.vercel.app", updated_at: "2026-08-18T10:00:00Z" },
-  { name: "brand", description: "Modern brand identity, fluid responsive typography, and design systems showcase platform.", language: "JavaScript", stargazers_count: 2, html_url: "https://github.com/BankimKamila185/brand", homepage: "https://brand-two-mocha.vercel.app", updated_at: "2026-08-19T04:14:00Z" },
-  { name: "payit-", description: "Next-gen payment calculation, automated invoicing, and billing platform with Python backend.", language: "Python", stargazers_count: 2, html_url: "https://github.com/BankimKamila185/payit-", homepage: "https://payit-mu.vercel.app", updated_at: "2026-07-28T18:56:00Z" },
-  { name: "pixora", description: "AI computer vision image studio with K-Means automated color palette extraction & neural filters.", language: "Python", stargazers_count: 1, html_url: "https://github.com/BankimKamila185/pixora", homepage: "https://pixora-lake.vercel.app", updated_at: "2026-06-16T19:32:00Z" },
-  { name: "wastcraft", description: "Circular waste marketplace connecting donors and recycling artisans with live price estimation.", language: "JavaScript", stargazers_count: 1, html_url: "https://github.com/BankimKamila185/wastcraft", homepage: "https://wastcraft.vercel.app", updated_at: "2026-06-14T07:47:00Z" },
-  { name: "FacultyFlow-", description: "Academic scheduling and faculty department operations platform for university campuses.", language: "JavaScript", stargazers_count: 1, html_url: "https://github.com/BankimKamila185/FacultyFlow-", homepage: "https://faculty-flow-one.vercel.app", updated_at: "2026-06-10T12:00:00Z" },
-  { name: "Bankim-Jewellery-", description: "Luxury jewelry e-commerce portal with dynamic jewelry catalog and responsive UI.", language: "JavaScript", stargazers_count: 1, html_url: "https://github.com/BankimKamila185/Bankim-Jewellery-", homepage: "https://bankim-jewellery.vercel.app", updated_at: "2026-06-08T15:20:00Z" },
-  { name: "YouTube-Dislikes-Dataset", description: "Data science and sentiment analysis on YouTube engagement metrics with Jupyter & Python.", language: "Jupyter Notebook", stargazers_count: 2, html_url: "https://github.com/BankimKamila185/YouTube-Dislikes-Dataset", homepage: null, updated_at: "2026-05-20T08:10:00Z" },
-  { name: "Assignly", description: "TypeScript collaborative classroom assignment tracker & grading workflow system.", language: "TypeScript", stargazers_count: 1, html_url: "https://github.com/BankimKamila185/Assignly", homepage: null, updated_at: "2026-05-06T05:28:00Z" },
-  { name: "-LuggageTrack-", description: "Smart RFID & IoT luggage tracking platform for airline passengers.", language: "JavaScript", stargazers_count: 1, html_url: "https://github.com/BankimKamila185/-LuggageTrack-", homepage: null, updated_at: "2026-06-20T04:35:00Z" },
-  { name: "ubran-city", description: "Urban infrastructure and municipal services mapping web application.", language: "TypeScript", stargazers_count: 1, html_url: "https://github.com/BankimKamila185/ubran-city", homepage: null, updated_at: "2026-06-22T04:12:00Z" },
-  { name: "Student-Portal-Final", description: "Student academic records, attendance tracking, and exam management hub.", language: "JavaScript", stargazers_count: 1, html_url: "https://github.com/BankimKamila185/Student-Portal-Final", homepage: null, updated_at: "2026-05-05T18:27:00Z" },
-  { name: "ColorPaletteExtractor", description: "Unsupervised machine learning script to extract dominant color hex codes from images.", language: "Python", stargazers_count: 2, html_url: "https://github.com/BankimKamila185/ColorPaletteExtractor", homepage: null, updated_at: "2026-04-18T14:15:00Z" },
-  { name: "CampusRide", description: "Peer-to-peer campus ride sharing and route coordination network for students.", language: "JavaScript", stargazers_count: 1, html_url: "https://github.com/BankimKamila185/CampusRide", homepage: null, updated_at: "2026-04-10T11:00:00Z" },
-  { name: "restaurant_management_system", description: "Python relational database management system for restaurant dining orders and billing.", language: "Python", stargazers_count: 1, html_url: "https://github.com/BankimKamila185/restaurant_management_system", homepage: null, updated_at: "2026-03-01T12:00:00Z" },
-  { name: "120_Question", description: "Data structures, algorithms, recursion, and dynamic programming challenges solved in Python.", language: "Python", stargazers_count: 3, html_url: "https://github.com/BankimKamila185/120_Question", homepage: null, updated_at: "2026-02-14T10:20:00Z" }
+// Curated list of Bankim's high-value, production-grade repositories
+const VALUABLE_REPOS = [
+  {
+    name: "Reactify",
+    description: "Real-time live polling and instant feedback system architected with MERN stack, WebSockets event mesh, and dynamic SVG visualizers.",
+    language: "JavaScript",
+    stargazers_count: 3,
+    html_url: "https://github.com/BankimKamila185/Reactify",
+    homepage: "https://reactify-pink.vercel.app",
+    topics: ["WebSockets", "MERN", "Real-Time"]
+  },
+  {
+    name: "payit-",
+    description: "Next-gen payment calculation, automated PDF invoicing, tax breakdowns, and financial ledger platform with Python FastAPI backend.",
+    language: "Python",
+    stargazers_count: 2,
+    html_url: "https://github.com/BankimKamila185/payit-",
+    homepage: "https://payit-mu.vercel.app",
+    topics: ["Fintech", "FastAPI", "Python"]
+  },
+  {
+    name: "pixora",
+    description: "AI computer vision studio featuring unsupervised K-Means automated color palette extraction, image filters, and matrix transforms.",
+    language: "Python",
+    stargazers_count: 2,
+    html_url: "https://github.com/BankimKamila185/pixora",
+    homepage: "https://pixora-lake.vercel.app",
+    topics: ["AI/ML", "Computer Vision", "Python"]
+  },
+  {
+    name: "brand",
+    description: "Modern brand identity system, fluid responsive typography engine, and interactive layout components showcase.",
+    language: "JavaScript",
+    stargazers_count: 2,
+    html_url: "https://github.com/BankimKamila185/brand",
+    homepage: "https://brand-two-mocha.vercel.app",
+    topics: ["Design System", "React", "CSS"]
+  },
+  {
+    name: "wastcraft",
+    description: "Circular economy marketplace connecting material donors with recycling artisans with live valuation and catalog management.",
+    language: "JavaScript",
+    stargazers_count: 1,
+    html_url: "https://github.com/BankimKamila185/wastcraft",
+    homepage: "https://wastcraft.vercel.app",
+    topics: ["Marketplace", "Full-Stack"]
+  },
+  {
+    name: "FacultyFlow-",
+    description: "Academic scheduling and university department operations portal streamlining lecture timetables and workload distribution.",
+    language: "JavaScript",
+    stargazers_count: 1,
+    html_url: "https://github.com/BankimKamila185/FacultyFlow-",
+    homepage: "https://faculty-flow-one.vercel.app",
+    topics: ["EdTech", "Operations"]
+  },
+  {
+    name: "Bankim-Jewellery-",
+    description: "Luxury jewelry e-commerce portal with dynamic collection filtering, responsive high-res galleries, and order flow.",
+    language: "JavaScript",
+    stargazers_count: 1,
+    html_url: "https://github.com/BankimKamila185/Bankim-Jewellery-",
+    homepage: "https://bankim-jewellery.vercel.app",
+    topics: ["E-Commerce", "React"]
+  },
+  {
+    name: "ColorPaletteExtractor",
+    description: "Unsupervised machine learning algorithm extracting harmonic dominant color swatches and hex codes from complex image datasets.",
+    language: "Python",
+    stargazers_count: 2,
+    html_url: "https://github.com/BankimKamila185/ColorPaletteExtractor",
+    homepage: null,
+    topics: ["Machine Learning", "Algorithms"]
+  },
+  {
+    name: "Assignly",
+    description: "TypeScript collaborative classroom assignment tracker, submission validation, and milestone grading pipeline.",
+    language: "TypeScript",
+    stargazers_count: 1,
+    html_url: "https://github.com/BankimKamila185/Assignly",
+    homepage: null,
+    topics: ["TypeScript", "Collaboration"]
+  },
+  {
+    name: "YouTube-Dislikes-Dataset",
+    description: "Data science modeling and statistical regression analyzing video viewer engagement metrics and sentiment trends in Python.",
+    language: "Jupyter Notebook",
+    stargazers_count: 2,
+    html_url: "https://github.com/BankimKamila185/YouTube-Dislikes-Dataset",
+    homepage: null,
+    topics: ["Data Science", "Python"]
+  },
+  {
+    name: "CampusRide",
+    description: "Peer-to-peer campus ride sharing network coordinating route matching and vehicle capacity for student transit.",
+    language: "JavaScript",
+    stargazers_count: 1,
+    html_url: "https://github.com/BankimKamila185/CampusRide",
+    homepage: null,
+    topics: ["Full-Stack", "Transit"]
+  },
+  {
+    name: "restaurant_management_system",
+    description: "Relational database transaction engine for dining orders, kitchen billing tickets, and staff shift administration.",
+    language: "Python",
+    stargazers_count: 1,
+    html_url: "https://github.com/BankimKamila185/restaurant_management_system",
+    homepage: null,
+    topics: ["SQL", "Database"]
+  }
 ];
 
 const LANGUAGE_COLORS = {
@@ -31,8 +123,20 @@ const LANGUAGE_COLORS = {
   "Jupyter Notebook": "#da5b0b"
 };
 
+// Ignore low-value / temporary / duplicate repository names
+const EXCLUDED_REPO_NAMES = new Set([
+  "-LuggageTrack-",
+  "ubran-city",
+  "120_Question",
+  "test",
+  "temp",
+  "portfolio-old",
+  "demo",
+  "practice"
+]);
+
 export default function GitHubRepoExplorer({ playSound }) {
-  const [repos, setRepos] = useState(FALLBACK_REPOS);
+  const [repos, setRepos] = useState(VALUABLE_REPOS);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedLang, setSelectedLang] = useState('All');
   const [isLiveFetched, setIsLiveFetched] = useState(false);
@@ -45,12 +149,31 @@ export default function GitHubRepoExplorer({ playSound }) {
         if (res.ok) {
           const data = await res.json();
           if (Array.isArray(data) && data.length > 0) {
-            setRepos(data);
+            // Keep only meaningful, non-fork, non-excluded repos and enhance with curated details
+            const filtered = data
+              .filter(r => !r.fork && !EXCLUDED_REPO_NAMES.has(r.name) && r.name !== 'mybio')
+              .map(liveRepo => {
+                const curated = VALUABLE_REPOS.find(c => c.name.toLowerCase() === liveRepo.name.toLowerCase());
+                return {
+                  ...liveRepo,
+                  description: curated?.description || liveRepo.description || "Production-grade software engineered with modern full-stack architecture.",
+                  homepage: curated?.homepage || liveRepo.homepage,
+                  topics: curated?.topics || []
+                };
+              });
+
+            // Put curated high-priority repos at the top
+            const finalRepos = [
+              ...VALUABLE_REPOS,
+              ...filtered.filter(f => !VALUABLE_REPOS.some(v => v.name.toLowerCase() === f.name.toLowerCase()))
+            ];
+
+            setRepos(finalRepos);
             setIsLiveFetched(true);
           }
         }
       } catch {
-        // Safe fallback to curated repo dataset
+        // Safe fallback to curated dataset
       }
     };
     fetchGitHubData();
@@ -135,9 +258,9 @@ export default function GitHubRepoExplorer({ playSound }) {
       <div className="repo-cards-grid">
         {filteredRepos.slice(0, visibleLimit).map((repo) => {
           const langColor = LANGUAGE_COLORS[repo.language] || '#9ca3af';
-          const cleanDesc = repo.description && !repo.description.includes('Public repository engineered')
-            ? repo.description
-            : (FALLBACK_REPOS.find(f => f.name.toLowerCase() === repo.name.toLowerCase())?.description || "Open source software project engineered with clean architecture & modern tooling.");
+          const curated = VALUABLE_REPOS.find(f => f.name.toLowerCase() === repo.name.toLowerCase());
+          const cleanDesc = curated?.description || repo.description || "Production-grade software engineered with clean architecture & modern tooling.";
+          const repoTopics = repo.topics && repo.topics.length > 0 ? repo.topics : (curated?.topics || []);
 
           return (
             <div
@@ -170,6 +293,16 @@ export default function GitHubRepoExplorer({ playSound }) {
               <p className="repo-card-description">
                 {cleanDesc}
               </p>
+
+              {repoTopics.length > 0 && (
+                <div className="repo-card-topics">
+                  {repoTopics.map((topic) => (
+                    <span key={topic} className="repo-topic-pill">
+                      #{topic}
+                    </span>
+                  ))}
+                </div>
+              )}
 
               <div className="repo-card-footer">
                 <div className="repo-footer-left">

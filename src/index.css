@@ -1401,6 +1401,22 @@ button { font-family: inherit; }
   overflow: hidden;
 }
 
+.repo-card-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.repo-topic-pill {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--color-orange);
+  background: rgba(244, 108, 56, 0.08);
+  border: 1px solid rgba(244, 108, 56, 0.2);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
 .repo-card-footer {
   display: flex;
   align-items: center;
