@@ -174,9 +174,9 @@ button { font-family: inherit; }
    ══════════════════════════════════════════════ */
 .sawad-hero {
   display: grid;
-  grid-template-columns: 380px 1fr;
-  gap: 56px;
-  align-items: center;
+  grid-template-columns: 360px 1fr;
+  gap: 48px;
+  align-items: stretch;
 }
 
 /* ── LEFT: SIGNATURE WHITE CARD ── */
@@ -185,10 +185,11 @@ button { font-family: inherit; }
   background: var(--surface-white);
   color: var(--text-dark);
   border-radius: var(--radius-xl);
-  padding: 40px 28px 32px;
+  padding: 32px 24px 28px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   text-align: center;
   box-shadow:
     0 24px 60px rgba(0, 0, 0, 0.4),
@@ -202,9 +203,9 @@ button { font-family: inherit; }
 
 .sawad-curve-top {
   position: absolute;
-  top: 16px;
-  left: 20px;
-  width: 120px;
+  top: 14px;
+  left: 18px;
+  width: 130px;
   height: 60px;
   pointer-events: none;
   z-index: 1;
@@ -212,13 +213,13 @@ button { font-family: inherit; }
 
 .sawad-avatar-box {
   position: relative;
-  width: 220px;
-  height: 250px;
-  border-radius: 28px;
+  width: 190px;
+  height: 200px;
+  border-radius: 24px;
   background: linear-gradient(145deg, #f25b2a 0%, #ff8a65 100%);
   overflow: hidden;
-  margin-bottom: 24px;
-  box-shadow: 0 16px 32px rgba(242, 91, 42, 0.35);
+  margin-bottom: 16px;
+  box-shadow: 0 14px 28px rgba(242, 91, 42, 0.3);
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -233,22 +234,22 @@ button { font-family: inherit; }
 
 .sawad-profile-name {
   font-family: var(--font-display);
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   font-weight: 800;
   color: var(--text-dark);
   letter-spacing: -0.02em;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 
 /* Flame Badge Wrap with Curved line */
 .sawad-fire-badge-wrap {
   position: relative;
   width: 100%;
-  height: 38px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 4px 0 12px;
+  margin: 4px 0 8px;
 }
 .sawad-curve-mid {
   position: absolute;
@@ -258,35 +259,35 @@ button { font-family: inherit; }
   pointer-events: none;
 }
 .sawad-fire-circle {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   background: #f25b2a;
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.9rem;
-  box-shadow: 0 4px 12px rgba(242, 91, 42, 0.4);
+  box-shadow: 0 4px 10px rgba(242, 91, 42, 0.4);
   z-index: 2;
 }
 
 .sawad-profile-bio {
-  font-size: 0.88rem;
+  font-size: 0.84rem;
   color: var(--text-dark-muted);
-  line-height: 1.5;
-  margin-bottom: 24px;
+  line-height: 1.45;
+  margin-bottom: 16px;
   font-weight: 500;
+  max-width: 280px;
 }
 
 .sawad-social-row {
   display: flex;
-  gap: 16px;
+  gap: 12px;
   justify-content: center;
 }
 .sawad-social-icon {
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   background: #f4f4f7;
   color: #f25b2a;
@@ -298,15 +299,16 @@ button { font-family: inherit; }
 .sawad-social-icon:hover {
   background: #f25b2a;
   color: #ffffff;
-  transform: translateY(-4px) scale(1.15);
-  box-shadow: 0 8px 18px rgba(242, 91, 42, 0.35);
+  transform: translateY(-3px) scale(1.1);
+  box-shadow: 0 6px 16px rgba(242, 91, 42, 0.35);
 }
 
 /* ── RIGHT: BIG EDITORIAL TITLES & METRICS ── */
 .sawad-hero-right {
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  justify-content: space-between;
+  gap: 20px;
 }
 
 .sawad-hero-titles {
@@ -316,7 +318,7 @@ button { font-family: inherit; }
 }
 .sawad-title-solid {
   font-family: var(--font-display);
-  font-size: clamp(3rem, 6.5vw, 5.2rem);
+  font-size: clamp(3rem, 6.2vw, 5rem);
   font-weight: 900;
   color: #ffffff;
   letter-spacing: -0.03em;
@@ -324,26 +326,57 @@ button { font-family: inherit; }
 }
 .sawad-title-muted {
   font-family: var(--font-display);
-  font-size: clamp(3rem, 6.5vw, 5.2rem);
+  font-size: clamp(3rem, 6.2vw, 5rem);
   font-weight: 900;
   color: #35353d;
   letter-spacing: -0.03em;
   text-transform: uppercase;
 }
-.sawad-title-sub {
-  font-family: var(--font-display);
-  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
-  font-weight: 700;
-  color: var(--color-orange);
-  margin-top: 14px;
-  letter-spacing: -0.01em;
-}
 
 .sawad-hero-desc {
   font-size: 1.05rem;
   color: var(--text-muted);
-  line-height: 1.7;
-  max-width: 620px;
+  line-height: 1.65;
+  max-width: 600px;
+}
+
+.sawad-hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.sawad-hero-primary-btn {
+  padding: 12px 26px;
+  border-radius: var(--radius-pill);
+  background: var(--color-orange);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.92rem;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 6px 20px var(--color-orange-glow);
+  transition: all 0.2s ease;
+}
+.sawad-hero-primary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(242, 91, 42, 0.45);
+}
+.sawad-hero-secondary-btn {
+  padding: 12px 24px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.92rem;
+  border: 1px solid var(--border-subtle);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.sawad-hero-secondary-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
 }
 
 /* Stats Row (Exact Sawad Format) */
@@ -351,7 +384,8 @@ button { font-family: inherit; }
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
-  padding-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 .sawad-stat-box {
   display: flex;
@@ -360,7 +394,7 @@ button { font-family: inherit; }
 }
 .stat-number {
   font-family: var(--font-display);
-  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  font-size: clamp(2rem, 3.5vw, 3rem);
   font-weight: 800;
   color: #ffffff;
   letter-spacing: -0.03em;
@@ -372,7 +406,8 @@ button { font-family: inherit; }
   font-weight: 700;
   color: var(--text-muted);
   letter-spacing: 0.06em;
-  line-height: 1.4;
+  line-height: 1.35;
+  text-transform: uppercase;
 }
 
 .sawad-status-embed {

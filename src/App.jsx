@@ -177,14 +177,14 @@ export default function App() {
            ══════════════════════════════════════════ */}
         <section ref={homeRef} className="sawad-hero sawad-reveal">
           
-          {/* LEFT: WHITE PROFILE CARD */}
+          {/* LEFT: WHITE SIGNATURE CARD */}
           <div className="sawad-profile-card">
             {/* Top decorative dashed curve */}
-            <svg className="sawad-curve-top-svg" viewBox="0 0 160 80" fill="none">
+            <svg className="sawad-curve-top" viewBox="0 0 160 80" fill="none">
               <path d="M0,70 Q60,10 160,25" stroke="#f46c38" strokeWidth="2.5" strokeDasharray="6 6" />
             </svg>
 
-            {/* Profile Avatar Box with Vibrant Orange/Coral Backdrop */}
+            {/* Profile Avatar Box with Vibrant Orange Backdrop */}
             <div className="sawad-avatar-box">
               <img
                 src="/profile.png"
@@ -198,47 +198,37 @@ export default function App() {
             <h2 className="sawad-profile-name">Bankim Chandra Kamila</h2>
 
             {/* Middle Curved line with Flame Badge */}
-            <div className="sawad-flame-track">
-              <svg className="sawad-curve-mid-svg" viewBox="0 0 240 50" fill="none">
+            <div className="sawad-fire-badge-wrap">
+              <svg className="sawad-curve-mid" viewBox="0 0 240 50" fill="none">
                 <path d="M0,40 Q100,5 240,35" stroke="#f46c38" strokeWidth="2.5" strokeDasharray="5 5" />
               </svg>
-              <div className="sawad-flame-badge">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ffffff"><path d="M12 23c-4.97 0-9-4.03-9-9 0-3.32 1.77-6.22 4.41-7.83l.59-.36-.09.68C7.62 8.35 8.1 10.3 9.17 11.7l.45.59.38-.64C10.96 10.02 12.01 7.29 12 4c2.81 2.37 5 6.08 5 10 0 4.97-4.03 9-9 9h4z"/></svg>
+              <div className="sawad-fire-circle">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="#ffffff"><path d="M12 23c-4.97 0-9-4.03-9-9 0-3.32 1.77-6.22 4.41-7.83l.59-.36-.09.68C7.62 8.35 8.1 10.3 9.17 11.7l.45.59.38-.64C10.96 10.02 12.01 7.29 12 4c2.81 2.37 5 6.08 5 10 0 4.97-4.03 9-9 9h4z"/></svg>
               </div>
             </div>
 
-            {/* Clean Availability Badge */}
-            <div className="sawad-avail-badge">
-              <span className="sawad-avail-dot"></span>
-              <span>Available for Advisory &amp; Tech Roles</span>
-            </div>
-
-            {/* Subtitle */}
+            {/* Subtitle / Bio */}
             <p className="sawad-profile-bio">
-              CTO & COO at The Outliers Studio · AI & ML Engineer shipping real-time products.
+              CTO &amp; COO at The Outliers Studio · AI &amp; Machine Learning Engineer shipping real-time products.
             </p>
 
-            {/* 4 Social Icons (Accurate Branded SVGs) */}
+            {/* 4 Social Icons */}
             <div className="sawad-social-row">
-              {/* GitHub */}
               <a href={PERSONAL_INFO.github} target="_blank" rel="noopener noreferrer" className="sawad-social-icon" title="GitHub Profile">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
                 </svg>
               </a>
-              {/* LinkedIn */}
               <a href={PERSONAL_INFO.linkedin} target="_blank" rel="noopener noreferrer" className="sawad-social-icon" title="LinkedIn Profile">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
                 </svg>
               </a>
-              {/* Instagram */}
               <a href={PERSONAL_INFO.instagram} target="_blank" rel="noopener noreferrer" className="sawad-social-icon" title="Instagram">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
                 </svg>
               </a>
-              {/* WhatsApp */}
               <a href={PERSONAL_INFO.whatsapp} target="_blank" rel="noopener noreferrer" className="sawad-social-icon" title="WhatsApp Message">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
@@ -247,7 +237,7 @@ export default function App() {
             </div>
           </div>
 
-          {/* RIGHT: TYPOGRAPHY & STATS */}
+          {/* RIGHT: BIG EDITORIAL TITLES, HERO CTA & STATS */}
           <div className="sawad-hero-right">
             <div className="sawad-hero-titles">
               <h1 className="sawad-title-solid">SOFTWARE</h1>
@@ -255,8 +245,24 @@ export default function App() {
             </div>
 
             <p className="sawad-hero-desc">
-              Passionate technologist architecting scalable full-stack applications, AI/ML tools, and real-time systems. Leading innovation and engineering at The Outliers Studio.
+              Passionate technologist architecting scalable full-stack applications, AI/ML tools, and real-time systems. Leading engineering and operations at The Outliers Studio.
             </p>
+
+            {/* Hero Quick Action Buttons */}
+            <div className="sawad-hero-actions">
+              <button
+                className="sawad-hero-primary-btn"
+                onClick={() => { playPopSound(); contactRef.current?.scrollIntoView({ behavior: 'smooth' }); }}
+              >
+                Let's Talk ↗
+              </button>
+              <button
+                className="sawad-hero-secondary-btn"
+                onClick={() => { playPopSound(); projectsRef.current?.scrollIntoView({ behavior: 'smooth' }); }}
+              >
+                Selected Work ↓
+              </button>
+            </div>
 
             {/* 3 Real, Impactful Stats Columns */}
             <div className="sawad-stats-row">
