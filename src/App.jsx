@@ -40,6 +40,16 @@ export default function App() {
   const arcadeRef = useRef(null);
   const contactRef = useRef(null);
 
+  const [roleIndex, setRoleIndex] = useState(0);
+  const roles = ['ENGINEER', 'ARCHITECT', 'INNOVATOR', 'TECH LEADER'];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setRoleIndex((prev) => (prev + 1) % roles.length);
+    }, 2800);
+    return () => clearInterval(interval);
+  }, []);
+
   const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
 
   useEffect(() => {
@@ -242,9 +252,21 @@ export default function App() {
           {/* 1. HERO SECTION */}
           <section ref={homeRef} className="sawad-hero-right sawad-reveal">
             <div className="sawad-hero-titles">
-              <span className="hero-kicker-tag">LEADERSHIP &amp; ARCHITECTURE</span>
-              <h1 className="sawad-title-solid">SOFTWARE</h1>
-              <h1 className="sawad-title-muted">ENGINEER</h1>
+              <div className="hero-kicker-row">
+                <span className="hero-kicker-tag">LEADERSHIP &amp; ARCHITECTURE</span>
+                <span className="hero-kicker-beacon">
+                  <span className="beacon-dot"></span>
+                  FULL-STACK AI
+                </span>
+              </div>
+              <h1 className="sawad-title-solid">
+                <span className="title-text-shimmer">SOFTWARE</span>
+              </h1>
+              <h1 className="sawad-title-gradient">
+                <span key={roles[roleIndex]} className="role-rotating-text">
+                  {roles[roleIndex]}
+                </span>
+              </h1>
             </div>
 
             <p className="sawad-hero-desc">

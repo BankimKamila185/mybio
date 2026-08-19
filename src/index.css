@@ -360,31 +360,109 @@ button { font-family: inherit; }
 .sawad-hero-titles {
   display: flex;
   flex-direction: column;
-  line-height: 0.9;
+  line-height: 0.92;
+  gap: 2px;
 }
+
+.hero-kicker-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
 .hero-kicker-tag {
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   font-weight: 700;
   color: var(--color-orange);
-  letter-spacing: 0.08em;
-  margin-bottom: 8px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
+
+.hero-kicker-beacon {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  background: rgba(244, 108, 56, 0.1);
+  border: 1px solid rgba(244, 108, 56, 0.25);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #ff8a65;
+}
+.beacon-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-orange);
+  box-shadow: 0 0 8px var(--color-orange);
+  animation: beaconPulse 1.8s infinite;
+}
+@keyframes beaconPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.6; }
+}
+
 .sawad-title-solid {
   font-family: var(--font-display);
-  font-size: clamp(3rem, 6.2vw, 5rem);
+  font-size: clamp(3.2rem, 6.5vw, 5.4rem);
   font-weight: 900;
-  color: #ffffff;
   letter-spacing: -0.03em;
   text-transform: uppercase;
+  margin: 0;
 }
-.sawad-title-muted {
+
+.title-text-shimmer {
+  background: linear-gradient(110deg, #ffffff 20%, #ffe0d4 45%, #ffffff 70%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textShineSweep 5s ease-in-out infinite;
+  display: inline-block;
+}
+@keyframes textShineSweep {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.sawad-title-gradient {
   font-family: var(--font-display);
-  font-size: clamp(3rem, 6.2vw, 5rem);
+  font-size: clamp(3.2rem, 6.5vw, 5.4rem);
   font-weight: 900;
-  color: #35353d;
   letter-spacing: -0.03em;
   text-transform: uppercase;
+  margin: 0;
+  min-height: 1.1em;
+  display: flex;
+  align-items: center;
+}
+
+.role-rotating-text {
+  display: inline-block;
+  background: linear-gradient(135deg, #f46c38 0%, #ff8a65 40%, #c5ff41 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 30px rgba(244, 108, 56, 0.35));
+  animation: roleFlipIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform-origin: center bottom;
+}
+
+@keyframes roleFlipIn {
+  0% {
+    opacity: 0;
+    transform: translateY(22px) rotateX(-45deg);
+    filter: blur(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotateX(0deg);
+    filter: blur(0);
+  }
 }
 
 .sawad-hero-desc {
