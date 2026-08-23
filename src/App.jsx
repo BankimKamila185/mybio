@@ -356,42 +356,45 @@ export default function App() {
       </section>
 
       {/* ══════════════════════════════════════════════
-          ABOUT ME SECTION
+          ABOUT ME SECTION (EXACT 1:1 TO SCREENSHOT)
          ══════════════════════════════════════════════ */}
       <section ref={aboutRef} className="ca-about-wrap" id="about">
-        <svg viewBox="0 0 1440 130" fill="none" preserveAspectRatio="none" style={{ width: '100%', height: '60px', marginBottom: '2rem' }}>
-          <path d="M-10 120C420 10 1030 4 1450 80" stroke="rgba(25,21,16,0.2)" strokeWidth="1.5" />
-        </svg>
+        {/* Top-Left Eyebrow: "about me!" */}
+        <p className="ca-about-eyebrow">about me!</p>
 
-        <div style={{ textAlign: 'center' }}>
-          <p className="ca-name-label" style={{ marginBottom: '0.5rem' }}>about me!</p>
-          <div className="ca-doodle-frame-title">
-            <span>what's up</span>
+        {/* Centered Box: "what's up" */}
+        <div className="ca-doodle-frame-title">
+          <span>what's up</span>
+        </div>
+
+        {/* Center Stage with Flanking Polaroids (Left & Right) */}
+        <div className="ca-about-center-stage">
+          {/* Left Flanking Polaroid: 2026 */}
+          <div className="ca-flank-polaroid-left ca-gentle-float">
+            <span className="ca-tape-corner-left" aria-hidden="true" />
+            <span className="ca-tape-corner-right" aria-hidden="true" />
+            <img src="/profile.png" alt="2026" className="ca-polaroid-img-taped" />
+            <p className="ca-hand" style={{ fontSize: '1.25rem', marginTop: '0.6rem' }}>2026</p>
           </div>
 
-          {/* Taped Polaroid Photos on Left & Right */}
-          <div className="ca-polaroids-row">
-            <div className="ca-polaroid-taped ca-gentle-float" style={{ '--rot': '-3deg' }}>
-              <span className="ca-tape-corner-left" aria-hidden="true" />
-              <span className="ca-tape-corner-right" aria-hidden="true" />
-              <img src="/profile.png" alt="2026" className="ca-polaroid-img-taped" />
-              <p className="ca-hand" style={{ fontSize: '1.2rem', marginTop: '0.5rem' }}>2026</p>
-            </div>
-
-            <div className="ca-polaroid-taped right ca-gentle-float" style={{ '--rot': '3deg', animationDelay: '1.2s' }}>
-              <span className="ca-tape-corner-left" aria-hidden="true" />
-              <span className="ca-tape-corner-right" aria-hidden="true" />
-              <img src="/hero.png" alt="my workspace" className="ca-polaroid-img-taped" />
-              <p className="ca-hand" style={{ fontSize: '1.2rem', marginTop: '0.5rem' }}>my workspace</p>
-            </div>
+          {/* Right Flanking Polaroid: my workspace */}
+          <div className="ca-flank-polaroid-right ca-gentle-float" style={{ animationDelay: '1.2s' }}>
+            <span className="ca-tape-corner-left" aria-hidden="true" />
+            <span className="ca-tape-corner-right" aria-hidden="true" />
+            <img src="/hero.png" alt="my workspace" className="ca-polaroid-img-taped" />
+            <p className="ca-hand" style={{ fontSize: '1.25rem', marginTop: '0.6rem' }}>my workspace</p>
           </div>
 
+          {/* Center Manifesto Text */}
           <p className="ca-manifesto-large">
-            {renderInteractiveWords("I'm a technologist & builder who gets a little too excited about making complicated things feel simple. ✨ I care about the small details, the edge cases everyone forgets, and shipping work that genuinely makes someone's day easier. 🎨", 0.1)}
+            {renderInteractiveWords("I'm a product designer who gets a little too excited about making complicated things feel simple. ✨ I care about the small details, the edge cases everyone forgets, and shipping work that genuinely makes someone's day easier. 🎨", 0.1)}
           </p>
+        </div>
 
-          {/* Jagged Skill Badges with Alternating Cycling Emojis */}
-          <div className="ca-jagged-skills">
+        {/* Jagged Skill Badges in 2 Balanced Rows */}
+        <div className="ca-jagged-skills-container">
+          {/* Row 1: Interaction Design + Prototyping */}
+          <div className="ca-jagged-row">
             <div className="ca-jagged-item">
               <span className="ca-jagged-label yellow">Interaction Design</span>
               <span className="ca-jagged-icon yellow">
@@ -406,8 +409,12 @@ export default function App() {
                 <span className="ca-emoji-b">🧩</span>
               </span>
             </div>
+          </div>
+
+          {/* Row 2: User Research + Motion Design */}
+          <div className="ca-jagged-row">
             <div className="ca-jagged-item">
-              <span className="ca-jagged-label magenta">Full-Stack Systems</span>
+              <span className="ca-jagged-label magenta">User Research</span>
               <span className="ca-jagged-icon magenta">
                 <span className="ca-emoji-a">🧩</span>
                 <span className="ca-emoji-b">👀</span>
@@ -421,33 +428,33 @@ export default function App() {
               </span>
             </div>
           </div>
+        </div>
 
-          {/* Principles Grid in About */}
-          <div className="ca-principles-grid">
-            {PRINCIPLES.map((principle, idx) => (
-              <div key={idx} className="ca-principle-card">
-                <span className="ca-principle-tape">{principle.note}</span>
-                <h3 style={{ fontSize: '1.4rem', fontWeight: 700, marginBottom: '0.75rem' }}>{principle.title}</h3>
-                <p style={{ fontSize: '0.95rem', color: 'rgba(25,21,16,0.85)', lineHeight: 1.6 }}>{principle.body}</p>
-              </div>
-            ))}
-          </div>
+        {/* Principles Grid in About */}
+        <div className="ca-principles-grid">
+          {PRINCIPLES.map((principle, idx) => (
+            <div key={idx} className="ca-principle-card">
+              <span className="ca-principle-tape">{principle.note}</span>
+              <h3 style={{ fontSize: '1.4rem', fontWeight: 700, marginBottom: '0.75rem' }}>{principle.title}</h3>
+              <p style={{ fontSize: '0.95rem', color: 'rgba(25,21,16,0.85)', lineHeight: 1.6 }}>{principle.body}</p>
+            </div>
+          ))}
+        </div>
 
-          {/* Experience List in About */}
-          <div className="ca-experience-section">
-            <h3 className="ca-pixel" style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Work &amp; History</h3>
-            {EXPERIENCE.map((exp, idx) => (
-              <div key={idx} className="ca-exp-row">
-                <div>
-                  <h4 style={{ fontSize: '1.15rem', fontWeight: 700 }}>{exp.role}</h4>
-                  <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', color: 'rgba(25,21,16,0.7)' }}>{exp.company}</p>
-                </div>
-                <span className="ca-mono" style={{ fontSize: '0.85rem', fontWeight: 700, backgroundColor: 'var(--ca-yellow-soft)', padding: '0.25rem 0.75rem', borderRadius: '4px' }}>
-                  {exp.period}
-                </span>
+        {/* Experience List in About */}
+        <div className="ca-experience-section">
+          <h3 className="ca-pixel" style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Work &amp; History</h3>
+          {EXPERIENCE.map((exp, idx) => (
+            <div key={idx} className="ca-exp-row">
+              <div>
+                <h4 style={{ fontSize: '1.15rem', fontWeight: 700 }}>{exp.role}</h4>
+                <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', color: 'rgba(25,21,16,0.7)' }}>{exp.company}</p>
               </div>
-            ))}
-          </div>
+              <span className="ca-mono" style={{ fontSize: '0.85rem', fontWeight: 700, backgroundColor: 'var(--ca-yellow-soft)', padding: '0.25rem 0.75rem', borderRadius: '4px' }}>
+                {exp.period}
+              </span>
+            </div>
+          ))}
         </div>
       </section>
 
