@@ -7,12 +7,18 @@ import { TECH_STACK_ITEMS } from './data/techIcons';
 export default function App() {
   const [activeNav, setActiveNav] = useState('home');
   const [copiedEmail, setCopiedEmail] = useState(false);
+  const [splashPhase, setSplashPhase] = useState(1);
 
   const homeRef = useRef(null);
   const aboutRef = useRef(null);
   const worksRef = useRef(null);
   const playgroundRef = useRef(null);
   const contactRef = useRef(null);
+
+  useEffect(() => {
+    const timer1 = setTimeout(() => setSplashPhase(2), 900);
+    return () => clearTimeout(timer1);
+  }, []);
 
   const scrollTo = (ref, navId) => {
     setActiveNav(navId);
@@ -27,8 +33,24 @@ export default function App() {
 
   return (
     <div className="ca-app">
-      {/* Ruled Notebook Lines Background */}
+      {/* ══════════════════════════════════════════════
+          INITIAL SPLASH LOADING SCREEN (OH, HELLO! YOU FOUND ME!)
+         ══════════════════════════════════════════════ */}
+      <div className="ca-splash-overlay" aria-hidden="true">
+        {splashPhase === 1 ? (
+          <div className="ca-splash-bubble">
+            <span>Oh, hello!</span>
+          </div>
+        ) : (
+          <div className="ca-splash-bubble">
+            <span>You found me!</span>
+          </div>
+        )}
+      </div>
+
+      {/* Ruled Notebook Lines & Grain Background */}
       <div className="ca-notebook-bg" aria-hidden="true" />
+      <div className="ca-grain" aria-hidden="true" />
 
       {/* ══════════════════════════════════════════════
           TOP HEADER (EXACT 1:1 RECREATION)
@@ -42,7 +64,7 @@ export default function App() {
               onClick={() => scrollTo(homeRef, 'home')}
               aria-label="Home"
             >
-              <svg viewBox="0 0 24 24" width="30" height="30">
+              <svg viewBox="0 0 24 24" width="32" height="32">
                 <circle cx="12" cy="12" r="10" fill="#ff2d78" stroke="#ffffff" strokeWidth="2.5" />
                 <circle cx="8.5" cy="10.5" r="1.35" fill="#ffffff" />
                 <circle cx="15.5" cy="10.5" r="1.35" fill="#ffffff" />
@@ -174,6 +196,14 @@ export default function App() {
             SWEAT THE DETAILS
           </span>
 
+          {/* Hover Invert Lens with Corner Anchors */}
+          <div className="ca-hover-invert-lens" aria-hidden="true">
+            <span className="ca-lens-corner tl" />
+            <span className="ca-lens-corner tr" />
+            <span className="ca-lens-corner bl" />
+            <span className="ca-lens-corner br" />
+          </div>
+
           {/* The Big Orange Contour Box with Pixel Name */}
           <div className="ca-orange-contour-box">
             <h1 className="ca-pixel-hero-name">
@@ -181,7 +211,7 @@ export default function App() {
             </h1>
           </div>
 
-          {/* Bottom-Left Tape Note + Arrow: Product Designer / CTO & COO */}
+          {/* Bottom-Left Tape Note + Arrow: CTO & COO */}
           <div className="ca-sticky-note-left">
             <span className="ca-hand-tape-box yellow">
               CTO &amp; COO
@@ -262,27 +292,44 @@ export default function App() {
             <span>what's up</span>
           </div>
 
+          {/* Taped Polaroid Photos on Left & Right */}
+          <div className="ca-polaroids-row">
+            <div className="ca-polaroid-taped">
+              <span className="ca-tape-corner-left" aria-hidden="true" />
+              <span className="ca-tape-corner-right" aria-hidden="true" />
+              <img src="/profile.png" alt="2026" className="ca-polaroid-img-taped" />
+              <p className="ca-hand" style={{ fontSize: '1.2rem', marginTop: '0.5rem' }}>2026</p>
+            </div>
+
+            <div className="ca-polaroid-taped right">
+              <span className="ca-tape-corner-left" aria-hidden="true" />
+              <span className="ca-tape-corner-right" aria-hidden="true" />
+              <img src="/hero.png" alt="my workspace" className="ca-polaroid-img-taped" />
+              <p className="ca-hand" style={{ fontSize: '1.2rem', marginTop: '0.5rem' }}>my workspace</p>
+            </div>
+          </div>
+
           <p className="ca-manifesto-large">
-            I'm a product engineer &amp; builder who gets a little too excited about making complicated things feel simple. ✨ I care about the small details, the edge cases everyone forgets, and shipping work that genuinely makes someone's day easier. 🎨
+            I'm a technologist &amp; builder who gets a little too excited about making complicated things feel simple. ✨ I care about the small details, the edge cases everyone forgets, and shipping work that genuinely makes someone's day easier. 🎨
           </p>
 
-          {/* Jagged Skill Badges */}
+          {/* Jagged Skill Badges with Alternating Cycling Emojis */}
           <div className="ca-jagged-skills">
             <div className="ca-jagged-item">
-              <span className="ca-jagged-label yellow">Full-Stack Architecture</span>
-              <span className="ca-jagged-icon yellow">⚡</span>
+              <span className="ca-jagged-label yellow">Interaction Design</span>
+              <span className="ca-jagged-icon yellow">✨</span>
             </div>
             <div className="ca-jagged-item">
-              <span className="ca-jagged-label green">AI &amp; ML Systems</span>
-              <span className="ca-jagged-icon green">🧠</span>
+              <span className="ca-jagged-label green">Prototyping</span>
+              <span className="ca-jagged-icon green">🎨</span>
             </div>
             <div className="ca-jagged-item">
-              <span className="ca-jagged-label magenta">Real-Time WebSockets</span>
-              <span className="ca-jagged-icon magenta">📡</span>
+              <span className="ca-jagged-label magenta">Full-Stack Systems</span>
+              <span className="ca-jagged-icon magenta">🧩</span>
             </div>
             <div className="ca-jagged-item">
-              <span className="ca-jagged-label blue">Motion &amp; UI Design</span>
-              <span className="ca-jagged-icon blue">✨</span>
+              <span className="ca-jagged-label blue">Motion Design</span>
+              <span className="ca-jagged-icon blue">💡</span>
             </div>
           </div>
         </div>
@@ -306,8 +353,8 @@ export default function App() {
 
         {/* Sticky Stacking Project Cards */}
         <div className="ca-stack-container">
-          {FEATURED_PROJECTS.map((p, idx) => {
-            const cardStyles = ['ca-card-blue', 'ca-card-ink', 'ca-card-yellow', 'ca-card-magenta', 'ca-card-mint'];
+          {FEATURED_PROJECTS.slice(0, 4).map((p, idx) => {
+            const cardStyles = ['ca-card-blue', 'ca-card-ink', 'ca-card-yellow', 'ca-card-magenta'];
             const cardTheme = cardStyles[idx % cardStyles.length];
 
             return (
@@ -343,16 +390,16 @@ export default function App() {
                     </div>
                   </div>
 
-                  {/* Right Column: Polaroid Mockup */}
+                  {/* Right Column: Polaroid Mockup with Dual Tapes */}
                   <div style={{ alignSelf: 'center' }}>
                     <div className="ca-work-mockup-frame">
                       <span className="ca-tape-mockup-tl" aria-hidden="true" />
                       <span className="ca-tape-mockup-tr" aria-hidden="true" />
-                      <div style={{ background: '#191510', padding: '2rem 1.5rem', textAlign: 'center', color: '#fff' }}>
-                        <h4 style={{ fontFamily: 'var(--font-pixel)', fontSize: '2rem', color: p.accent || '#ffe853' }}>
+                      <div style={{ background: '#191510', padding: '2.5rem 1.5rem', textAlign: 'center', color: '#fff', minHeight: '220px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                        <h4 style={{ fontFamily: 'var(--font-pixel)', fontSize: '2.4rem', color: p.accent || '#ffe853' }}>
                           {p.title}
                         </h4>
-                        <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', marginTop: '0.5rem', color: '#aaa' }}>
+                        <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', marginTop: '0.5rem', color: '#ccc' }}>
                           {p.subtitle}
                         </p>
                       </div>
@@ -366,11 +413,33 @@ export default function App() {
       </section>
 
       {/* ══════════════════════════════════════════════
-          PLAYGROUND / SKILLS MATRIX
+          CLIENTS / TRUSTED BY TAPED GRID
+         ══════════════════════════════════════════════ */}
+      <section className="ca-clients-wrap">
+        <p className="ca-name-label">trusted by</p>
+        <div className="ca-clients-grid">
+          {[
+            { name: 'THE OUTLIERS', color: 'var(--ca-yellow-soft)', rotate: '-2deg' },
+            { name: 'REACT / VITE', color: 'var(--ca-mint)', rotate: '1deg' },
+            { name: 'PYTHON / AI', color: 'var(--ca-cyan-soft)', rotate: '2deg' },
+            { name: 'POSTMAN API', color: 'var(--ca-pink-soft)', rotate: '-1deg' },
+            { name: 'FASTAPI', color: 'var(--ca-yellow-soft)', rotate: '-2deg' },
+            { name: 'VERCEL', color: 'var(--ca-mint)', rotate: '1deg' }
+          ].map((client, idx) => (
+            <div key={idx} className="ca-client-tape-card" style={{ transform: `rotate(${client.rotate})` }}>
+              <span className="ca-tape-strip-bg" style={{ backgroundColor: client.color }} aria-hidden="true" />
+              <span className="ca-client-brand-name">{client.name}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════
+          PLAYGROUND / ARSENAL
          ══════════════════════════════════════════════ */}
       <section ref={playgroundRef} className="ca-about-wrap" id="playground">
         <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-          <p className="ca-name-label">playground &amp; arsenal</p>
+          <p className="ca-name-label">playground &amp; tools</p>
           <div className="ca-doodle-frame-title">
             <span>CORE STACK</span>
           </div>
@@ -434,6 +503,9 @@ export default function App() {
             <p style={{ fontSize: '0.85rem', lineHeight: 1.4 }}>
               Open to contract work, leadership roles, and interesting conversations about hard software problems.
             </p>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem', marginTop: '0.6rem', border: '1px solid var(--ca-blue)', padding: '0.15rem 0.5rem', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 700 }}>
+              ⚡ 1
+            </span>
           </div>
 
           <div className="ca-contact-big-banner" onClick={copyEmail}>
