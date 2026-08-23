@@ -548,7 +548,7 @@ body {
 }
 
 /* ══════════════════════════════════════════════
-   ABOUT ME SECTION (EXACT 1:1)
+   ABOUT ME SECTION
    ══════════════════════════════════════════════ */
 .ca-about-wrap {
   position: relative;
@@ -729,8 +729,8 @@ body {
 .ca-jagged-icon.blue { background-color: var(--ca-blue); }
 
 /* ══════════════════════════════════════════════
-   FEATURED WORKS WITH CLEAN 4-TAB BINDER SYSTEM
-   ══════════════════════════════════════════════ */
+   AUTHENTIC STICKY STACKING FOLDER SCROLL SYSTEM
+   ============================================== */
 .ca-works-wrap {
   position: relative;
   padding: 5rem 1.5rem 8rem;
@@ -740,7 +740,7 @@ body {
 
 .ca-works-head {
   text-align: center;
-  margin-bottom: 3.5rem;
+  margin-bottom: 4.5rem;
 }
 
 .ca-featured-title {
@@ -765,28 +765,49 @@ body {
   box-shadow: 0 2px 6px rgba(25, 21, 16, 0.15);
 }
 
-.ca-binder-container {
+.ca-stack-scroll-container {
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+}
+
+@media (min-width: 1024px) {
+  .ca-stack-scroll-container {
+    gap: 16vh;
+    padding-bottom: 8vh;
+  }
+}
+
+.ca-sticky-folder-card {
   position: relative;
   width: 100%;
 }
 
-.ca-tabs-header-row {
+@media (min-width: 1024px) {
+  .ca-sticky-folder-card {
+    position: sticky;
+    top: 6.5rem;
+  }
+}
+
+/* Staggered Tab Positions Across Header */
+.ca-folder-tab-row {
   display: flex;
   align-items: flex-end;
-  width: 100%;
-  overflow-x: auto;
-  scrollbar-width: none;
+  background: transparent;
+  pointer-events: auto;
 }
 
-.ca-tabs-header-row::-webkit-scrollbar {
-  display: none;
-}
+.ca-folder-tab-row.pos-0 { margin-left: 0; }
+.ca-folder-tab-row.pos-1 { margin-left: min(calc(24% - 20px), calc(100% - 280px)); }
+.ca-folder-tab-row.pos-2 { margin-left: min(calc(48% - 20px), calc(100% - 280px)); }
+.ca-folder-tab-row.pos-3 { margin-left: min(calc(72% - 20px), calc(100% - 280px)); }
 
-.ca-binder-tab {
+.ca-folder-tab-btn {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.85rem 2.4rem 0.85rem 1.6rem;
+  padding: 0.85rem 2.6rem 0.85rem 1.6rem;
   font-family: var(--font-artsy-mono);
   font-size: 0.85rem;
   font-weight: 700;
@@ -794,24 +815,13 @@ body {
   letter-spacing: 0.18em;
   color: #ffffff;
   border: none;
-  cursor: pointer;
-  clip-path: polygon(0 0, calc(100% - 32px) 0, 100% 100%, 0 100%);
-  transition: transform 0.15s ease, opacity 0.15s ease;
-  margin-right: -14px;
+  clip-path: polygon(0 0, calc(100% - 36px) 0, 100% 100%, 0 100%);
+  box-shadow: 0 -3px 10px rgba(25, 21, 16, 0.08);
 }
 
-.ca-binder-tab.trapezoid {
-  clip-path: polygon(32px 0, calc(100% - 32px) 0, 100% 100%, 0 100%);
-  padding-left: 2.4rem;
-}
-
-.ca-binder-tab:hover {
-  transform: translateY(-2px);
-  opacity: 1 !important;
-}
-
-.ca-binder-tab.active {
-  transform: none;
+.ca-folder-tab-btn.trapezoid {
+  clip-path: polygon(36px 0, calc(100% - 36px) 0, 100% 100%, 0 100%);
+  padding-left: 2.6rem;
 }
 
 .ca-work-card {
@@ -820,7 +830,7 @@ body {
   grid-template-columns: 1fr;
   gap: 2rem;
   min-height: 480px;
-  box-shadow: 0 12px 32px rgba(25, 21, 16, 0.14);
+  box-shadow: 0 12px 32px rgba(25, 21, 16, 0.16);
 }
 
 @media (min-width: 1024px) {
@@ -941,7 +951,7 @@ body {
 }
 
 /* ══════════════════════════════════════════════
-   CONTACT SECTION (CLEAN TRANSITION)
+   CONTACT SECTION
    ══════════════════════════════════════════════ */
 .ca-contact-wrap {
   position: relative;

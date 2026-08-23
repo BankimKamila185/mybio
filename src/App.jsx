@@ -7,7 +7,6 @@ const FEATURED_WORKS = [
   {
     num: "01",
     tabColor: "#2563eb",
-    tabText: "✦ PROJECT 01",
     cardClass: "ca-card-blue",
     date: "MAR 19, 2026",
     title: "Wayline",
@@ -21,7 +20,6 @@ const FEATURED_WORKS = [
   {
     num: "02",
     tabColor: "#ff2d78",
-    tabText: "✦ PROJECT 02",
     cardClass: "ca-card-magenta",
     date: "MAR 16, 2026",
     title: "Volt",
@@ -35,7 +33,6 @@ const FEATURED_WORKS = [
   {
     num: "03",
     tabColor: "#f59e0b",
-    tabText: "✦ PROJECT 03",
     cardClass: "ca-card-yellow",
     date: "FEB 28, 2026",
     title: "Aura",
@@ -49,7 +46,6 @@ const FEATURED_WORKS = [
   {
     num: "04",
     tabColor: "#10b981",
-    tabText: "✦ PROJECT 04",
     cardClass: "ca-card-mint",
     date: "JAN 14, 2026",
     title: "Orbit",
@@ -64,7 +60,6 @@ const FEATURED_WORKS = [
 
 export default function App() {
   const [activeNav, setActiveNav] = useState('home');
-  const [activeProjectIdx, setActiveProjectIdx] = useState(0);
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeCaseStudy, setActiveCaseStudy] = useState(null);
@@ -97,8 +92,6 @@ export default function App() {
       </span>
     ));
   };
-
-  const currentProject = FEATURED_WORKS[activeProjectIdx];
 
   return (
     <div className="ca-app ca-grid min-h-screen">
@@ -399,7 +392,7 @@ export default function App() {
       </section>
 
       {/* ══════════════════════════════════════════════
-          FEATURED CASE STUDIES (CLEAN 4-TAB BINDER SYSTEM)
+          FEATURED CASE STUDIES (AUTHENTIC STICKY STACKING FOLDER SCROLL)
          ══════════════════════════════════════════════ */}
       <section ref={worksRef} className="ca-works-wrap" id="works">
         <div className="ca-works-head">
@@ -416,74 +409,75 @@ export default function App() {
           </span>
         </div>
 
-        {/* Clean 4-Tab Binder Container (No weird clipping or blue corners) */}
-        <div className="ca-binder-container">
-          {/* Continuous Row of All 4 Trapezoid Tabs */}
-          <div className="ca-tabs-header-row">
-            {FEATURED_WORKS.map((work, idx) => {
-              const isActive = activeProjectIdx === idx;
-              return (
-                <button
-                  key={work.num}
-                  className={`ca-binder-tab ${idx > 0 ? 'trapezoid' : ''} ${isActive ? 'active' : ''}`}
-                  style={{
-                    backgroundColor: work.tabColor,
-                    opacity: isActive ? 1 : 0.75,
-                    zIndex: isActive ? 10 : idx + 1
-                  }}
-                  onClick={() => setActiveProjectIdx(idx)}
-                >
-                  {work.tabText}
-                </button>
-              );
-            })}
-          </div>
+        {/* Authentic Sticky Scroll Stacking Container */}
+        <div className="ca-stack-scroll-container">
+          {FEATURED_WORKS.map((p, idx) => {
+            const posClass = `pos-${idx}`;
 
-          {/* Active Card Body */}
-          <div className={`ca-work-card ${currentProject.cardClass}`}>
-            {/* Left Column: Info */}
-            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-              <div>
-                <span className="ca-mono" style={{ fontSize: '0.85rem', fontWeight: 700, letterSpacing: '0.15em', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                  <span style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#ffffff' }}></span>
-                  {currentProject.date}
-                </span>
-                <h2 className="ca-work-title">{currentProject.title}</h2>
-                <p className="ca-work-desc">{currentProject.desc}</p>
-                
-                <button
-                  onClick={() => setActiveCaseStudy(currentProject)}
-                  className="ca-work-link"
-                >
-                  VIEW PROJECT ↗
-                </button>
-              </div>
+            return (
+              <article
+                key={p.title}
+                className="ca-sticky-folder-card"
+                style={{ zIndex: idx + 1 }}
+              >
+                {/* Each card's own trapezoid tab positioned at its respective offset */}
+                <div className={`ca-folder-tab-row ${posClass}`}>
+                  <span
+                    className={`ca-folder-tab-btn ${idx > 0 ? 'trapezoid' : ''}`}
+                    style={{ backgroundColor: p.tabColor }}
+                  >
+                    ✦ PROJECT {p.num}
+                  </span>
+                </div>
 
-              <div className="ca-work-tags">
-                {currentProject.tags.map(t => (
-                  <span key={t} className="ca-work-tag-badge">{t}</span>
-                ))}
-              </div>
-            </div>
+                {/* Card Body */}
+                <div className={`ca-work-card ${p.cardClass}`}>
+                  {/* Left Column: Info */}
+                  <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                    <div>
+                      <span className="ca-mono" style={{ fontSize: '0.85rem', fontWeight: 700, letterSpacing: '0.15em', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                        <span style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#ffffff' }}></span>
+                        {p.date}
+                      </span>
+                      <h2 className="ca-work-title">{p.title}</h2>
+                      <p className="ca-work-desc">{p.desc}</p>
+                      
+                      <button
+                        onClick={() => setActiveCaseStudy(p)}
+                        className="ca-work-link"
+                      >
+                        VIEW PROJECT ↗
+                      </button>
+                    </div>
 
-            {/* Right Column: Polaroid Device Mockup Frame with Tapes */}
-            <div style={{ alignSelf: 'center' }}>
-              <div className="ca-work-mockup-frame">
-                <span className="ca-tape-mockup-tl" aria-hidden="true" />
-                <span className="ca-tape-mockup-tr" aria-hidden="true" />
-                <img
-                  src={currentProject.img}
-                  alt={currentProject.title}
-                  style={{ width: '100%', height: '340px', objectFit: 'cover', display: 'block' }}
-                />
-              </div>
-            </div>
-          </div>
+                    <div className="ca-work-tags">
+                      {p.tags.map(t => (
+                        <span key={t} className="ca-work-tag-badge">{t}</span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Right Column: Polaroid Device Mockup Frame with Tapes */}
+                  <div style={{ alignSelf: 'center' }}>
+                    <div className="ca-work-mockup-frame">
+                      <span className="ca-tape-mockup-tl" aria-hidden="true" />
+                      <span className="ca-tape-mockup-tr" aria-hidden="true" />
+                      <img
+                        src={p.img}
+                        alt={p.title}
+                        style={{ width: '100%', height: '340px', objectFit: 'cover', display: 'block' }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
         </div>
       </section>
 
       {/* ══════════════════════════════════════════════
-          CONTACT SECTION (CLEAN TRANSITION FROM WORKS)
+          CONTACT SECTION
          ══════════════════════════════════════════════ */}
       <section ref={contactRef} className="ca-contact-wrap" id="contact">
         {/* Animated Big Yellow Mascot */}
