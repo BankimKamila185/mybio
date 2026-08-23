@@ -268,7 +268,7 @@ export default function App() {
           </svg>
         </div>
 
-        {/* Main Name Canvas with Orange Contour Box & Taped Notes */}
+        {/* Main Name Canvas with Orange Contour Box, Taped Notes & Unique Sparkle Pop */}
         <div className="ca-name-canvas-wrap">
           {/* Top-Left Pill Sticker: MADE THINGS */}
           <span className="ca-pill-tag purple ca-gentle-float" style={{ '--rot': '-12deg' }}>
@@ -280,13 +280,11 @@ export default function App() {
             SWEAT THE DETAILS
           </span>
 
-          {/* Hover Invert Lens with Corner Anchors */}
-          <div className="ca-hover-invert-lens" aria-hidden="true">
-            <span className="ca-lens-corner tl" />
-            <span className="ca-lens-corner tr" />
-            <span className="ca-lens-corner bl" />
-            <span className="ca-lens-corner br" />
-          </div>
+          {/* Playful Floating Sparkle / Star Doodles that burst on Hover */}
+          <span className="ca-sparkle-doodle tl" aria-hidden="true">✦</span>
+          <span className="ca-sparkle-doodle tr" aria-hidden="true">🌸</span>
+          <span className="ca-sparkle-doodle bl" aria-hidden="true">⭐</span>
+          <span className="ca-sparkle-doodle br" aria-hidden="true">✨</span>
 
           {/* The Big Orange Contour Box with Pixel Name */}
           <div className="ca-orange-contour-box">
@@ -651,14 +649,6 @@ export default function App() {
         </svg>
 
         <div className="ca-lets-talk-wrap">
-          {/* Hover Invert Lens on Contact Title */}
-          <div className="ca-hover-invert-lens" aria-hidden="true">
-            <span className="ca-lens-corner tl" />
-            <span className="ca-lens-corner tr" />
-            <span className="ca-lens-corner bl" />
-            <span className="ca-lens-corner br" />
-          </div>
-
           <h2 className="ca-lets-talk-title">
             {renderStaggerText("LET'S TALK", 0.1, 0.05)}
           </h2>
