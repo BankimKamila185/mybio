@@ -168,6 +168,41 @@ body {
   100% { opacity: 0; transform: translateY(-8px); }
 }
 
+/* Floating micro-motion for sticker realism */
+@keyframes caGentleFloat {
+  0%, 100% { transform: translateY(0px) rotate(var(--rot, 0deg)); }
+  50% { transform: translateY(-6px) rotate(calc(var(--rot, 0deg) + 1.5deg)); }
+}
+
+.ca-gentle-float {
+  animation: caGentleFloat 4s ease-in-out infinite;
+}
+
+/* Scroll-triggered word reveal */
+.ca-word-reveal {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.ca-word-reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ca-word-interactive {
+  display: inline-block;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.15s ease;
+  cursor: default;
+}
+
+.ca-word-interactive:hover {
+  transform: translateY(-4px) scale(1.06);
+  color: var(--ca-magenta);
+}
+
 .ca-emoji-a {
   animation: caEmojiA 3.5s infinite ease-in-out;
 }
@@ -392,6 +427,7 @@ body {
   left: 10%;
   top: 54%;
   display: none;
+  --rot: -6deg;
   transform: rotate(-6deg);
   transition: transform 0.3s ease;
 }
@@ -401,6 +437,7 @@ body {
   right: 10%;
   top: 56%;
   display: none;
+  --rot: 6deg;
   transform: rotate(6deg);
   transition: transform 0.3s ease;
 }

@@ -75,6 +75,20 @@ export default function App() {
     ));
   };
 
+  const renderInteractiveWords = (sentence, startDelay = 0.2) => {
+    return sentence.split(' ').map((word, idx) => (
+      <React.Fragment key={idx}>
+        <span
+          className="ca-word-reveal revealed ca-word-interactive"
+          style={{ animationDelay: `${startDelay + idx * 0.04}s` }}
+        >
+          {word}
+        </span>
+        {' '}
+      </React.Fragment>
+    ));
+  };
+
   return (
     <div className="ca-app">
       {/* ══════════════════════════════════════════════
@@ -232,14 +246,14 @@ export default function App() {
           HERO SECTION (SAME TO SAME WITH SCREENSHOT)
          ══════════════════════════════════════════════ */}
       <section ref={homeRef} className="ca-hero" id="home">
-        {/* Floating Circular Orange-Framed Avatars (Left & Right) */}
-        <div className="ca-floating-avatar-left" aria-hidden="true">
+        {/* Floating Circular Orange-Framed Avatars (Left & Right) with Float Animation */}
+        <div className="ca-floating-avatar-left ca-gentle-float" aria-hidden="true">
           <div className="ca-avatar-ring">
             <img src="/profile.png" alt="" className="ca-avatar-img-circle" />
           </div>
         </div>
 
-        <div className="ca-floating-avatar-right" aria-hidden="true">
+        <div className="ca-floating-avatar-right ca-gentle-float" aria-hidden="true" style={{ animationDelay: '1.5s' }}>
           <div className="ca-avatar-ring">
             <img src="/profile.png" alt="" className="ca-avatar-img-circle" />
           </div>
@@ -247,7 +261,7 @@ export default function App() {
 
         {/* "my name is" + Double Underline */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <p className="ca-name-label">my name is</p>
+          <p className="ca-name-label">{renderInteractiveWords("my name is", 0.1)}</p>
           <svg className="ca-name-underline" viewBox="0 0 64 12" fill="none" stroke="#191510" strokeWidth="1.6" strokeLinecap="round">
             <path d="M3 4c18-3 40-3 58 0" />
             <path d="M9 9c14-2.5 32-2.5 46 0" />
@@ -257,12 +271,12 @@ export default function App() {
         {/* Main Name Canvas with Orange Contour Box & Taped Notes */}
         <div className="ca-name-canvas-wrap">
           {/* Top-Left Pill Sticker: MADE THINGS */}
-          <span className="ca-pill-tag purple">
+          <span className="ca-pill-tag purple ca-gentle-float" style={{ '--rot': '-12deg' }}>
             MADE THINGS
           </span>
 
           {/* Top-Right Pill Sticker: SWEAT THE DETAILS */}
-          <span className="ca-pill-tag yellow-soft">
+          <span className="ca-pill-tag yellow-soft ca-gentle-float" style={{ '--rot': '12deg', animationDelay: '1s' }}>
             SWEAT THE DETAILS
           </span>
 
@@ -312,16 +326,16 @@ export default function App() {
 
         {/* Headline with Target / Concentric Radar and Flower Spinner */}
         <h2 className="ca-hero-headline-main">
-          I design software that{' '}
-          <svg viewBox="0 0 40 40" className="ca-spin-slow" aria-hidden="true">
+          {renderInteractiveWords("I design software that", 0.3)}
+          <svg viewBox="0 0 40 40" className="ca-spin-slow" aria-hidden="true" style={{ margin: '0 0.2em' }}>
             <circle cx="20" cy="20" r="18" fill="#22c55e" stroke="#191510" strokeWidth="2.5" />
             <circle cx="20" cy="20" r="11" fill="#faf6ee" />
             <circle cx="20" cy="20" r="5" fill="#22c55e" />
             <circle cx="14" cy="9" r="2.4" fill="#191510" />
           </svg>
           <br />
-          gets out of your way.{' '}
-          <svg viewBox="0 0 40 40" className="ca-spin-slow" aria-hidden="true">
+          {renderInteractiveWords("gets out of your way.", 0.5)}
+          <svg viewBox="0 0 40 40" className="ca-spin-slow" aria-hidden="true" style={{ margin: '0 0.2em' }}>
             <ellipse cx="20" cy="8" rx="4.6" ry="8" fill="#ff2d78" transform="rotate(0 20 20)" />
             <ellipse cx="20" cy="8" rx="4.6" ry="8" fill="#ff2d78" transform="rotate(45 20 20)" />
             <ellipse cx="20" cy="8" rx="4.6" ry="8" fill="#ff2d78" transform="rotate(90 20 20)" />
@@ -364,14 +378,14 @@ export default function App() {
 
           {/* Taped Polaroid Photos on Left & Right */}
           <div className="ca-polaroids-row">
-            <div className="ca-polaroid-taped">
+            <div className="ca-polaroid-taped ca-gentle-float" style={{ '--rot': '-3deg' }}>
               <span className="ca-tape-corner-left" aria-hidden="true" />
               <span className="ca-tape-corner-right" aria-hidden="true" />
               <img src="/profile.png" alt="2026" className="ca-polaroid-img-taped" />
               <p className="ca-hand" style={{ fontSize: '1.2rem', marginTop: '0.5rem' }}>2026</p>
             </div>
 
-            <div className="ca-polaroid-taped right">
+            <div className="ca-polaroid-taped right ca-gentle-float" style={{ '--rot': '3deg', animationDelay: '1.2s' }}>
               <span className="ca-tape-corner-left" aria-hidden="true" />
               <span className="ca-tape-corner-right" aria-hidden="true" />
               <img src="/hero.png" alt="my workspace" className="ca-polaroid-img-taped" />
@@ -380,7 +394,7 @@ export default function App() {
           </div>
 
           <p className="ca-manifesto-large">
-            I'm a technologist &amp; builder who gets a little too excited about making complicated things feel simple. ✨ I care about the small details, the edge cases everyone forgets, and shipping work that genuinely makes someone's day easier. 🎨
+            {renderInteractiveWords("I'm a technologist & builder who gets a little too excited about making complicated things feel simple. ✨ I care about the small details, the edge cases everyone forgets, and shipping work that genuinely makes someone's day easier. 🎨", 0.1)}
           </p>
 
           {/* Jagged Skill Badges with Alternating Cycling Emojis */}
@@ -637,13 +651,21 @@ export default function App() {
         </svg>
 
         <div className="ca-lets-talk-wrap">
+          {/* Hover Invert Lens on Contact Title */}
+          <div className="ca-hover-invert-lens" aria-hidden="true">
+            <span className="ca-lens-corner tl" />
+            <span className="ca-lens-corner tr" />
+            <span className="ca-lens-corner bl" />
+            <span className="ca-lens-corner br" />
+          </div>
+
           <h2 className="ca-lets-talk-title">
             {renderStaggerText("LET'S TALK", 0.1, 0.05)}
           </h2>
         </div>
 
         <p className="ca-manifesto-large" style={{ fontSize: '1.6rem', marginTop: '1rem' }}>
-          Got a project, a hard problem, or just want to say hi? Send it over. I read every message.
+          {renderInteractiveWords("Got a project, a hard problem, or just want to say hi? Send it over. I read every message.", 0.2)}
         </p>
 
         {/* Big Yellow Banner Card */}
