@@ -4,24 +4,6 @@ import './App.css';
 import { FEATURED_PROJECTS, EXPERIENCE, CERTIFICATIONS, EDUCATION, PERSONAL_INFO } from './data/portfolioData';
 import { TECH_STACK_ITEMS } from './data/techIcons';
 
-const PRINCIPLES = [
-  {
-    title: "Start with the why",
-    body: "Before I open a code editor or design tool, I want to know what we're actually solving and who it's for. Skip that and you ship something polished that nobody needed. Every good project starts with a better question.",
-    note: "questions before code."
-  },
-  {
-    title: "Design for a bad day",
-    body: "Nobody uses your product rested, on gigabit fiber, with infinite time to spare. I design for spotty signals, rushed deadlines, and edge cases. That's where good architecture earns its keep.",
-    note: "no perfect users here!"
-  },
-  {
-    title: "Make it with the team",
-    body: "The best work I've shipped came from engineers, designers, and PMs poking holes in it early while it was still a rough concept. I'd rather be wrong on a Tuesday whiteboard than precious about a deployment Friday.",
-    note: "us, not me."
-  }
-];
-
 const PLAYGROUND_PHOTOS = [
   { caption: "random shot", rotate: "-2deg", color: "var(--ca-yellow-soft)", img: "/hero.png" },
   { caption: "what is this", rotate: "3deg", color: "var(--ca-mint)", img: "/profile.png" },
@@ -75,22 +57,8 @@ export default function App() {
     ));
   };
 
-  const renderInteractiveWords = (sentence, startDelay = 0.2) => {
-    return sentence.split(' ').map((word, idx) => (
-      <React.Fragment key={idx}>
-        <span
-          className="ca-word-reveal revealed ca-word-interactive"
-          style={{ animationDelay: `${startDelay + idx * 0.04}s` }}
-        >
-          {word}
-        </span>
-        {' '}
-      </React.Fragment>
-    ));
-  };
-
   return (
-    <div className="ca-app">
+    <div className="ca-app ca-grid min-h-screen">
       {/* ══════════════════════════════════════════════
           INITIAL SPLASH LOADING SCREEN (OH, HELLO! YOU FOUND ME!)
          ══════════════════════════════════════════════ */}
@@ -106,12 +74,11 @@ export default function App() {
         )}
       </div>
 
-      {/* Ruled Notebook Lines & Grain Background */}
-      <div className="ca-notebook-bg" aria-hidden="true" />
+      {/* Paper Grain Overlay */}
       <div className="ca-grain" aria-hidden="true" />
 
       {/* ══════════════════════════════════════════════
-          TOP HEADER (EXACT 1:1 RECREATION)
+          TOP HEADER (EXACT 1:1)
          ══════════════════════════════════════════════ */}
       <header className="ca-header">
         <div className="ca-header-inner">
@@ -122,8 +89,8 @@ export default function App() {
               onClick={() => scrollTo(homeRef, 'home')}
               aria-label="Home"
             >
-              <svg viewBox="0 0 24 24" width="32" height="32">
-                <circle cx="12" cy="12" r="10" fill="#ff2d78" stroke="#ffffff" strokeWidth="2.5" />
+              <svg viewBox="0 0 24 24" width="30" height="30">
+                <circle cx="12" cy="12" r="10" fill="var(--ca-magenta)" stroke="#ffffff" strokeWidth="2.5" />
                 <circle cx="8.5" cy="10.5" r="1.35" fill="#ffffff" />
                 <circle cx="15.5" cy="10.5" r="1.35" fill="#ffffff" />
                 <path d="M8 14 Q12 18 16 14" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" />
@@ -243,17 +210,17 @@ export default function App() {
       </header>
 
       {/* ══════════════════════════════════════════════
-          HERO SECTION (SAME TO SAME WITH SCREENSHOT)
+          HERO SECTION (EXACT 1:1)
          ══════════════════════════════════════════════ */}
       <section ref={homeRef} className="ca-hero" id="home">
-        {/* Floating Circular Orange-Framed Avatars (Left & Right) with Float Animation */}
-        <div className="ca-floating-avatar-left ca-gentle-float" aria-hidden="true">
+        {/* Floating Circular Orange-Framed Avatars (Left & Right) */}
+        <div className="ca-floating-avatar-left ca-wobble" aria-hidden="true">
           <div className="ca-avatar-ring">
             <img src="/profile.png" alt="" className="ca-avatar-img-circle" />
           </div>
         </div>
 
-        <div className="ca-floating-avatar-right ca-gentle-float" aria-hidden="true" style={{ animationDelay: '1.5s' }}>
+        <div className="ca-floating-avatar-right ca-wobble" aria-hidden="true" style={{ animationDelay: '1.4s' }}>
           <div className="ca-avatar-ring">
             <img src="/profile.png" alt="" className="ca-avatar-img-circle" />
           </div>
@@ -261,28 +228,27 @@ export default function App() {
 
         {/* "my name is" + Double Underline */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <p className="ca-name-label">{renderInteractiveWords("my name is", 0.1)}</p>
+          <p className="ca-name-label">my name is</p>
           <svg className="ca-name-underline" viewBox="0 0 64 12" fill="none" stroke="#191510" strokeWidth="1.6" strokeLinecap="round">
             <path d="M3 4c18-3 40-3 58 0" />
             <path d="M9 9c14-2.5 32-2.5 46 0" />
           </svg>
         </div>
 
-        {/* Main Name Canvas with Highlighter Sweep and Clean Card Lift */}
+        {/* Main Name Canvas with Doodle Border and Taped Notes */}
         <div className="ca-name-canvas-wrap">
           {/* Top-Left Pill Sticker: MADE THINGS */}
-          <span className="ca-pill-tag purple ca-gentle-float" style={{ '--rot': '-12deg' }}>
+          <span className="ca-pill-tag purple">
             MADE THINGS
           </span>
 
           {/* Top-Right Pill Sticker: SWEAT THE DETAILS */}
-          <span className="ca-pill-tag yellow-soft ca-gentle-float" style={{ '--rot': '12deg', animationDelay: '1s' }}>
+          <span className="ca-pill-tag yellow-soft">
             SWEAT THE DETAILS
           </span>
 
-          {/* The Big Orange Contour Box with Highlighter Sweep Behind Pixel Name */}
+          {/* The Big Orange Doodle Contour Box with Pixel Name */}
           <div className="ca-orange-contour-box">
-            <span className="ca-highlighter-sweep" aria-hidden="true" />
             <h1 className="ca-pixel-hero-name">
               {renderStaggerText("BANKIM", 0.2, 0.08)}
             </h1>
@@ -319,16 +285,16 @@ export default function App() {
 
         {/* Headline with Target / Concentric Radar and Flower Spinner */}
         <h2 className="ca-hero-headline-main">
-          {renderInteractiveWords("I design software that", 0.3)}
-          <svg viewBox="0 0 40 40" className="ca-spin-slow" aria-hidden="true" style={{ margin: '0 0.2em' }}>
+          <span>I design software that </span>
+          <svg viewBox="0 0 40 40" className="ca-spin-slow" aria-hidden="true" style={{ display: 'inline-block', verticalAlign: '-0.08em', width: '0.85em', height: '0.85em', margin: '0 0.15em' }}>
             <circle cx="20" cy="20" r="18" fill="#22c55e" stroke="#191510" strokeWidth="2.5" />
             <circle cx="20" cy="20" r="11" fill="#faf6ee" />
             <circle cx="20" cy="20" r="5" fill="#22c55e" />
             <circle cx="14" cy="9" r="2.4" fill="#191510" />
           </svg>
           <br />
-          {renderInteractiveWords("gets out of your way.", 0.5)}
-          <svg viewBox="0 0 40 40" className="ca-spin-slow" aria-hidden="true" style={{ margin: '0 0.2em' }}>
+          <span>gets out of your way. </span>
+          <svg viewBox="0 0 40 40" className="ca-spin-slow" aria-hidden="true" style={{ display: 'inline-block', verticalAlign: '-0.08em', width: '0.85em', height: '0.85em', margin: '0 0.15em' }}>
             <ellipse cx="20" cy="8" rx="4.6" ry="8" fill="#ff2d78" transform="rotate(0 20 20)" />
             <ellipse cx="20" cy="8" rx="4.6" ry="8" fill="#ff2d78" transform="rotate(45 20 20)" />
             <ellipse cx="20" cy="8" rx="4.6" ry="8" fill="#ff2d78" transform="rotate(90 20 20)" />
@@ -356,7 +322,7 @@ export default function App() {
       </section>
 
       {/* ══════════════════════════════════════════════
-          ABOUT ME SECTION (EXACT 1:1 TO SCREENSHOT)
+          ABOUT ME SECTION (EXACT 1:1 MATCH)
          ══════════════════════════════════════════════ */}
       <section ref={aboutRef} className="ca-about-wrap" id="about">
         {/* Top-Left Eyebrow: "about me!" */}
@@ -370,7 +336,7 @@ export default function App() {
         {/* Center Stage with Flanking Polaroids (Left & Right) */}
         <div className="ca-about-center-stage">
           {/* Left Flanking Polaroid: 2026 */}
-          <div className="ca-flank-polaroid-left ca-gentle-float">
+          <div className="ca-flank-polaroid-left">
             <span className="ca-tape-corner-left" aria-hidden="true" />
             <span className="ca-tape-corner-right" aria-hidden="true" />
             <img src="/profile.png" alt="2026" className="ca-polaroid-img-taped" />
@@ -378,7 +344,7 @@ export default function App() {
           </div>
 
           {/* Right Flanking Polaroid: my workspace */}
-          <div className="ca-flank-polaroid-right ca-gentle-float" style={{ animationDelay: '1.2s' }}>
+          <div className="ca-flank-polaroid-right">
             <span className="ca-tape-corner-left" aria-hidden="true" />
             <span className="ca-tape-corner-right" aria-hidden="true" />
             <img src="/hero.png" alt="my workspace" className="ca-polaroid-img-taped" />
@@ -387,7 +353,7 @@ export default function App() {
 
           {/* Center Manifesto Text */}
           <p className="ca-manifesto-large">
-            {renderInteractiveWords("I'm a product designer who gets a little too excited about making complicated things feel simple. ✨ I care about the small details, the edge cases everyone forgets, and shipping work that genuinely makes someone's day easier. 🎨", 0.1)}
+            I'm a product designer who gets a little too excited about making complicated things feel simple. ✨ I care about the small details, the edge cases everyone forgets, and shipping work that genuinely makes someone's day easier. 🎨
           </p>
         </div>
 
@@ -428,33 +394,6 @@ export default function App() {
               </span>
             </div>
           </div>
-        </div>
-
-        {/* Principles Grid in About */}
-        <div className="ca-principles-grid">
-          {PRINCIPLES.map((principle, idx) => (
-            <div key={idx} className="ca-principle-card">
-              <span className="ca-principle-tape">{principle.note}</span>
-              <h3 style={{ fontSize: '1.4rem', fontWeight: 700, marginBottom: '0.75rem' }}>{principle.title}</h3>
-              <p style={{ fontSize: '0.95rem', color: 'rgba(25,21,16,0.85)', lineHeight: 1.6 }}>{principle.body}</p>
-            </div>
-          ))}
-        </div>
-
-        {/* Experience List in About */}
-        <div className="ca-experience-section">
-          <h3 className="ca-pixel" style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Work &amp; History</h3>
-          {EXPERIENCE.map((exp, idx) => (
-            <div key={idx} className="ca-exp-row">
-              <div>
-                <h4 style={{ fontSize: '1.15rem', fontWeight: 700 }}>{exp.role}</h4>
-                <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', color: 'rgba(25,21,16,0.7)' }}>{exp.company}</p>
-              </div>
-              <span className="ca-mono" style={{ fontSize: '0.85rem', fontWeight: 700, backgroundColor: 'var(--ca-yellow-soft)', padding: '0.25rem 0.75rem', borderRadius: '4px' }}>
-                {exp.period}
-              </span>
-            </div>
-          ))}
         </div>
       </section>
 
@@ -500,7 +439,7 @@ export default function App() {
                       <span className="ca-mono" style={{ fontSize: '0.8rem', opacity: 0.9 }}>
                         ● {p.category}
                       </span>
-                      <h3 className="ca-work-title">{p.title}</h3>
+                      <h2 className="ca-work-title">{p.title}</h2>
                       <p className="ca-work-desc">{p.longDesc || p.desc}</p>
                       
                       <button
@@ -524,10 +463,10 @@ export default function App() {
                       <span className="ca-tape-mockup-tl" aria-hidden="true" />
                       <span className="ca-tape-mockup-tr" aria-hidden="true" />
                       <div style={{ background: '#191510', padding: '2.5rem 1.5rem', textAlign: 'center', color: '#fff', minHeight: '220px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                        <h4 style={{ fontFamily: 'var(--font-pixel)', fontSize: '2.4rem', color: p.accent || '#ffe853' }}>
+                        <h4 className="ca-display" style={{ fontSize: '2.4rem', color: p.accent || '#ffe853' }}>
                           {p.title}
                         </h4>
-                        <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', marginTop: '0.5rem', color: '#ccc' }}>
+                        <p className="ca-mono" style={{ fontSize: '0.85rem', marginTop: '0.5rem', color: '#ccc' }}>
                           {p.subtitle}
                         </p>
                       </div>
@@ -547,15 +486,15 @@ export default function App() {
         <p className="ca-name-label">trusted by</p>
         <div className="ca-clients-grid">
           {[
-            { name: 'THE OUTLIERS', color: 'var(--ca-yellow-soft)', rotate: '-2deg' },
-            { name: 'REACT / VITE', color: 'var(--ca-mint)', rotate: '1deg' },
-            { name: 'PYTHON / AI', color: 'var(--ca-cyan-soft)', rotate: '2deg' },
-            { name: 'POSTMAN API', color: 'var(--ca-pink-soft)', rotate: '-1deg' },
-            { name: 'FASTAPI', color: 'var(--ca-yellow-soft)', rotate: '-2deg' },
-            { name: 'VERCEL', color: 'var(--ca-mint)', rotate: '1deg' }
+            { name: 'DJI', color: 'var(--ca-yellow-soft)', rotate: '-2deg' },
+            { name: 'F1', color: 'var(--ca-mint)', rotate: '1deg' },
+            { name: 'KLOOK', color: 'var(--ca-cyan-soft)', rotate: '2deg' },
+            { name: 'NIKE', color: 'var(--ca-pink-soft)', rotate: '-1deg' },
+            { name: 'HONDA', color: 'var(--ca-yellow-soft)', rotate: '-2deg' },
+            { name: 'PORSCHE', color: 'var(--ca-mint)', rotate: '1deg' }
           ].map((client, idx) => (
             <div key={idx} className="ca-client-tape-card" style={{ transform: `rotate(${client.rotate})` }}>
-              <span className="ca-tape-strip-bg" style={{ backgroundColor: client.color }} aria-hidden="true" />
+              <span className="ca-tape-strip ca-tape-strip-bg" style={{ backgroundColor: client.color }} aria-hidden="true" />
               <span className="ca-client-brand-name">{client.name}</span>
             </div>
           ))}
@@ -657,7 +596,7 @@ export default function App() {
         </div>
 
         <p className="ca-manifesto-large" style={{ fontSize: '1.6rem', marginTop: '1rem' }}>
-          {renderInteractiveWords("Got a project, a hard problem, or just want to say hi? Send it over. I read every message.", 0.2)}
+          Got a project, a hard problem, or just want to say hi? Send it over. I read every message.
         </p>
 
         {/* Big Yellow Banner Card */}
@@ -678,7 +617,7 @@ export default function App() {
 
           <div className="ca-contact-big-banner" onClick={copyEmail}>
             <p className="ca-name-label" style={{ fontSize: '2.4rem' }}>let's make something together</p>
-            <span className="ca-pixel" style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 0.9 }}>
+            <span className="ca-display" style={{ fontSize: 'clamp(3rem, 8vw, 6rem)', lineHeight: 0.9 }}>
               {copiedEmail ? 'COPIED EMAIL!' : 'CONTACT'}
             </span>
             <span className="ca-mono" style={{ fontSize: '0.9rem', fontWeight: 700, borderBottom: '2px solid #191510', paddingBottom: '0.2rem' }}>
@@ -705,7 +644,7 @@ export default function App() {
             <span className="ca-mono" style={{ fontSize: '0.85rem', color: 'var(--ca-blue)', fontWeight: 700 }}>
               ● {activeCaseStudy.category} · Case Study
             </span>
-            <h2 className="ca-pixel" style={{ fontSize: 'clamp(2.5rem, 6vw, 4rem)', marginTop: '0.5rem', lineHeight: 1 }}>
+            <h2 className="ca-display" style={{ fontSize: 'clamp(2.5rem, 6vw, 4rem)', marginTop: '0.5rem', lineHeight: 1 }}>
               {activeCaseStudy.title}
             </h2>
             <p style={{ fontSize: '1.2rem', marginTop: '0.5rem', color: 'rgba(25,21,16,0.8)' }}>
@@ -776,7 +715,7 @@ export default function App() {
       <footer style={{ borderTop: '2px solid var(--ca-ink)', padding: '4rem 1.5rem 3rem', backgroundColor: 'var(--ca-surface)' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-end', gap: '2rem' }}>
           <div>
-            <p className="ca-pixel" style={{ fontSize: 'clamp(2rem, 5vw, 4rem)', lineHeight: 0.95 }}>Bankim Kamila</p>
+            <p className="ca-display" style={{ fontSize: 'clamp(2rem, 5vw, 4rem)', lineHeight: 0.95 }}>Bankim Kamila</p>
             <p className="ca-mono" style={{ fontSize: '0.85rem', marginTop: '0.75rem' }}>
               <span style={{ display: 'inline-block', width: '10px', height: '10px', borderRadius: '50%', backgroundColor: 'var(--ca-blue)', marginRight: '0.5rem' }}></span>
               CTO &amp; COO · Technologist
