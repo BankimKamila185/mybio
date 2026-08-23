@@ -5,88 +5,68 @@ import GitHubRepoExplorer from './components/GitHubRepoExplorer';
 import CommandPalette from './components/CommandPalette';
 import ProjectModal from './components/ProjectModal';
 import { FEATURED_PROJECTS, EXPERIENCE, EDUCATION, CERTIFICATIONS, PERSONAL_INFO } from './data/portfolioData';
-
 import { TECH_STACK_ITEMS } from './data/techIcons';
 
-function playPopSound() {
+// Web Audio synthesized sound effects (Playful Pops & Clicks)
+function playPopSound(type = 'pop') {
   try {
     const ctx = new (window.AudioContext || window.webkitAudioContext)();
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
     osc.connect(gain);
     gain.connect(ctx.destination);
-    osc.frequency.setValueAtTime(600, ctx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(1000, ctx.currentTime + 0.05);
-    gain.gain.setValueAtTime(0.04, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
-    osc.type = 'sine';
-    osc.start(ctx.currentTime);
-    osc.stop(ctx.currentTime + 0.08);
-    setTimeout(() => ctx.close(), 120);
-  } catch { /* ignore */ }
+
+    if (type === 'pop') {
+      osc.frequency.setValueAtTime(650, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(1100, ctx.currentTime + 0.05);
+      gain.gain.setValueAtTime(0.06, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
+      osc.type = 'sine';
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + 0.08);
+    } else if (type === 'tab') {
+      osc.frequency.setValueAtTime(450, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(800, ctx.currentTime + 0.04);
+      gain.gain.setValueAtTime(0.05, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.06);
+      osc.type = 'triangle';
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + 0.06);
+    } else if (type === 'success') {
+      osc.frequency.setValueAtTime(520, ctx.currentTime);
+      osc.frequency.setValueAtTime(780, ctx.currentTime + 0.06);
+      gain.gain.setValueAtTime(0.06, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.16);
+      osc.type = 'sine';
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + 0.16);
+    }
+    setTimeout(() => ctx.close(), 200);
+  } catch { /* audio not supported */ }
 }
 
 export default function App() {
   const [isCmdOpen, setIsCmdOpen] = useState(false);
   const [activeModalProject, setActiveModalProject] = useState(null);
   const [copiedEmail, setCopiedEmail] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedTechCategory, setSelectedTechCategory] = useState('All');
+  const [activeNav, setActiveNav] = useState('home');
 
+  // Section Refs
   const homeRef = useRef(null);
-  const projectsRef = useRef(null);
+  const aboutRef = useRef(null);
+  const worksRef = useRef(null);
+  const techRef = useRef(null);
   const reposRef = useRef(null);
-  const stackRef = useRef(null);
   const experienceRef = useRef(null);
-  const arcadeRef = useRef(null);
   const contactRef = useRef(null);
 
-  const [roleIndex, setRoleIndex] = useState(0);
-  const roles = ['ENGINEER', 'ARCHITECT', 'INNOVATOR', 'TECH LEADER'];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setRoleIndex((prev) => (prev + 1) % roles.length);
-    }, 2800);
-    return () => clearInterval(interval);
-  }, []);
-
-  const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
-
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      setMousePos({ x: e.clientX, y: e.clientY });
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
-  const categories = ['All', 'Full-Stack Web', 'Fintech Tool', 'AI & ML', 'Marketplace', 'Design System'];
-
-  const filteredProjects = selectedCategory === 'All'
-    ? FEATURED_PROJECTS
-    : FEATURED_PROJECTS.filter(p => p.category === selectedCategory);
-
-  const copyEmail = () => {
-    navigator.clipboard.writeText('bankimkamila185@gmail.com');
-    playPopSound();
-    setCopiedEmail(true);
-    setTimeout(() => setCopiedEmail(false), 2200);
-  };
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
-      { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
-    );
-    document.querySelectorAll('.sawad-reveal').forEach(el => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-
+  // Global ⌘K keyboard shortcut
   useEffect(() => {
     const handleGlobalKey = (e) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
-        playPopSound();
+        playPopSound('pop');
         setIsCmdOpen(prev => !prev);
       }
     };
@@ -94,455 +74,675 @@ export default function App() {
     return () => window.removeEventListener('keydown', handleGlobalKey);
   }, []);
 
-  const handleCmdNavigate = (destination) => {
-    if (destination === 'projects') projectsRef.current?.scrollIntoView({ behavior: 'smooth' });
-    if (destination === 'repos') reposRef.current?.scrollIntoView({ behavior: 'smooth' });
-    if (destination === 'role' || destination === 'experience') experienceRef.current?.scrollIntoView({ behavior: 'smooth' });
-    if (destination === 'contact') contactRef.current?.scrollIntoView({ behavior: 'smooth' });
+  const copyEmail = () => {
+    navigator.clipboard.writeText(PERSONAL_INFO.email);
+    playPopSound('success');
+    setCopiedEmail(true);
+    setTimeout(() => setCopiedEmail(false), 2400);
   };
 
-  return (
-    <div className="sawad-app">
-      {/* Interactive Cursor Spotlight Glow */}
-      <div
-        className="sawad-cursor-spotlight"
-        style={{
-          left: `${mousePos.x}px`,
-          top: `${mousePos.y}px`,
-        }}
-      />
+  const scrollTo = (ref, navId) => {
+    playPopSound('tab');
+    setActiveNav(navId);
+    ref.current?.scrollIntoView({ behavior: 'smooth' });
+  };
 
-      {/* ⌘K Spotlight Command Palette */}
+  const techCategories = ['All', 'Frontend', 'Backend', 'Database', 'Architecture', 'Strategy'];
+
+  const filteredTech = selectedTechCategory === 'All'
+    ? TECH_STACK_ITEMS
+    : TECH_STACK_ITEMS.filter(t => t.category.toLowerCase().includes(selectedTechCategory.toLowerCase()));
+
+  // Card themes for Featured Works
+  const cardThemes = ['ca-card-blue', 'ca-card-ink', 'ca-card-yellow', 'ca-card-magenta', 'ca-card-mint'];
+
+  return (
+    <div className="ca-app">
+      {/* Background Dot/Square Matrix Canvas */}
+      <div className="ca-canvas-bg" aria-hidden="true" />
+
+      {/* ⌘K Command Palette Modal */}
       <CommandPalette
         isOpen={isCmdOpen}
         onClose={() => setIsCmdOpen(false)}
-        onNavigate={handleCmdNavigate}
+        onNavigate={(dest) => {
+          if (dest === 'projects' || dest === 'works') scrollTo(worksRef, 'works');
+          if (dest === 'about') scrollTo(aboutRef, 'about');
+          if (dest === 'repos') scrollTo(reposRef, 'repos');
+          if (dest === 'skills' || dest === 'tech') scrollTo(techRef, 'skills');
+          if (dest === 'role' || dest === 'experience') scrollTo(experienceRef, 'exp');
+          if (dest === 'contact') scrollTo(contactRef, 'contact');
+        }}
         onToggleTheme={() => {}}
-        playSound={playPopSound}
+        playSound={() => playPopSound('pop')}
       />
 
-      {/* Project Case Study Deep-Dive Modal */}
+      {/* Project Deep-Dive Modal */}
       <ProjectModal
         project={activeModalProject}
         onClose={() => setActiveModalProject(null)}
-        playSound={playPopSound}
+        playSound={() => playPopSound('pop')}
       />
 
-      {/* ══════════════════════════════════════════
-          TOP FLOATING DOCK NAVBAR (5 ICON CAPSULE)
-         ══════════════════════════════════════════ */}
-      <header className="sawad-nav-wrapper">
-        <nav className="sawad-floating-dock">
-          {/* 1. Home Icon */}
+      {/* ══════════════════════════════════════════════
+          STICKY SCRAPBOOK HEADER & NAVIGATION
+         ══════════════════════════════════════════════ */}
+      <header className="ca-header">
+        <div className="ca-header-inner">
+          {/* Brand Smiley Avatar */}
           <button
-            className="dock-item"
-            onClick={() => { playPopSound(); homeRef.current?.scrollIntoView({ behavior: 'smooth' }); }}
-            title="Home"
+            className="ca-brand-badge"
+            onClick={() => scrollTo(homeRef, 'home')}
+            aria-label="Bankim Kamila — Home"
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <svg viewBox="0 0 24 24" className="ca-smiley-logo" aria-hidden="true">
+              <circle cx="12" cy="12" r="10" fill="var(--ca-magenta)" stroke="var(--ca-ink)" strokeWidth="2.2" />
+              <circle cx="8.5" cy="10" r="1.4" fill="#ffffff" />
+              <circle cx="15.5" cy="10" r="1.4" fill="#ffffff" />
+              <path d="M8 14.5 Q12 18 16 14.5" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+            <span className="ca-brand-name">Bankim Kamila</span>
           </button>
-          {/* 2. Projects Icon */}
-          <button
-            className="dock-item"
-            onClick={() => { playPopSound(); projectsRef.current?.scrollIntoView({ behavior: 'smooth' }); }}
-            title="Projects"
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-          </button>
-          {/* 3. GitHub Repos Icon */}
-          <button
-            className="dock-item"
-            onClick={() => { playPopSound(); reposRef.current?.scrollIntoView({ behavior: 'smooth' }); }}
-            title="Open Source Repos"
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
-          </button>
-          {/* 4. Experience Icon */}
-          <button
-            className="dock-item"
-            onClick={() => { playPopSound(); experienceRef.current?.scrollIntoView({ behavior: 'smooth' }); }}
-            title="Experience"
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-          </button>
-          {/* 5. Contact Icon */}
-          <button
-            className="dock-item"
-            onClick={() => { playPopSound(); contactRef.current?.scrollIntoView({ behavior: 'smooth' }); }}
-            title="Contact"
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-          </button>
-        </nav>
+
+          {/* Center Tabs Navigation */}
+          <nav className="ca-nav-menu" aria-label="Main Navigation">
+            <button
+              className={`ca-nav-link ${activeNav === 'home' ? 'active' : ''}`}
+              onClick={() => scrollTo(homeRef, 'home')}
+            >
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.26 6.85.72-5.1 4.62 1.44 6.7L12 17.6l-6.09 3.7 1.44-6.7-5.1-4.62 6.85-.72z"/></svg>
+              Home
+            </button>
+            <button
+              className={`ca-nav-link ${activeNav === 'about' ? 'active' : ''}`}
+              onClick={() => scrollTo(aboutRef, 'about')}
+            >
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3a3.6 3.6 0 100 7.2A3.6 3.6 0 0012 3zM4.8 20a7.2 7.2 0 0114.4 0z"/></svg>
+              About
+            </button>
+            <button
+              className={`ca-nav-link ${activeNav === 'works' ? 'active' : ''}`}
+              onClick={() => scrollTo(worksRef, 'works')}
+            >
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z"/></svg>
+              Works
+            </button>
+            <button
+              className={`ca-nav-link ${activeNav === 'skills' ? 'active' : ''}`}
+              onClick={() => scrollTo(techRef, 'skills')}
+            >
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l10 10-10 10L2 12z"/></svg>
+              Skills
+            </button>
+            <button
+              className={`ca-nav-link ${activeNav === 'repos' ? 'active' : ''}`}
+              onClick={() => scrollTo(reposRef, 'repos')}
+            >
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57v-2.235c-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              Repos
+            </button>
+            <button
+              className={`ca-nav-link ${activeNav === 'exp' ? 'active' : ''}`}
+              onClick={() => scrollTo(experienceRef, 'exp')}
+            >
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/></svg>
+              Career
+            </button>
+          </nav>
+
+          {/* Right Action Items & Social Pills */}
+          <div className="ca-header-actions">
+            <button
+              className="ca-cmd-btn"
+              onClick={() => { playPopSound('pop'); setIsCmdOpen(true); }}
+              title="Search Portfolio (⌘K)"
+            >
+              <span>⌘K</span>
+            </button>
+
+            <a
+              href={PERSONAL_INFO.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ca-social-pill yellow"
+              aria-label="LinkedIn Profile"
+              onClick={() => playPopSound('pop')}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76c.94 0 1.7-.76 1.7-1.7s-.76-1.7-1.7-1.7-1.7.76-1.7 1.7.76 1.7 1.7 1.7m1.39 9.74v-8.37H5.07v8.37h2.78z"/></svg>
+            </a>
+
+            <a
+              href={PERSONAL_INFO.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ca-social-pill pink"
+              aria-label="GitHub Profile"
+              onClick={() => playPopSound('pop')}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+            </a>
+
+            <button
+              className="ca-contact-nav-btn"
+              onClick={() => scrollTo(contactRef, 'contact')}
+            >
+              <svg width="14" height="14" viewBox="0 0 24 22" fill="currentColor"><path d="M12 21C5 16 1 12 1 7.5 1 4 3.6 1.5 6.8 1.5c2 0 3.9 1 5.2 2.6 1.3-1.6 3.2-2.6 5.2-2.6C20.4 1.5 23 4 23 7.5 23 12 19 16 12 21Z"/></svg>
+              Contact
+            </button>
+          </div>
+        </div>
       </header>
 
-      <div className="sawad-container">
+      {/* ══════════════════════════════════════════════
+          HERO SCRAPBOOK CANVAS SECTION
+         ══════════════════════════════════════════════ */}
+      <section ref={homeRef} className="ca-hero" id="home">
+        {/* Intro Tag */}
+        <div className="ca-hero-intro">
+          <span className="ca-hero-label">my name is</span>
+          <svg className="ca-squiggle" viewBox="0 0 64 12" fill="none" stroke="var(--ca-ink)" strokeWidth="2" strokeLinecap="round">
+            <path d="M3 4c18-3 40-3 58 0" />
+            <path d="M9 9c14-2.5 32-2.5 46 0" />
+          </svg>
+        </div>
 
-        {/* ══════════════════════════════════════════
-            LEFT COLUMN: PERMANENT STICKY PROFILE SIDEBAR
-           ══════════════════════════════════════════ */}
-        <aside className="sawad-sidebar-col">
-          <div className="sawad-profile-card">
-            
-            {/* Ambient Profile Glow Backdrop */}
-            <div className="card-ambient-glow"></div>
-
-            {/* Profile Avatar Box */}
-            <div className="sawad-avatar-box">
-              <img
-                src="/profile.png"
-                alt="Bankim Chandra Kamila"
-                className="sawad-avatar-img"
-                onError={(e) => { e.target.onerror = null; e.target.src = "https://avatars.githubusercontent.com/u/174135567?v=4"; }}
-              />
-            </div>
-
-            {/* Name & Title */}
-            <div className="profile-text-body">
-              <h2 className="sawad-profile-name">Bankim Chandra Kamila</h2>
-              <div className="profile-role-tag">
-                <span className="role-prefix">CTO &amp; COO</span>
-                <span className="role-company">@ The Outliers Studio</span>
-              </div>
-
-              <p className="sawad-profile-bio">
-                Software Engineer architecting scalable full-stack applications, real-time WebSockets, and AI/ML systems.
-              </p>
-
-              <div className="profile-skill-pills">
-                <span className="skill-chip">AI &amp; ML</span>
-                <span className="skill-chip">FastAPI</span>
-                <span className="skill-chip">MERN</span>
-                <span className="skill-chip">WebSockets</span>
-              </div>
-            </div>
-
-            {/* 4 Social Icons */}
-            <div className="sawad-social-row">
-              <a href={PERSONAL_INFO.github} target="_blank" rel="noopener noreferrer" className="sawad-social-icon" title="GitHub Profile">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
-                </svg>
-              </a>
-              <a href={PERSONAL_INFO.linkedin} target="_blank" rel="noopener noreferrer" className="sawad-social-icon" title="LinkedIn Profile">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
-                </svg>
-              </a>
-              <a href={PERSONAL_INFO.instagram} target="_blank" rel="noopener noreferrer" className="sawad-social-icon" title="Instagram">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                </svg>
-              </a>
-              <a href={PERSONAL_INFO.whatsapp} target="_blank" rel="noopener noreferrer" className="sawad-social-icon" title="WhatsApp Message">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
-                </svg>
-              </a>
-            </div>
-          </div>
-        </aside>
-
-        {/* ══════════════════════════════════════════
-            RIGHT COLUMN: SCROLLABLE MAIN PORTFOLIO
-           ══════════════════════════════════════════ */}
-        <main className="sawad-main-col">
-
-          {/* 1. HERO SECTION */}
-          <section ref={homeRef} className="sawad-hero-right sawad-reveal">
-            <div className="sawad-hero-titles">
-              <div className="hero-kicker-row">
-                <span className="hero-kicker-tag">LEADERSHIP &amp; ARCHITECTURE</span>
-                <span className="hero-kicker-beacon">
-                  <span className="beacon-dot"></span>
-                  FULL-STACK AI
-                </span>
-              </div>
-              <h1 className="sawad-title-solid">
-                <span className="title-text-shimmer">SOFTWARE</span>
-              </h1>
-              <h1 className="sawad-title-gradient">
-                <span key={roles[roleIndex]} className="role-rotating-text">
-                  {roles[roleIndex]}
-                </span>
-              </h1>
-            </div>
-
-            <p className="sawad-hero-desc">
-              Passionate technologist architecting high-performance full-stack applications, real-time WebSockets, and AI/ML tools. Leading engineering and operations at <strong>The Outliers Studio</strong>.
-            </p>
-
-            {/* Hero Quick Action Buttons */}
-            <div className="sawad-hero-actions">
-              <button
-                className="sawad-hero-primary-btn"
-                onClick={() => { playPopSound(); contactRef.current?.scrollIntoView({ behavior: 'smooth' }); }}
-              >
-                Let's Talk ↗
-              </button>
-              <button
-                className="sawad-hero-secondary-btn"
-                onClick={() => { playPopSound(); projectsRef.current?.scrollIntoView({ behavior: 'smooth' }); }}
-              >
-                Selected Work ↓
-              </button>
-            </div>
-
-            {/* 3 Real, Impactful Stats Columns */}
-            <div className="sawad-stats-row">
-              <div className="sawad-stat-box">
-                <span className="stat-number">+55</span>
-                <span className="stat-label">OPEN SOURCE<br />REPOSITORIES</span>
-              </div>
-              <div className="sawad-stat-box">
-                <span className="stat-number">+10</span>
-                <span className="stat-label">PRODUCTION<br />APPS SHIPPED</span>
-              </div>
-              <div className="sawad-stat-box">
-                <span className="stat-number">2x</span>
-                <span className="stat-label">EXECUTIVE<br />ROLES (CTO & COO)</span>
-              </div>
-            </div>
-          </section>
-
-          {/* 2. SAWAD INFINITE MARQUEE TICKER */}
-          <div className="sawad-marquee-wrap sawad-reveal">
-            <div className="sawad-marquee-track">
-              <div className="sawad-marquee-content">
-                <span>✦ FULL-STACK ARCHITECTURE</span>
-                <span>✦ REAL-TIME WEBSOCKETS</span>
-                <span>✦ AI &amp; MACHINE LEARNING</span>
-                <span>✦ DISTRIBUTED SYSTEMS</span>
-                <span>✦ FASTAPI &amp; PYTHON</span>
-                <span>✦ NEXT.JS &amp; REACT</span>
-                <span>✦ +55 GITHUB REPOSITORIES</span>
-                <span>✦ +10 PRODUCTION APPS</span>
-                <span>✦ CTO &amp; COO LEADERSHIP</span>
-              </div>
-              <div className="sawad-marquee-content" aria-hidden="true">
-                <span>✦ FULL-STACK ARCHITECTURE</span>
-                <span>✦ REAL-TIME WEBSOCKETS</span>
-                <span>✦ AI &amp; MACHINE LEARNING</span>
-                <span>✦ DISTRIBUTED SYSTEMS</span>
-                <span>✦ FASTAPI &amp; PYTHON</span>
-                <span>✦ NEXT.JS &amp; REACT</span>
-                <span>✦ +55 GITHUB REPOSITORIES</span>
-                <span>✦ +10 PRODUCTION APPS</span>
-                <span>✦ CTO &amp; COO LEADERSHIP</span>
-              </div>
-            </div>
+        {/* Giant Doodle Name Box with Floating Scrapbook Stickers */}
+        <div className="ca-name-wrapper">
+          {/* Top-Left Pinned Tape Badge: CTO & COO */}
+          <div className="ca-hero-sticker ca-sticker-role">
+            <span className="ca-tape yellow">
+              CTO &amp; COO @ The Outliers Studio
+            </span>
           </div>
 
-          {/* 3. HIGHLIGHT BANNER CARDS */}
-          <section className="sawad-banner-grid sawad-reveal">
-            {/* Orange Feature Banner */}
-            <div className="sawad-banner-card orange-card">
-              <div className="banner-icon-box">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-              </div>
-              <h3 className="banner-title">FULL-STACK SCALABILITY & REAL-TIME WEBSOCKETS</h3>
-            </div>
+          {/* Top-Right Pinned Tape Badge: 55+ Repos */}
+          <div className="ca-hero-sticker ca-sticker-pill">
+            <span className="ca-tape pink">
+              55+ Repositories
+            </span>
+          </div>
 
-            {/* Lime Neon Feature Banner */}
-            <div className="sawad-banner-card lime-card">
-              <div className="banner-icon-box">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
-              </div>
-              <h3 className="banner-title">AI & MACHINE LEARNING · PYTHON REST SERVICES</h3>
-            </div>
-          </section>
+          {/* The Big Name Doodle Frame */}
+          <div className="ca-doodle-box">
+            <h1 className="ca-hero-name">
+              BANKIM
+            </h1>
+          </div>
 
-          {/* 4. FEATURED PROJECTS */}
-          <section ref={projectsRef} className="sawad-section sawad-reveal">
-            <div className="section-header-row">
-              <div>
-                <span className="section-tag">PORTFOLIO</span>
-                <h2 className="section-title">Selected Projects</h2>
-              </div>
-              <a href={PERSONAL_INFO.github} target="_blank" rel="noopener noreferrer" className="sawad-view-all-btn">
-                All 55+ on GitHub ↗
-              </a>
-            </div>
+          {/* Bottom-Right Pinned Tape Badge: Location */}
+          <div className="ca-hero-sticker ca-sticker-location">
+            <span className="ca-tape mint">
+              Mumbai, India 🇮🇳
+            </span>
+          </div>
+        </div>
 
-            {/* Project Category Filter Pills */}
-            <div className="project-filter-pills-row">
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  className={`project-cat-pill ${selectedCategory === cat ? 'active' : ''}`}
-                  onClick={() => { playPopSound(); setSelectedCategory(cat); }}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
+        {/* Punchy Headline with Slow Spinning Floral Badges */}
+        <h2 className="ca-hero-headline">
+          I build software that turns ambitious ideas into reality.{' '}
+          <svg viewBox="0 0 40 40" className="ca-spin-slow" aria-hidden="true">
+            <circle cx="20" cy="20" r="18" fill="var(--ca-green)" stroke="var(--ca-ink)" strokeWidth="2.5" />
+            <circle cx="20" cy="20" r="11" fill="var(--ca-surface)" />
+            <circle cx="20" cy="20" r="5" fill="var(--ca-green)" />
+          </svg>
+        </h2>
 
-            <div className="sawad-projects-grid">
-              {filteredProjects.map((proj) => (
-                <div
-                  key={proj.title}
-                  className="sawad-project-card"
-                  onClick={() => { playPopSound(); setActiveModalProject(proj); }}
-                >
-                  <div className="proj-card-top">
-                    <span className="proj-tag-pill">{proj.category}</span>
-                    <div className="proj-action-group" onClick={(e) => e.stopPropagation()}>
-                      {proj.link && (
-                        <a href={proj.link} target="_blank" rel="noopener noreferrer" className="proj-link-mini-btn" title="Live Preview">
-                          Live ↗
-                        </a>
-                      )}
-                      {proj.github && (
-                        <a href={proj.github} target="_blank" rel="noopener noreferrer" className="proj-link-mini-btn" title="Source Code">
-                          Code ↗
-                        </a>
-                      )}
+        {/* Live Availability Status */}
+        <div className="ca-status-pill">
+          <span className="ca-status-dot"></span>
+          <span>Open for high-impact roles &amp; engineering builds</span>
+        </div>
+
+        {/* Hero CTA Action Buttons */}
+        <div className="ca-hero-actions">
+          <button
+            className="ca-btn-primary"
+            onClick={() => scrollTo(worksRef, 'works')}
+          >
+            <span className="ca-btn-icon-box">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </span>
+            Explore My Work
+          </button>
+
+          <button
+            className="ca-btn-secondary"
+            onClick={() => scrollTo(contactRef, 'contact')}
+          >
+            Drop A Line ✉️
+          </button>
+        </div>
+
+        {/* Floating Polaroid Photo with Washi Tape on Corners */}
+        <div style={{ marginTop: '3.5rem' }}>
+          <div className="ca-polaroid" style={{ transform: 'rotate(-2.5deg)', maxWidth: '240px' }}>
+            <span className="ca-tape-corner-tl" aria-hidden="true" />
+            <span className="ca-tape-corner-tr" aria-hidden="true" />
+            <img src="/profile.png" alt="Bankim Chandra Kamila" className="ca-polaroid-img" />
+            <p className="ca-polaroid-caption">Bankim · 2026</p>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════
+          ABOUT ME / MANIFESTO / SKILL STAMPS
+         ══════════════════════════════════════════════ */}
+      <section ref={aboutRef} className="ca-about-section" id="about">
+        {/* Hand-drawn SVG wave line */}
+        <svg viewBox="0 0 1440 100" fill="none" preserveAspectRatio="none" className="ca-wave-divider">
+          <path d="M-10 80C420 10 1030 4 1450 60" stroke="var(--ca-ink)" strokeWidth="2" strokeDasharray="6 6" />
+        </svg>
+
+        <div className="ca-section-lead">
+          <span className="ca-section-badge-hand">about me!</span>
+          <div className="ca-section-title-box">
+            <span>WHAT'S UP</span>
+          </div>
+        </div>
+
+        {/* Manifesto Body Copy */}
+        <p className="ca-manifesto-text">
+          I'm a 20-year-old technologist from Mumbai serving as CTO &amp; COO at The Outliers Studio.
+          I study AI &amp; Machine Learning at ITM Skills University and build high-concurrency systems,
+          fluid interfaces, and products that solve real problems.
+        </p>
+
+        {/* Jagged Polygon Cutout Skill Stamps */}
+        <div className="ca-skills-stamps-grid">
+          {/* Stamp 1 */}
+          <div className="ca-skill-stamp-group">
+            <span className="ca-stamp-badge yellow">Full-Stack Architecture</span>
+            <span className="ca-stamp-icon-box yellow">⚡</span>
+          </div>
+
+          {/* Stamp 2 */}
+          <div className="ca-skill-stamp-group">
+            <span className="ca-stamp-badge green">AI Systems &amp; Vision</span>
+            <span className="ca-stamp-icon-box green">🧠</span>
+          </div>
+
+          {/* Stamp 3 */}
+          <div className="ca-skill-stamp-group">
+            <span className="ca-stamp-badge magenta">Real-Time WebSockets</span>
+            <span className="ca-stamp-icon-box magenta">📡</span>
+          </div>
+
+          {/* Stamp 4 */}
+          <div className="ca-skill-stamp-group">
+            <span className="ca-stamp-badge blue">Product Strategy</span>
+            <span className="ca-stamp-icon-box blue">🎯</span>
+          </div>
+
+          {/* Stamp 5 */}
+          <div className="ca-skill-stamp-group">
+            <span className="ca-stamp-badge purple">Motion &amp; UI Design</span>
+            <span className="ca-stamp-icon-box purple">✨</span>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════
+          STICKY STACKING FEATURED WORKS SECTION
+         ══════════════════════════════════════════════ */}
+      <section ref={worksRef} className="ca-works-section" id="works">
+        <div className="ca-works-header">
+          <span className="ca-hero-label">explore my work!</span>
+          <h2 className="ca-works-title">FEATURED WORKS</h2>
+          <span className="ca-works-desc-tape">
+            Flagship products engineered with zero compromises on performance &amp; speed.
+          </span>
+        </div>
+
+        {/* Sticky Stacking Project Cards */}
+        <div className="ca-project-stack">
+          {FEATURED_PROJECTS.map((project, idx) => {
+            const themeClass = cardThemes[idx % cardThemes.length];
+            const projectNumber = `Project 0${idx + 1}`;
+
+            return (
+              <article key={project.title} className="ca-project-card-wrap">
+                {/* Project Tab Handle */}
+                <div className="ca-project-tab-handle">
+                  <span className="ca-project-tab">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c1 5 4 8 9 9-5 1-8 4-9 9-1-5-4-8-9-9 5-1 8-4 9-9Z"/></svg>
+                    {projectNumber}
+                  </span>
+                </div>
+
+                {/* Main Themed Card Box */}
+                <div className={`ca-project-card ${themeClass}`}>
+                  {/* Left Column: Project Info */}
+                  <div className="ca-project-info">
+                    <div>
+                      <span className="ca-project-date-badge">
+                        <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'currentColor' }}></span>
+                        {project.category}
+                      </span>
+                      <h3 className="ca-project-name">{project.title}</h3>
+                      <p className="ca-project-subtitle">{project.subtitle}</p>
+                      <p className="ca-project-desc">{project.longDesc || project.desc}</p>
+                    </div>
+
+                    <div>
+                      {/* Action Links */}
+                      <div className="ca-project-links">
+                        {project.link && (
+                          <a
+                            href={project.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="ca-project-btn"
+                            onClick={() => playPopSound('pop')}
+                          >
+                            Live Application ↗
+                          </a>
+                        )}
+                        {project.github && (
+                          <a
+                            href={project.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="ca-project-btn"
+                            onClick={() => playPopSound('pop')}
+                          >
+                            GitHub Source ↗
+                          </a>
+                        )}
+                        <button
+                          className="ca-project-btn"
+                          style={{ background: 'none', border: 'none', cursor: 'pointer', borderBottom: '2.5px solid currentColor' }}
+                          onClick={() => {
+                            playPopSound('pop');
+                            setActiveModalProject(project);
+                          }}
+                        >
+                          Deep-Dive Specs 🔍
+                        </button>
+                      </div>
+
+                      {/* Tag Chips */}
+                      <div className="ca-project-tags">
+                        {project.tags.map(tag => (
+                          <span key={tag} className="ca-project-tag-pill">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   </div>
 
-                  <div className="proj-card-content">
-                    <h3 className="proj-main-title">{proj.title}</h3>
-                    <span className="proj-subtitle-text">{proj.subtitle}</span>
-                    <p className="proj-card-desc">{proj.desc}</p>
+                  {/* Right Column: Polaroid Mockup with Washi Tape */}
+                  <div className="ca-project-media">
+                    <div className="ca-project-polaroid-frame">
+                      <span className="ca-tape-corner-top" aria-hidden="true" />
+                      <div style={{ position: 'relative', width: '100%', background: '#191510', padding: '1rem', color: '#fff', borderRadius: '2px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.75rem' }}>
+                          <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#ff5f56' }}></span>
+                          <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#ffbd2e' }}></span>
+                          <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#27c93f' }}></span>
+                          <span style={{ marginLeft: 'auto', fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: '#888' }}>
+                            {project.title.toLowerCase()}.vercel.app
+                          </span>
+                        </div>
+                        <div style={{ padding: '1.5rem 1rem', background: '#222', borderRadius: '2px', textAlign: 'center' }}>
+                          <h4 style={{ fontFamily: 'var(--font-display)', fontSize: '1.4rem', color: project.accent || '#ffe853' }}>
+                            {project.title}
+                          </h4>
+                          <p style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', marginTop: '0.5rem', color: '#ccc' }}>
+                            {project.desc}
+                          </p>
+                        </div>
+                      </div>
+                      <p className="ca-polaroid-caption">{project.title} · Production</p>
+                    </div>
                   </div>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </section>
 
-                  <div className="proj-tags-footer">
-                    {proj.tags.slice(0, 4).map(t => (
-                      <span key={t} className="proj-mini-tag">{t}</span>
+      {/* ══════════════════════════════════════════════
+          TECHNICAL ARSENAL (SCRAPBOOK BOARD)
+         ══════════════════════════════════════════════ */}
+      <section ref={techRef} className="ca-tech-section" id="skills">
+        <div className="ca-section-lead">
+          <span className="ca-section-badge-hand">what I build with</span>
+          <div className="ca-section-title-box">
+            <span>TECH ARSENAL</span>
+          </div>
+        </div>
+
+        {/* Discipline Filter Row */}
+        <div className="ca-filter-row">
+          {techCategories.map(cat => (
+            <button
+              key={cat}
+              className={`ca-filter-btn ${selectedTechCategory === cat ? 'active' : ''}`}
+              onClick={() => {
+                playPopSound('tab');
+                setSelectedTechCategory(cat);
+              }}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+
+        {/* Tech Stack Grid Cards */}
+        <div className="ca-tech-grid">
+          {filteredTech.map(item => (
+            <div key={item.name} className="ca-tech-item-card" onMouseEnter={() => playPopSound('pop')}>
+              <div className="ca-tech-icon-circle">
+                {item.icon}
+              </div>
+              <div className="ca-tech-meta">
+                <span className="ca-tech-name">{item.name}</span>
+                <span className="ca-tech-cat">{item.category}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════
+          55+ GITHUB REPOSITORIES EXPLORER
+         ══════════════════════════════════════════════ */}
+      <section ref={reposRef} className="ca-section" id="repos">
+        <div className="ca-section-lead">
+          <span className="ca-section-badge-hand">open source &amp; code</span>
+          <div className="ca-section-title-box">
+            <span>55+ REPOSITORIES</span>
+          </div>
+        </div>
+
+        <GitHubRepoExplorer playSound={() => playPopSound('pop')} />
+      </section>
+
+      {/* ══════════════════════════════════════════════
+          EXPERIENCE & TIMELINE BOARD
+         ══════════════════════════════════════════════ */}
+      <section ref={experienceRef} className="ca-experience-section" id="exp">
+        <div className="ca-section-lead">
+          <span className="ca-section-badge-hand">leadership &amp; track record</span>
+          <div className="ca-section-title-box">
+            <span>EXPERIENCE &amp; CERTS</span>
+          </div>
+        </div>
+
+        <div className="ca-exp-grid">
+          {/* Work Experience */}
+          <div>
+            <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.4rem', marginBottom: '1.5rem', textTransform: 'uppercase' }}>
+              Leadership Roles
+            </h3>
+            {EXPERIENCE.map((exp, idx) => (
+              <div key={idx} className={`ca-timeline-card ${exp.current ? 'active-role' : ''}`}>
+                <h4 className="ca-exp-role">{exp.role}</h4>
+                <p className="ca-exp-company">{exp.company} · {exp.location}</p>
+                <span className="ca-exp-period">{exp.period}</span>
+                <p className="ca-exp-desc">{exp.desc}</p>
+                {exp.skills && (
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginTop: '0.85rem' }}>
+                    {exp.skills.map(s => (
+                      <span key={s} className="ca-tape yellow" style={{ fontSize: '0.7rem', padding: '0.2rem 0.5rem' }}>
+                        {s}
+                      </span>
                     ))}
                   </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Credentials & Education */}
+          <div>
+            <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.4rem', marginBottom: '1.5rem', textTransform: 'uppercase' }}>
+              Verified Credentials
+            </h3>
+            {CERTIFICATIONS.map((cert, idx) => (
+              <div key={idx} className="ca-cert-item">
+                <div>
+                  <p className="ca-cert-title">{cert.title}</p>
+                  <span className="ca-cert-issuer">{cert.issuer} · {cert.date}</span>
                 </div>
-              ))}
-            </div>
-          </section>
-
-          {/* 5. OPEN SOURCE ECOSYSTEM */}
-          <section ref={reposRef} className="sawad-section sawad-reveal">
-            <div className="section-header-row">
-              <div>
-                <span className="section-tag">OPEN SOURCE</span>
-                <h2 className="section-title">Live GitHub Repositories</h2>
+                <span className="ca-cert-badge">Verified ✦</span>
               </div>
-              <span className="arcade-live-indicator">● 55+ Public Repos</span>
-            </div>
+            ))}
 
-            <GitHubRepoExplorer playSound={playPopSound} />
-          </section>
-
-          {/* 6. TECH STACK & CORE SKILLS MATRIX */}
-          <section ref={stackRef} className="sawad-section sawad-reveal">
-            <div className="section-header-row">
-              <div>
-                <span className="section-tag">STACK</span>
-                <h2 className="section-title">Core Technologies</h2>
+            <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.4rem', margin: '2.5rem 0 1.5rem', textTransform: 'uppercase' }}>
+              Education
+            </h3>
+            {EDUCATION.map((edu, idx) => (
+              <div key={idx} className="ca-timeline-card" style={{ marginBottom: '1rem' }}>
+                <h4 className="ca-exp-role" style={{ fontSize: '1.2rem' }}>{edu.degree}</h4>
+                <p className="ca-exp-company" style={{ fontSize: '1.1rem' }}>{edu.institution}</p>
+                <span className="ca-exp-period">{edu.period}</span>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════
+          GIANT CONTACT CALLOUT ("LET'S TALK")
+         ══════════════════════════════════════════════ */}
+      <section ref={contactRef} className="ca-contact-section" id="contact">
+        {/* Animated Mascot Face with Blush Cheeks */}
+        <svg viewBox="0 0 200 200" className="ca-mascot-face" aria-hidden="true" onClick={() => playPopSound('pop')}>
+          <circle cx="100" cy="100" r="88" fill="var(--ca-yellow)" stroke="var(--ca-ink)" strokeWidth="3.5" />
+          <circle cx="56" cy="120" r="12" fill="var(--ca-magenta)" opacity="0.45" />
+          <circle cx="144" cy="120" r="12" fill="var(--ca-magenta)" opacity="0.45" />
+          <g className="ca-blink">
+            <rect x="65" y="68" width="16" height="42" rx="8" fill="var(--ca-ink)" />
+            <rect x="119" y="68" width="16" height="42" rx="8" fill="var(--ca-ink)" />
+          </g>
+          <path d="M62 130 Q100 172 138 130" fill="none" stroke="var(--ca-ink)" strokeWidth="6" strokeLinecap="round" />
+        </svg>
+
+        <h2 className="ca-contact-big-title">LET'S TALK</h2>
+        <p className="ca-manifesto-text" style={{ fontSize: '1.6rem', maxWidth: '640px', marginTop: '1rem' }}>
+          Got a product to ship, an engineering challenge, or want to collaborate? I read every message.
+        </p>
+
+        {/* Giant Yellow Banner Callout Card with Floating Speech Note */}
+        <div style={{ position: 'relative', maxWidth: '860px', margin: '0 auto' }}>
+          {/* Floating Cyan Comment Note */}
+          <div className="ca-floating-comment">
+            <span className="ca-tape-corner-tl" aria-hidden="true" />
+            <div className="ca-comment-header">
+              <img src="/profile.png" alt="Bankim" className="ca-comment-avatar" />
+              <span className="ca-comment-author">Bankim Kamila</span>
             </div>
+            <p className="ca-comment-text">
+              "Open to CTO / Lead Engineering roles, contract builds, and ambitious software startups."
+            </p>
+          </div>
 
-            <div className="sawad-stack-grid">
-              {TECH_STACK_ITEMS.map(tech => (
-                <div key={tech.name} className="sawad-stack-item">
-                  <div className="stack-icon-wrap">{tech.icon}</div>
-                  <div className="stack-text-group">
-                    <span className="stack-name">{tech.name}</span>
-                    <span className="stack-cat">{tech.category}</span>
-                  </div>
-                </div>
-              ))}
+          <div className="ca-contact-banner-card" onClick={copyEmail}>
+            <span className="ca-tape-corner-top" aria-hidden="true" />
+            <span className="ca-banner-tagline">let's make something together</span>
+            <span className="ca-banner-main-btn">
+              {copiedEmail ? 'COPIED TO CLIPBOARD! ✨' : 'CONTACT ME'}
+            </span>
+            <span className="ca-banner-action-link">
+              {copiedEmail ? 'Email ready to paste ✉️' : 'click to copy bankimkamila185@gmail.com ↗'}
+            </span>
+          </div>
+        </div>
+
+        {/* Quick Social & Contact Channels */}
+        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '1rem', marginTop: '2.5rem' }}>
+          <a
+            href={PERSONAL_INFO.whatsapp}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="ca-btn-secondary"
+            onClick={() => playPopSound('pop')}
+          >
+            Direct WhatsApp 💬
+          </a>
+          <a
+            href={PERSONAL_INFO.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="ca-btn-secondary"
+            onClick={() => playPopSound('pop')}
+          >
+            LinkedIn Profile 👔
+          </a>
+          <a
+            href={PERSONAL_INFO.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="ca-btn-secondary"
+            onClick={() => playPopSound('pop')}
+          >
+            GitHub (55+ Repos) 🐙
+          </a>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════
+          SCRAPBOOK FOOTER
+         ══════════════════════════════════════════════ */}
+      <footer className="ca-footer">
+        <svg viewBox="0 0 1440 100" fill="none" preserveAspectRatio="none" className="ca-wave-divider">
+          <path d="M-10 80C420 10 1030 4 1450 60" stroke="var(--ca-ink)" strokeWidth="2" strokeDasharray="6 6" />
+        </svg>
+
+        <div className="ca-footer-inner">
+          <div>
+            <p className="ca-footer-name">Bankim Chandra Kamila</p>
+            <p className="ca-footer-role">
+              <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: 'var(--ca-blue)' }}></span>
+              CTO &amp; COO · Full-Stack &amp; AI Engineer
+            </p>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            <div style={{ display: 'flex', gap: '0.75rem' }}>
+              <a href={PERSONAL_INFO.linkedin} target="_blank" rel="noopener noreferrer" className="ca-social-pill yellow" aria-label="LinkedIn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76c.94 0 1.7-.76 1.7-1.7s-.76-1.7-1.7-1.7-1.7.76-1.7 1.7.76 1.7 1.7 1.7m1.39 9.74v-8.37H5.07v8.37h2.78z"/></svg>
+              </a>
+              <a href={PERSONAL_INFO.github} target="_blank" rel="noopener noreferrer" className="ca-social-pill pink" aria-label="GitHub">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+              </a>
+              <a href={PERSONAL_INFO.instagram} target="_blank" rel="noopener noreferrer" className="ca-social-pill mint" aria-label="Instagram">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+              </a>
+              <a href={PERSONAL_INFO.whatsapp} target="_blank" rel="noopener noreferrer" className="ca-social-pill cyan" aria-label="WhatsApp">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+              </a>
             </div>
-          </section>
+          </div>
+        </div>
 
-          {/* 7. EXPERIENCE & LEADERSHIP TIMELINE */}
-          <section ref={experienceRef} className="sawad-section sawad-reveal">
-            <div className="section-header-row">
-              <div>
-                <span className="section-tag">EXPERIENCE</span>
-                <h2 className="section-title">Career &amp; Credentials</h2>
-              </div>
-            </div>
-
-            <div className="sawad-timeline-grid">
-              {/* Experience Column */}
-              <div className="sawad-timeline-col">
-                <h3 className="timeline-col-title">Leadership &amp; Work Experience</h3>
-                <div className="timeline-items-wrap">
-                  {EXPERIENCE.map((exp, idx) => (
-                    <div key={idx} className={`sawad-tl-card ${exp.current ? 'current-active' : ''}`}>
-                      <div className="tl-card-header">
-                        <span className="tl-period-badge">{exp.period}</span>
-                        {exp.current && <span className="tl-now-badge">Current</span>}
-                      </div>
-                      <h4 className="tl-role-title">{exp.role}</h4>
-                      <p className="tl-company-info">{exp.company} · {exp.location}</p>
-                      <p className="tl-desc-text">{exp.desc}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Education & Certs Column */}
-              <div className="sawad-timeline-col">
-                <h3 className="timeline-col-title">Education &amp; Credentials</h3>
-                <div className="timeline-items-wrap">
-                  {EDUCATION.map((edu, idx) => (
-                    <div key={idx} className="sawad-tl-card">
-                      <div className="tl-card-header">
-                        <span className="tl-period-badge">{edu.period}</span>
-                        {edu.current && <span className="tl-now-badge">Ongoing</span>}
-                      </div>
-                      <h4 className="tl-role-title">{edu.degree}</h4>
-                      <p className="tl-company-info">{edu.institution}</p>
-                    </div>
-                  ))}
-
-                  <div className="sawad-certs-card">
-                    <h4 className="certs-heading">Verified Certifications</h4>
-                    <div className="certs-chips-list">
-                      {CERTIFICATIONS.map((c, i) => (
-                        <div key={i} className="cert-mini-row">
-                          <div>
-                            <strong>{c.title}</strong>
-                            <div className="cert-meta">{c.issuer} · {c.date}</div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* 8. CONTACT & CALL TO ACTION */}
-          <section ref={contactRef} className="sawad-contact-section sawad-reveal">
-            <div className="sawad-contact-card">
-              <span className="contact-kicker">CONTACT</span>
-              <h2 className="contact-heading">Let's build something remarkable together.</h2>
-              <p className="contact-sub">Available for tech leadership, full-stack architecture & AI engineering.</p>
-
-              <div className="contact-actions-row">
-                <button className="sawad-btn-primary" onClick={copyEmail}>
-                  {copiedEmail ? 'Email Copied ✓' : `Copy Email: ${PERSONAL_INFO.email}`}
-                </button>
-                <a href={PERSONAL_INFO.whatsapp} target="_blank" rel="noopener noreferrer" className="sawad-btn-secondary">
-                  WhatsApp ↗
-                </a>
-                <a href={PERSONAL_INFO.linkedin} target="_blank" rel="noopener noreferrer" className="sawad-btn-secondary">
-                  LinkedIn ↗
-                </a>
-                <a href={PERSONAL_INFO.github} target="_blank" rel="noopener noreferrer" className="sawad-btn-secondary">
-                  GitHub ↗
-                </a>
-              </div>
-            </div>
-          </section>
-
-        </main>
-      </div>
-
-      {/* FOOTER */}
-      <footer className="sawad-footer">
-        <p>© {new Date().getFullYear()} {PERSONAL_INFO.name} · Built with React &amp; Vite</p>
+        <div className="ca-footer-bottom">
+          <span>© {new Date().getFullYear()} Bankim Chandra Kamila. All rights reserved.</span>
+          <span className="ca-badge-pill">✦ Creative Artsy Edition</span>
+        </div>
       </footer>
     </div>
   );

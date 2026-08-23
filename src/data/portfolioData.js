@@ -143,6 +143,7 @@ export const TECH_MATRIX = [
       { name: "React", level: 92, color: "#61dafb" },
       { name: "TypeScript / JS", level: 88, color: "#3178c6" },
       { name: "Tailwind CSS", level: 90, color: "#38bdf8" },
+      { name: "Motion", level: 88, color: "#ffe600" },
       { name: "Vite / Next.js", level: 85, color: "#a855f7" },
     ],
   },
@@ -186,7 +187,7 @@ Passionate builder with 55+ open source repos and 10+ production apps.`,
 5. Brand      - Fluid typography & design system platform`,
   skills: `Core Languages & Frameworks:
 React, TypeScript, JavaScript, Python, Node.js, Express, FastAPI,
-MongoDB, PostgreSQL, WebSockets, Socket.io, Tailwind CSS, Vite, Figma, Postman`,
+MongoDB, PostgreSQL, WebSockets, Socket.io, Tailwind CSS, Motion, Vite, Figma, Postman`,
   certs: `Verified Certifications:
 • Postman API Fundamentals Student Expert (2024)
 • GenAI 101 with Pieces (2024)

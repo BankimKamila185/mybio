@@ -134,6 +134,16 @@ export const TECH_STACK_ITEMS = [
     ),
   },
   {
+    name: 'Motion',
+    category: 'Animation / UI',
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+        <rect width="24" height="24" rx="5" fill="#ffe600" />
+        <path d="M7.2 7.5H9.2L7 16.5H5L7.2 7.5ZM11.2 7.5H13.2L11 16.5H9L11.2 7.5ZM15.2 7.5H17.2L15 16.5H13L15.2 7.5Z" fill="#000000" />
+      </svg>
+    ),
+  },
+  {
     name: 'PostgreSQL',
     category: 'Database',
     icon: (
