@@ -31,6 +31,27 @@
   --font-artsy-hand: 'Caveat', 'Just Me Again Down Here', cursive;
   --font-artsy-mono: 'DM Mono', 'Space Mono', monospace;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Tab Geometry for Seamless Interlocking */
+  --tab-w: 240px;
+  --tab-cut: 36px;
+  --tab-step: calc(var(--tab-w) - var(--tab-cut));
+}
+
+@media (min-width: 1200px) {
+  :root {
+    --tab-w: 260px;
+    --tab-cut: 38px;
+    --tab-step: calc(var(--tab-w) - var(--tab-cut));
+  }
+}
+
+@media (max-width: 900px) {
+  :root {
+    --tab-w: 180px;
+    --tab-cut: 26px;
+    --tab-step: calc(var(--tab-w) - var(--tab-cut));
+  }
 }
 
 *, *::before, *::after {
@@ -729,7 +750,7 @@ body {
 .ca-jagged-icon.blue { background-color: var(--ca-blue); }
 
 /* ══════════════════════════════════════════════
-   FEATURED WORKS - EXACT 1:1 STICKY STACKING FOLDER SYSTEM
+   FEATURED WORKS - EXACT 1:1 CONTINUOUS INTERLOCKING TABS
    ══════════════════════════════════════════════ */
 .ca-works-wrap {
   position: relative;
@@ -774,8 +795,8 @@ body {
 
 @media (min-width: 1024px) {
   .ca-stack-container {
-    gap: 40vh;
-    padding-bottom: 15vh;
+    gap: 45vh;
+    padding-bottom: 20vh;
   }
 }
 
@@ -791,7 +812,7 @@ body {
   }
 }
 
-/* Tab Row: EXACT PLACEMENT & POSITION */
+/* EXACT 1:1 INTERLOCKING TAB ROWS */
 .ca-tab-handle-row {
   display: flex;
   align-items: flex-end;
@@ -800,42 +821,48 @@ body {
   line-height: 1;
 }
 
-/* Offsets matching the reference binder layout */
 .ca-tab-handle-row.tab-pos-0 {
   margin-left: 0;
 }
 
 .ca-tab-handle-row.tab-pos-1 {
-  margin-left: min(calc(22% - 20px), calc(100% - 300px));
+  margin-left: var(--tab-step);
 }
 
 .ca-tab-handle-row.tab-pos-2 {
-  margin-left: min(calc(44% - 20px), calc(100% - 300px));
+  margin-left: calc(var(--tab-step) * 2);
 }
 
 .ca-tab-handle-row.tab-pos-3 {
-  margin-left: min(calc(66% - 20px), calc(100% - 300px));
+  margin-left: calc(var(--tab-step) * 3);
 }
 
-/* Tab Clip-Paths */
+/* Tab Pill Shapes */
 .ca-stack-tab-pill {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
   height: 52px;
-  padding: 0 3.2rem 0 1.8rem;
+  width: var(--tab-w);
+  padding: 0 1.2rem;
   font-family: var(--font-artsy-mono);
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.18em;
   border: none;
-  clip-path: polygon(0 0, calc(100% - 36px) 0, 100% 100%, 0 100%);
+  clip-path: polygon(0 0, calc(100% - var(--tab-cut)) 0, 100% 100%, 0 100%);
+  user-select: none;
 }
 
 .ca-stack-tab-pill.trapezoid {
-  clip-path: polygon(36px 0, calc(100% - 36px) 0, 100% 100%, 0 100%);
-  padding-left: 3rem;
+  clip-path: polygon(var(--tab-cut) 0, calc(100% - var(--tab-cut)) 0, 100% 100%, 0 100%);
+}
+
+/* Tab 4 Right Drop Angle */
+.ca-stack-tab-pill.tab-last {
+  clip-path: polygon(var(--tab-cut) 0, calc(100% - var(--tab-cut)) 0, 100% 100%, 0 100%);
 }
 
 /* Unified Card Body - Connected Seamlessly to Tab with ZERO GAPS */

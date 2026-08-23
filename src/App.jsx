@@ -397,7 +397,7 @@ export default function App() {
       </section>
 
       {/* ══════════════════════════════════════════════
-          FEATURED WORKS - EXACT 1:1 STICKY STACKING FOLDERS
+          FEATURED WORKS - EXACT 1:1 CONTINUOUS INTERLOCKING TABS
          ══════════════════════════════════════════════ */}
       <section ref={worksRef} className="ca-works-wrap" id="works">
         <div className="ca-works-head">
@@ -426,7 +426,7 @@ export default function App() {
                 {/* Individual Tab Handle Connected Directly to Card */}
                 <div className={`ca-tab-handle-row ${p.tabClass}`}>
                   <span
-                    className={`ca-stack-tab-pill ${idx > 0 ? 'trapezoid' : ''}`}
+                    className={`ca-stack-tab-pill ${idx > 0 ? (idx === 3 ? 'trapezoid tab-last' : 'trapezoid') : ''}`}
                     style={{
                       backgroundColor: p.tabBg,
                       color: p.tabTextColor
