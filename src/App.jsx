@@ -2,12 +2,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 
 import { PERSONAL_INFO } from './data/portfolioData';
-import { TECH_STACK_ITEMS } from './data/techIcons';
 
 const FEATURED_WORKS = [
   {
     num: "01",
     tabColor: "#2563eb",
+    tabText: "✦ PROJECT 01",
     cardClass: "ca-card-blue",
     date: "MAR 19, 2026",
     title: "Wayline",
@@ -21,6 +21,7 @@ const FEATURED_WORKS = [
   {
     num: "02",
     tabColor: "#ff2d78",
+    tabText: "✦ PROJECT 02",
     cardClass: "ca-card-magenta",
     date: "MAR 16, 2026",
     title: "Volt",
@@ -34,6 +35,7 @@ const FEATURED_WORKS = [
   {
     num: "03",
     tabColor: "#f59e0b",
+    tabText: "✦ PROJECT 03",
     cardClass: "ca-card-yellow",
     date: "FEB 28, 2026",
     title: "Aura",
@@ -47,6 +49,7 @@ const FEATURED_WORKS = [
   {
     num: "04",
     tabColor: "#10b981",
+    tabText: "✦ PROJECT 04",
     cardClass: "ca-card-mint",
     date: "JAN 14, 2026",
     title: "Orbit",
@@ -59,34 +62,17 @@ const FEATURED_WORKS = [
   }
 ];
 
-const PLAYGROUND_PHOTOS = [
-  { caption: "random shot", rotate: "-2deg", color: "var(--ca-yellow-soft)", img: "/hero.png" },
-  { caption: "what is this", rotate: "3deg", color: "var(--ca-mint)", img: "/profile.png" },
-  { caption: "hello world", rotate: "-3deg", color: "var(--ca-cyan-soft)", img: "/hero.png" },
-  { caption: "first time", rotate: "2deg", color: "var(--ca-pink-soft)", img: "/profile.png" },
-  { caption: "20th take", rotate: "-1deg", color: "var(--ca-yellow-soft)", img: "/hero.png" },
-  { caption: "practiceee", rotate: "3deg", color: "var(--ca-mint)", img: "/profile.png" },
-  { caption: "uhm", rotate: "-2deg", color: "var(--ca-cyan-soft)", img: "/hero.png" },
-  { caption: "found!", rotate: "1deg", color: "var(--ca-pink-soft)", img: "/profile.png" }
-];
-
 export default function App() {
   const [activeNav, setActiveNav] = useState('home');
+  const [activeProjectIdx, setActiveProjectIdx] = useState(0);
   const [copiedEmail, setCopiedEmail] = useState(false);
-  const [splashPhase, setSplashPhase] = useState(1);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeCaseStudy, setActiveCaseStudy] = useState(null);
 
   const homeRef = useRef(null);
   const aboutRef = useRef(null);
   const worksRef = useRef(null);
-  const playgroundRef = useRef(null);
   const contactRef = useRef(null);
-
-  useEffect(() => {
-    const timer1 = setTimeout(() => setSplashPhase(2), 900);
-    return () => clearTimeout(timer1);
-  }, []);
 
   const scrollTo = (ref, navId) => {
     setActiveNav(navId);
@@ -112,13 +98,15 @@ export default function App() {
     ));
   };
 
+  const currentProject = FEATURED_WORKS[activeProjectIdx];
+
   return (
     <div className="ca-app ca-grid min-h-screen">
       {/* Paper Grain Overlay */}
       <div className="ca-grain" aria-hidden="true" />
 
       {/* ══════════════════════════════════════════════
-          TOP HEADER (EXACT 1:1)
+          TOP HEADER
          ══════════════════════════════════════════════ */}
       <header className="ca-header">
         <div className="ca-header-inner">
@@ -163,15 +151,6 @@ export default function App() {
               >
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z"/></svg>
                 Case Study
-              </button>
-
-              {/* PLAYGROUND Tab */}
-              <button
-                className={`ca-nav-tab ${activeNav === 'playground' ? 'active' : ''}`}
-                onClick={() => scrollTo(playgroundRef, 'playground')}
-              >
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2l10 10-10 10L2 12z"/></svg>
-                Playground
               </button>
             </nav>
           </div>
@@ -237,17 +216,16 @@ export default function App() {
             <button className="ca-nav-tab" onClick={() => scrollTo(homeRef, 'home')}>⭐ Home</button>
             <button className="ca-nav-tab" onClick={() => scrollTo(aboutRef, 'about')}>👤 About</button>
             <button className="ca-nav-tab" onClick={() => scrollTo(worksRef, 'works')}>田 Case Study</button>
-            <button className="ca-nav-tab" onClick={() => scrollTo(playgroundRef, 'playground')}>◆ Playground</button>
             <button className="ca-nav-tab" onClick={() => scrollTo(contactRef, 'contact')}>🖤 Contact</button>
           </div>
         )}
       </header>
 
       {/* ══════════════════════════════════════════════
-          HERO SECTION (EXACT 1:1)
+          HERO SECTION
          ══════════════════════════════════════════════ */}
       <section ref={homeRef} className="ca-hero" id="home">
-        {/* Floating Circular Orange-Framed Avatars (Left & Right) */}
+        {/* Floating Circular Orange-Framed Avatars */}
         <div className="ca-floating-avatar-left ca-wobble" aria-hidden="true">
           <div className="ca-avatar-ring">
             <img src="/profile.png" alt="" className="ca-avatar-img-circle" />
@@ -269,26 +247,22 @@ export default function App() {
           </svg>
         </div>
 
-        {/* Main Name Canvas with Doodle Border and Taped Notes */}
+        {/* Main Name Canvas */}
         <div className="ca-name-canvas-wrap">
-          {/* Top-Left Pill Sticker: MADE THINGS */}
           <span className="ca-pill-tag purple">
             MADE THINGS
           </span>
 
-          {/* Top-Right Pill Sticker: SWEAT THE DETAILS */}
           <span className="ca-pill-tag yellow-soft">
             SWEAT THE DETAILS
           </span>
 
-          {/* The Big Orange Doodle Contour Box with Pixel Name */}
           <div className="ca-orange-contour-box">
             <h1 className="ca-pixel-hero-name">
               {renderStaggerText("BANKIM", 0.2, 0.08)}
             </h1>
           </div>
 
-          {/* Bottom-Left Tape Note + Arrow: CTO & COO */}
           <div className="ca-sticky-note-left">
             <span className="ca-hand-tape-box yellow">
               CTO &amp; COO
@@ -299,7 +273,6 @@ export default function App() {
             </svg>
           </div>
 
-          {/* Bottom-Right Tape Note + Arrow: Location */}
           <div className="ca-sticky-note-right">
             <svg className="ca-hand-arrow" viewBox="0 0 40 40" fill="none" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
               <path d="M32 32 C 22 24, 15 18, 8 8" />
@@ -311,13 +284,13 @@ export default function App() {
           </div>
         </div>
 
-        {/* Status Line: Blue Dot + Open to new work */}
+        {/* Status Line */}
         <p className="ca-status-line">
           <span className="ca-status-blue-dot"></span>
           OPEN TO NEW WORK AND GOOD PROBLEMS
         </p>
 
-        {/* Headline with Target / Concentric Radar and Flower Spinner */}
+        {/* Headline with Radar and Flower Spinners */}
         <h2 className="ca-hero-headline-main">
           <span>I design software that </span>
           <svg viewBox="0 0 40 40" className="ca-spin-slow" aria-hidden="true" style={{ display: 'inline-block', verticalAlign: '-0.08em', width: '0.85em', height: '0.85em', margin: '0 0.15em' }}>
@@ -341,7 +314,7 @@ export default function App() {
           </svg>
         </h2>
 
-        {/* Contact CTA Button (Black box with Blue Arrow square) */}
+        {/* Contact CTA */}
         <button
           className="ca-hero-contact-cta"
           onClick={() => scrollTo(contactRef, 'contact')}
@@ -356,18 +329,15 @@ export default function App() {
       </section>
 
       {/* ══════════════════════════════════════════════
-          ABOUT ME SECTION (EXACT 1:1 TO SCREENSHOT 2)
+          ABOUT ME SECTION
          ══════════════════════════════════════════════ */}
       <section ref={aboutRef} className="ca-about-wrap" id="about">
-        {/* Top-Left Eyebrow: "about me!" */}
         <p className="ca-about-eyebrow">about me!</p>
 
-        {/* Centered Box: "what's up" */}
         <div className="ca-doodle-frame-title">
           <span>what's up</span>
         </div>
 
-        {/* Center Stage with Flanking Polaroids (Left & Right) */}
         <div className="ca-about-center-stage">
           {/* Left Flanking Polaroid: 2026 */}
           <div className="ca-flank-polaroid-left">
@@ -385,15 +355,13 @@ export default function App() {
             <p className="ca-hand" style={{ fontSize: '1.25rem', marginTop: '0.6rem' }}>my workspace</p>
           </div>
 
-          {/* Center Manifesto Text */}
           <p className="ca-manifesto-large">
             I'm a product designer who gets a little too excited about making complicated things feel simple. ✨ I care about the small details, the edge cases everyone forgets, and shipping work that genuinely makes someone's day easier. 🎨
           </p>
         </div>
 
-        {/* Jagged Skill Badges in 2 Balanced Rows */}
+        {/* 2-Row Jagged Skill Badges */}
         <div className="ca-jagged-skills-container">
-          {/* Row 1: Interaction Design + Prototyping */}
           <div className="ca-jagged-row">
             <div className="ca-jagged-item">
               <span className="ca-jagged-label yellow">Interaction Design</span>
@@ -411,7 +379,6 @@ export default function App() {
             </div>
           </div>
 
-          {/* Row 2: User Research + Motion Design */}
           <div className="ca-jagged-row">
             <div className="ca-jagged-item">
               <span className="ca-jagged-label magenta">User Research</span>
@@ -432,7 +399,7 @@ export default function App() {
       </section>
 
       {/* ══════════════════════════════════════════════
-          FEATURED CASE STUDIES WITH 4 STACKING TABS (SCREENSHOT 1 & 3)
+          FEATURED CASE STUDIES (CLEAN 4-TAB BINDER SYSTEM)
          ══════════════════════════════════════════════ */}
       <section ref={worksRef} className="ca-works-wrap" id="works">
         <div className="ca-works-head">
@@ -449,164 +416,77 @@ export default function App() {
           </span>
         </div>
 
-        {/* Sticky Stacking Project Cards with Trapezoid Binder Tabs */}
-        <div className="ca-stack-container">
-          {FEATURED_WORKS.map((p, idx) => {
-            const handleClass = `ca-tab-handle-${idx}`;
-
-            return (
-              <article key={p.title} className="ca-stack-card-wrap">
-                {/* 4 Staggered Folder Tab Row */}
-                <div style={{ display: 'flex' }} className={handleClass}>
-                  <span className={`ca-card-tab ${idx > 0 ? 'trapezoid' : ''}`} style={{ backgroundColor: p.tabColor }}>
-                    ✦ PROJECT {p.num}
-                  </span>
-                </div>
-
-                <div className={`ca-work-card ${p.cardClass}`}>
-                  {/* Left Column: Info */}
-                  <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                    <div>
-                      <span className="ca-mono" style={{ fontSize: '0.85rem', fontWeight: 700, letterSpacing: '0.15em', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                        <span style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#ffffff' }}></span>
-                        {p.date}
-                      </span>
-                      <h2 className="ca-work-title">{p.title}</h2>
-                      <p className="ca-work-desc">{p.desc}</p>
-                      
-                      <button
-                        onClick={() => setActiveCaseStudy(p)}
-                        className="ca-work-link"
-                      >
-                        VIEW PROJECT ↗
-                      </button>
-                    </div>
-
-                    <div className="ca-work-tags">
-                      {p.tags.map(t => (
-                        <span key={t} className="ca-work-tag-badge">{t}</span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Right Column: Polaroid Device Mockup Frame with Tapes */}
-                  <div style={{ alignSelf: 'center' }}>
-                    <div className="ca-work-mockup-frame">
-                      <span className="ca-tape-mockup-tl" aria-hidden="true" />
-                      <span className="ca-tape-mockup-tr" aria-hidden="true" />
-                      <img
-                        src={p.img}
-                        alt={p.title}
-                        style={{ width: '100%', height: '340px', objectFit: 'cover', display: 'block' }}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </article>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════════
-          CLIENTS / TRUSTED BY TAPED GRID
-         ══════════════════════════════════════════════ */}
-      <section className="ca-clients-wrap">
-        <p className="ca-name-label">trusted by</p>
-        <div className="ca-clients-grid">
-          {[
-            { name: 'DJI', color: 'var(--ca-yellow-soft)', rotate: '-2deg' },
-            { name: 'F1', color: 'var(--ca-mint)', rotate: '1deg' },
-            { name: 'KLOOK', color: 'var(--ca-cyan-soft)', rotate: '2deg' },
-            { name: 'NIKE', color: 'var(--ca-pink-soft)', rotate: '-1deg' },
-            { name: 'HONDA', color: 'var(--ca-yellow-soft)', rotate: '-2deg' },
-            { name: 'PORSCHE', color: 'var(--ca-mint)', rotate: '1deg' }
-          ].map((client, idx) => (
-            <div key={idx} className="ca-client-tape-card" style={{ transform: `rotate(${client.rotate})` }}>
-              <span className="ca-tape-strip ca-tape-strip-bg" style={{ backgroundColor: client.color }} aria-hidden="true" />
-              <span className="ca-client-brand-name">{client.name}</span>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════════
-          PLAYGROUND / ARSENAL / GALLERY
-         ══════════════════════════════════════════════ */}
-      <section ref={playgroundRef} className="ca-about-wrap" id="playground">
-        <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-          <p className="ca-name-label">playground</p>
-          <div className="ca-doodle-frame-title">
-            <span>just for fun</span>
-          </div>
-        </div>
-
-        {/* Polaroid Snapshots Gallery Grid */}
-        <div className="ca-playground-gallery">
-          {PLAYGROUND_PHOTOS.map((item, idx) => (
-            <div
-              key={idx}
-              className="ca-polaroid-grid-item"
-              style={{ transform: `rotate(${item.rotate})` }}
-            >
-              <span
-                style={{
-                  position: 'absolute',
-                  top: '-10px',
-                  left: '50%',
-                  transform: 'translateX(-50%)',
-                  width: '60px',
-                  height: '18px',
-                  backgroundColor: item.color,
-                  boxShadow: '0 1px 3px rgba(17,18,18,0.15)',
-                  zIndex: 10
-                }}
-              />
-              <img src={item.img} alt={item.caption} style={{ width: '100%', aspectRatio: '1', objectFit: 'cover' }} />
-              <p className="ca-hand" style={{ fontSize: '1.2rem', textAlign: 'center', marginTop: '0.5rem' }}>{item.caption}</p>
-            </div>
-          ))}
-        </div>
-
-        {/* Core Tech Stack Section */}
-        <div style={{ marginTop: '5rem', textAlign: 'center' }}>
-          <p className="ca-name-label">arsenal &amp; tools</p>
-          <div className="ca-doodle-frame-title" style={{ fontSize: '1.8rem', marginTop: '0.5rem' }}>
-            <span>CORE STACK</span>
+        {/* Clean 4-Tab Binder Container (No weird clipping or blue corners) */}
+        <div className="ca-binder-container">
+          {/* Continuous Row of All 4 Trapezoid Tabs */}
+          <div className="ca-tabs-header-row">
+            {FEATURED_WORKS.map((work, idx) => {
+              const isActive = activeProjectIdx === idx;
+              return (
+                <button
+                  key={work.num}
+                  className={`ca-binder-tab ${idx > 0 ? 'trapezoid' : ''} ${isActive ? 'active' : ''}`}
+                  style={{
+                    backgroundColor: work.tabColor,
+                    opacity: isActive ? 1 : 0.75,
+                    zIndex: isActive ? 10 : idx + 1
+                  }}
+                  onClick={() => setActiveProjectIdx(idx)}
+                >
+                  {work.tabText}
+                </button>
+              );
+            })}
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '1.25rem', marginTop: '2rem' }}>
-            {TECH_STACK_ITEMS.map(tech => (
-              <div
-                key={tech.name}
-                style={{
-                  backgroundColor: '#ffffff',
-                  border: '2.5px solid #191510',
-                  padding: '1.2rem',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '1rem',
-                  boxShadow: '3px 3px 0 #191510'
-                }}
-              >
-                <div style={{ width: '42px', height: '42px', borderRadius: '50%', backgroundColor: 'var(--ca-chrome)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1.5px solid #191510' }}>
-                  {tech.icon}
-                </div>
-                <div style={{ textAlign: 'left' }}>
-                  <p style={{ fontWeight: 700, fontSize: '0.95rem' }}>{tech.name}</p>
-                  <span className="ca-mono" style={{ fontSize: '0.75rem', color: 'rgba(25,21,16,0.6)' }}>{tech.category}</span>
-                </div>
+          {/* Active Card Body */}
+          <div className={`ca-work-card ${currentProject.cardClass}`}>
+            {/* Left Column: Info */}
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+              <div>
+                <span className="ca-mono" style={{ fontSize: '0.85rem', fontWeight: 700, letterSpacing: '0.15em', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                  <span style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#ffffff' }}></span>
+                  {currentProject.date}
+                </span>
+                <h2 className="ca-work-title">{currentProject.title}</h2>
+                <p className="ca-work-desc">{currentProject.desc}</p>
+                
+                <button
+                  onClick={() => setActiveCaseStudy(currentProject)}
+                  className="ca-work-link"
+                >
+                  VIEW PROJECT ↗
+                </button>
               </div>
-            ))}
+
+              <div className="ca-work-tags">
+                {currentProject.tags.map(t => (
+                  <span key={t} className="ca-work-tag-badge">{t}</span>
+                ))}
+              </div>
+            </div>
+
+            {/* Right Column: Polaroid Device Mockup Frame with Tapes */}
+            <div style={{ alignSelf: 'center' }}>
+              <div className="ca-work-mockup-frame">
+                <span className="ca-tape-mockup-tl" aria-hidden="true" />
+                <span className="ca-tape-mockup-tr" aria-hidden="true" />
+                <img
+                  src={currentProject.img}
+                  alt={currentProject.title}
+                  style={{ width: '100%', height: '340px', objectFit: 'cover', display: 'block' }}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* ══════════════════════════════════════════════
-          CONTACT SECTION (EXACT 1:1 TO SCREENSHOT 4 & 5)
+          CONTACT SECTION (CLEAN TRANSITION FROM WORKS)
          ══════════════════════════════════════════════ */}
       <section ref={contactRef} className="ca-contact-wrap" id="contact">
-        {/* Animated Big Yellow Mascot with Blush Cheeks */}
+        {/* Animated Big Yellow Mascot */}
         <svg viewBox="0 0 200 200" className="ca-mascot-smiley" aria-hidden="true">
           <circle cx="100" cy="100" r="88" fill="var(--ca-yellow)" stroke="var(--ca-ink)" strokeWidth="3.5" />
           <circle cx="56" cy="120" r="12" fill="var(--ca-magenta)" opacity="0.45" />
@@ -628,7 +508,7 @@ export default function App() {
 
         {/* Big Yellow Banner Card Container */}
         <div style={{ position: 'relative', maxWidth: '820px', margin: '3.5rem auto 0' }}>
-          {/* Lavender-Blue Pinned Comment Note with Dual Washi Tapes */}
+          {/* Lavender-Blue Pinned Comment Note */}
           <div className="ca-comment-pinned">
             <span style={{ position: 'absolute', top: '-10px', left: '-12px', width: '55px', height: '18px', backgroundColor: 'rgba(254, 240, 138, 0.8)', transform: 'rotate(-38deg)', boxShadow: '0 1px 3px rgba(17,18,18,0.15)', zIndex: 10 }} />
             <span style={{ position: 'absolute', top: '-10px', right: '-12px', width: '55px', height: '18px', backgroundColor: 'rgba(251, 207, 232, 0.8)', transform: 'rotate(38deg)', boxShadow: '0 1px 3px rgba(17,18,18,0.15)', zIndex: 10 }} />
@@ -658,10 +538,9 @@ export default function App() {
       </section>
 
       {/* ══════════════════════════════════════════════
-          FOOTER (EXACT 1:1 TO SCREENSHOT 5)
+          FOOTER
          ══════════════════════════════════════════════ */}
       <footer className="ca-footer-wrap">
-        {/* Curved Arc Line Divider */}
         <svg viewBox="0 0 1440 40" fill="none" className="ca-footer-arc-line" preserveAspectRatio="none">
           <path d="M0 30 Q720 0 1440 30" stroke="rgba(25, 21, 16, 0.2)" strokeWidth="1.5" />
         </svg>
@@ -680,14 +559,14 @@ export default function App() {
               <div className="ca-footer-nav-links">
                 <button className="ca-footer-nav-link" onClick={() => scrollTo(aboutRef, 'about')}>ABOUT</button>
                 <button className="ca-footer-nav-link" onClick={() => scrollTo(worksRef, 'works')}>CASE STUDY</button>
-                <button className="ca-footer-nav-link" onClick={() => scrollTo(playgroundRef, 'playground')}>PLAYGROUND</button>
+                <button className="ca-footer-nav-link" onClick={() => scrollTo(contactRef, 'contact')}>CONTACT</button>
               </div>
 
               <div style={{ display: 'flex', gap: '0.6rem' }}>
                 <a href={PERSONAL_INFO.linkedin} target="_blank" rel="noopener noreferrer" className="ca-social-circle yellow" aria-label="LinkedIn">
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76c.94 0 1.7-.76 1.7-1.7s-.76-1.7-1.7-1.7-1.7.76-1.7 1.7.76 1.7 1.7 1.7m1.39 9.74v-8.37H5.07v8.37h2.78z"/></svg>
                 </a>
-                <a href={PERSONAL_INFO.github} target="_blank" rel="noopener noreferrer" className="ca-social-circle magenta" aria-label="Dribbble">
+                <a href={PERSONAL_INFO.github} target="_blank" rel="noopener noreferrer" className="ca-social-circle magenta" aria-label="GitHub">
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
                 </a>
                 <a href={PERSONAL_INFO.instagram} target="_blank" rel="noopener noreferrer" className="ca-social-circle green" aria-label="Instagram">

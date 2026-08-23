@@ -20,7 +20,7 @@
   --ca-blue: #2563eb;
   --ca-cyan: #38bdf8;
   --ca-cyan-soft: #a5f3fc;
-  --ca-mint: #86efac;
+  --ca-mint: #10b981;
   --ca-green: #22c55e;
   --ca-purple: #c084fc;
   --ca-orange: #ff7244;
@@ -123,10 +123,6 @@ body {
   0%, 48% { opacity: 1; }
   52%, 98% { opacity: 0; }
   100% { opacity: 1; }
-}
-
-@keyframes ca-splash-out {
-  to { opacity: 0; visibility: hidden; }
 }
 
 .ca-wobble { animation: ca-wobble 2.8s ease-in-out infinite; }
@@ -234,7 +230,7 @@ body {
 
 .ca-social-circle.yellow { background-color: var(--ca-yellow); }
 .ca-social-circle.magenta { background-color: var(--ca-magenta); color: #fff; }
-.ca-social-circle.green { background-color: var(--ca-mint); }
+.ca-social-circle.green { background-color: var(--ca-mint); color: #fff; }
 
 .ca-header-contact-btn {
   display: inline-flex;
@@ -311,7 +307,6 @@ body {
   left: 12%;
   top: 52%;
   display: none;
-  --rot: -6deg;
   transform: rotate(-6deg);
 }
 
@@ -320,7 +315,6 @@ body {
   right: 12%;
   top: 56%;
   display: none;
-  --rot: 6deg;
   transform: rotate(6deg);
 }
 
@@ -479,7 +473,7 @@ body {
 }
 
 .ca-hand-tape-box.yellow { background-color: var(--ca-yellow); }
-.ca-hand-tape-box.mint { background-color: var(--ca-mint); }
+.ca-hand-tape-box.mint { background-color: var(--ca-mint); color: #fff; }
 
 .ca-hand-arrow {
   width: 32px;
@@ -554,7 +548,7 @@ body {
 }
 
 /* ══════════════════════════════════════════════
-   ABOUT ME SECTION (EXACT 1:1 TO SCREENSHOT 2)
+   ABOUT ME SECTION (EXACT 1:1)
    ══════════════════════════════════════════════ */
 .ca-about-wrap {
   position: relative;
@@ -673,7 +667,7 @@ body {
   margin: 0 auto;
 }
 
-/* Jagged Skill Badges (2 Balanced Rows) */
+/* Jagged Skill Badges */
 .ca-jagged-skills-container {
   display: flex;
   flex-direction: column;
@@ -735,7 +729,7 @@ body {
 .ca-jagged-icon.blue { background-color: var(--ca-blue); }
 
 /* ══════════════════════════════════════════════
-   FEATURED WORKS WITH 4-TAB STACKING (SCREENSHOT 1 & 3)
+   FEATURED WORKS WITH CLEAN 4-TAB BINDER SYSTEM
    ══════════════════════════════════════════════ */
 .ca-works-wrap {
   position: relative;
@@ -746,7 +740,7 @@ body {
 
 .ca-works-head {
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 3.5rem;
 }
 
 .ca-featured-title {
@@ -771,54 +765,53 @@ body {
   box-shadow: 0 2px 6px rgba(25, 21, 16, 0.15);
 }
 
-.ca-stack-container {
-  display: flex;
-  flex-direction: column;
-  gap: 3.5rem;
-}
-
-@media (min-width: 1024px) {
-  .ca-stack-container {
-    gap: 12vh;
-  }
-}
-
-.ca-stack-card-wrap {
+.ca-binder-container {
   position: relative;
-}
-
-@media (min-width: 1024px) {
-  .ca-stack-card-wrap {
-    position: sticky;
-    top: 5.5rem;
-  }
-}
-
-/* Staggered Folder Tab Handles (Trapezoid Tabs) */
-.ca-tabs-row {
-  display: flex;
-  align-items: flex-end;
   width: 100%;
 }
 
-.ca-card-tab {
+.ca-tabs-header-row {
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.ca-tabs-header-row::-webkit-scrollbar {
+  display: none;
+}
+
+.ca-binder-tab {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.75rem 2.2rem 0.75rem 1.5rem;
+  padding: 0.85rem 2.4rem 0.85rem 1.6rem;
   font-family: var(--font-artsy-mono);
   font-size: 0.85rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.18em;
   color: #ffffff;
-  clip-path: polygon(0 0, calc(100% - 30px) 0, 100% 100%, 0 100%);
+  border: none;
   cursor: pointer;
+  clip-path: polygon(0 0, calc(100% - 32px) 0, 100% 100%, 0 100%);
+  transition: transform 0.15s ease, opacity 0.15s ease;
+  margin-right: -14px;
 }
 
-.ca-card-tab.trapezoid {
-  clip-path: polygon(30px 0, calc(100% - 30px) 0, 100% 100%, 0 100%);
-  padding-left: 2.2rem;
+.ca-binder-tab.trapezoid {
+  clip-path: polygon(32px 0, calc(100% - 32px) 0, 100% 100%, 0 100%);
+  padding-left: 2.4rem;
+}
+
+.ca-binder-tab:hover {
+  transform: translateY(-2px);
+  opacity: 1 !important;
+}
+
+.ca-binder-tab.active {
+  transform: none;
 }
 
 .ca-work-card {
@@ -826,7 +819,8 @@ body {
   display: grid;
   grid-template-columns: 1fr;
   gap: 2rem;
-  min-height: 440px;
+  min-height: 480px;
+  box-shadow: 0 12px 32px rgba(25, 21, 16, 0.14);
 }
 
 @media (min-width: 1024px) {
@@ -834,24 +828,13 @@ body {
     grid-template-columns: 1fr 1.1fr;
     padding: 3.5rem 4rem;
     gap: 3rem;
-    min-height: calc(100vh - 14rem);
   }
 }
 
 .ca-card-blue { background-color: var(--ca-blue); color: #fff; }
-.ca-card-blue .ca-card-tab { background-color: var(--ca-blue); }
-
 .ca-card-magenta { background-color: var(--ca-magenta); color: #fff; }
-.ca-card-magenta .ca-card-tab { background-color: var(--ca-magenta); }
-
-.ca-card-yellow { background-color: var(--ca-yellow); color: var(--ca-ink); }
-.ca-card-yellow .ca-card-tab { background-color: var(--ca-yellow); color: var(--ca-ink); }
-
+.ca-card-yellow { background-color: #f59e0b; color: #fff; }
 .ca-card-mint { background-color: #10b981; color: #fff; }
-.ca-card-mint .ca-card-tab { background-color: #10b981; }
-
-.ca-card-ink { background-color: var(--ca-ink); color: #fff; }
-.ca-card-ink .ca-card-tab { background-color: var(--ca-ink); }
 
 .ca-work-title {
   font-family: var(--font-sans);
@@ -915,7 +898,6 @@ body {
   color: var(--ca-ink);
 }
 
-.ca-card-yellow .ca-work-tag-badge,
 .ca-card-magenta .ca-work-tag-badge {
   background-color: var(--ca-ink);
   color: #ffffff;
@@ -929,7 +911,6 @@ body {
   padding: 4px;
 }
 
-.ca-card-yellow .ca-work-mockup-frame,
 .ca-card-magenta .ca-work-mockup-frame {
   border-color: var(--ca-ink);
   background-color: var(--ca-ink);
@@ -960,7 +941,7 @@ body {
 }
 
 /* ══════════════════════════════════════════════
-   CONTACT SECTION (EXACT 1:1 TO SCREENSHOT 4 & 5)
+   CONTACT SECTION (CLEAN TRANSITION)
    ══════════════════════════════════════════════ */
 .ca-contact-wrap {
   position: relative;
@@ -1028,7 +1009,7 @@ body {
 }
 
 /* ══════════════════════════════════════════════
-   FOOTER (EXACT 1:1 TO SCREENSHOT 5)
+   FOOTER
    ══════════════════════════════════════════════ */
 .ca-footer-wrap {
   position: relative;
@@ -1108,7 +1089,6 @@ body {
   align-items: center;
   justify-content: center;
   padding: 1.5rem;
-  animation: caScaleIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .ca-modal-card {
