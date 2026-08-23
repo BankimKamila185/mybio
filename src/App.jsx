@@ -31,6 +31,18 @@ export default function App() {
     setTimeout(() => setCopiedEmail(false), 2400);
   };
 
+  const renderStaggerText = (text, startDelay = 0.1, delayInc = 0.045) => {
+    return text.split('').map((char, index) => (
+      <span
+        key={index}
+        className="ca-char-stagger"
+        style={{ animationDelay: `${startDelay + index * delayInc}s` }}
+      >
+        {char === ' ' ? '\u00A0' : char}
+      </span>
+    ));
+  };
+
   return (
     <div className="ca-app">
       {/* ══════════════════════════════════════════════
@@ -39,11 +51,11 @@ export default function App() {
       <div className="ca-splash-overlay" aria-hidden="true">
         {splashPhase === 1 ? (
           <div className="ca-splash-bubble">
-            <span>Oh, hello!</span>
+            {renderStaggerText("Oh, hello!", 0.1, 0.05)}
           </div>
         ) : (
           <div className="ca-splash-bubble">
-            <span>You found me!</span>
+            {renderStaggerText("You found me!", 0.1, 0.05)}
           </div>
         )}
       </div>
@@ -207,7 +219,7 @@ export default function App() {
           {/* The Big Orange Contour Box with Pixel Name */}
           <div className="ca-orange-contour-box">
             <h1 className="ca-pixel-hero-name">
-              BANKIM
+              {renderStaggerText("BANKIM", 0.2, 0.08)}
             </h1>
           </div>
 
@@ -317,19 +329,31 @@ export default function App() {
           <div className="ca-jagged-skills">
             <div className="ca-jagged-item">
               <span className="ca-jagged-label yellow">Interaction Design</span>
-              <span className="ca-jagged-icon yellow">✨</span>
+              <span className="ca-jagged-icon yellow">
+                <span className="ca-emoji-a">✨</span>
+                <span className="ca-emoji-b">🎨</span>
+              </span>
             </div>
             <div className="ca-jagged-item">
               <span className="ca-jagged-label green">Prototyping</span>
-              <span className="ca-jagged-icon green">🎨</span>
+              <span className="ca-jagged-icon green">
+                <span className="ca-emoji-a">🎨</span>
+                <span className="ca-emoji-b">🧩</span>
+              </span>
             </div>
             <div className="ca-jagged-item">
               <span className="ca-jagged-label magenta">Full-Stack Systems</span>
-              <span className="ca-jagged-icon magenta">🧩</span>
+              <span className="ca-jagged-icon magenta">
+                <span className="ca-emoji-a">🧩</span>
+                <span className="ca-emoji-b">👀</span>
+              </span>
             </div>
             <div className="ca-jagged-item">
               <span className="ca-jagged-label blue">Motion Design</span>
-              <span className="ca-jagged-icon blue">💡</span>
+              <span className="ca-jagged-icon blue">
+                <span className="ca-emoji-a">👀</span>
+                <span className="ca-emoji-b">💡</span>
+              </span>
             </div>
           </div>
         </div>
@@ -345,7 +369,9 @@ export default function App() {
             <path d="M3 4c18-3 40-3 58 0" />
             <path d="M9 9c14-2.5 32-2.5 46 0" />
           </svg>
-          <h2 className="ca-featured-title">FEATURED WORKS</h2>
+          <h2 className="ca-featured-title">
+            {renderStaggerText("FEATURED WORKS", 0.1, 0.04)}
+          </h2>
           <span className="ca-works-tape-desc">
             A few products I helped make simpler, calmer, and easier to trust.
           </span>
@@ -356,12 +382,13 @@ export default function App() {
           {FEATURED_PROJECTS.slice(0, 4).map((p, idx) => {
             const cardStyles = ['ca-card-blue', 'ca-card-ink', 'ca-card-yellow', 'ca-card-magenta'];
             const cardTheme = cardStyles[idx % cardStyles.length];
+            const handleClass = `ca-tab-handle-${idx}`;
 
             return (
               <article key={p.title} className="ca-stack-card-wrap">
-                {/* Numbered Tab */}
-                <div style={{ display: 'flex' }}>
-                  <span className="ca-card-tab">
+                {/* Numbered Tab with Staggered Offset & Trapezoid Clip-Path */}
+                <div style={{ display: 'flex' }} className={handleClass}>
+                  <span className={`ca-card-tab ${idx > 0 ? 'trapezoid' : ''}`}>
                     <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2c1 5 4 8 9 9-5 1-8 4-9 9-1-5-4-8-9-9 5-1 8-4 9-9Z"/></svg>
                     Project 0{idx + 1}
                   </span>
@@ -487,7 +514,12 @@ export default function App() {
           <path d="M62 130 Q100 172 138 130" fill="none" stroke="var(--ca-ink)" strokeWidth="6" strokeLinecap="round" />
         </svg>
 
-        <h2 className="ca-lets-talk-title">LET'S TALK</h2>
+        <div className="ca-lets-talk-wrap">
+          <h2 className="ca-lets-talk-title">
+            {renderStaggerText("LET'S TALK", 0.1, 0.05)}
+          </h2>
+        </div>
+
         <p className="ca-manifesto-large" style={{ fontSize: '1.6rem', marginTop: '1rem' }}>
           Got a project, a hard problem, or just want to say hi? Send it over. I read every message.
         </p>

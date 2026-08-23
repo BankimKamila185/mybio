@@ -104,6 +104,79 @@ body {
 }
 
 /* ══════════════════════════════════════════════
+   KEYFRAME ANIMATIONS & MOTION SYSTEM
+   ══════════════════════════════════════════════ */
+@keyframes caLetterUp {
+  0% { opacity: 0; transform: translateY(0.7em); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes caScaleIn {
+  0% { opacity: 0; transform: scale(0.55); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes caSlideDownRotateLeft {
+  0% { opacity: 0; transform: translateY(-28px) rotate(-7.2deg); }
+  100% { opacity: 1; transform: translateY(0) rotate(-14.4deg); }
+}
+
+@keyframes caSlideDownRotateRight {
+  0% { opacity: 0; transform: translateY(-28px) rotate(7.2deg); }
+  100% { opacity: 1; transform: translateY(0) rotate(12.6deg); }
+}
+
+@keyframes caDropUpLeft {
+  0% { opacity: 0; transform: translateY(-140px) rotate(-7.2deg); }
+  100% { opacity: 1; transform: translateY(0) rotate(-7.2deg); }
+}
+
+@keyframes caDropUpRight {
+  0% { opacity: 0; transform: translateY(-140px) rotate(3.6deg); }
+  100% { opacity: 1; transform: translateY(0) rotate(3.6deg); }
+}
+
+@keyframes caSlideUpFade {
+  0% { opacity: 0; transform: translateY(28px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes caScaleStamp {
+  0% { opacity: 0; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes caSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes caBlinkAnim {
+  0%, 90%, 100% { transform: scaleY(1); }
+  95% { transform: scaleY(0.1); }
+}
+
+@keyframes caEmojiA {
+  0%, 45% { opacity: 1; transform: translateY(0); }
+  50%, 95% { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes caEmojiB {
+  0%, 45% { opacity: 0; transform: translateY(-8px); }
+  50%, 95% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-8px); }
+}
+
+.ca-emoji-a {
+  animation: caEmojiA 3.5s infinite ease-in-out;
+}
+
+.ca-emoji-b {
+  animation: caEmojiB 3.5s infinite ease-in-out;
+}
+
+/* ══════════════════════════════════════════════
    INITIAL SPLASH SCREEN GREETING ANIMATION
    ══════════════════════════════════════════════ */
 .ca-splash-overlay {
@@ -130,6 +203,7 @@ body {
   line-height: 1.1;
   color: var(--ca-ink);
   box-shadow: 4px 6px 0 var(--ca-ink);
+  animation: caScaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @keyframes caSplashFadeOut {
@@ -170,6 +244,11 @@ body {
   background: none;
   border: none;
   cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.ca-header-smiley:hover {
+  transform: rotate(-10deg) scale(1.1);
 }
 
 .ca-nav-tabs {
@@ -281,6 +360,7 @@ body {
   top: 54%;
   display: none;
   transform: rotate(-6deg);
+  transition: transform 0.3s ease;
 }
 
 .ca-floating-avatar-right {
@@ -289,6 +369,7 @@ body {
   top: 56%;
   display: none;
   transform: rotate(6deg);
+  transition: transform 0.3s ease;
 }
 
 @media (min-width: 1024px) {
@@ -296,6 +377,14 @@ body {
   .ca-floating-avatar-right {
     display: block;
   }
+}
+
+.ca-floating-avatar-left:hover {
+  transform: rotate(0deg) scale(1.1);
+}
+
+.ca-floating-avatar-right:hover {
+  transform: rotate(0deg) scale(1.1);
 }
 
 .ca-avatar-ring {
@@ -373,6 +462,7 @@ body {
   border: 3.5px solid var(--ca-orange);
   border-radius: 8px;
   background-color: transparent;
+  animation: caScaleIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @media (min-width: 768px) {
@@ -392,6 +482,11 @@ body {
   user-select: none;
 }
 
+.ca-char-stagger {
+  display: inline-block;
+  animation: caLetterUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
 /* Corner Pill Stickers */
 .ca-pill-tag {
   position: absolute;
@@ -409,20 +504,24 @@ body {
   box-shadow: 0 4px 10px rgba(25, 21, 16, 0.25);
   pointer-events: auto;
   user-select: none;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.ca-pill-tag:hover {
+  transform: scale(1.1) rotate(0deg) !important;
 }
 
 .ca-pill-tag.purple {
   background-color: var(--ca-cyan-soft);
   top: -16px;
   left: -20px;
-  transform: rotate(-10deg);
+  animation: caSlideDownRotateLeft 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
 }
 
 @media (min-width: 768px) {
   .ca-pill-tag.purple {
     top: -20px;
     left: -45px;
-    transform: rotate(-12deg);
   }
 }
 
@@ -430,14 +529,13 @@ body {
   background-color: var(--ca-yellow-soft);
   top: -16px;
   right: -20px;
-  transform: rotate(10deg);
+  animation: caSlideDownRotateRight 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
 }
 
 @media (min-width: 768px) {
   .ca-pill-tag.yellow-soft {
     top: -20px;
     right: -45px;
-    transform: rotate(12deg);
   }
 }
 
@@ -446,18 +544,17 @@ body {
   position: absolute;
   bottom: -22px;
   left: -25px;
-  transform: rotate(-7deg);
   display: flex;
   align-items: center;
   gap: 0.5rem;
   pointer-events: auto;
+  animation: caDropUpLeft 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
 }
 
 @media (min-width: 768px) {
   .ca-sticky-note-left {
     bottom: -32px;
     left: -55px;
-    transform: rotate(-8deg);
   }
 }
 
@@ -465,18 +562,17 @@ body {
   position: absolute;
   bottom: -22px;
   right: -25px;
-  transform: rotate(4deg);
   display: flex;
   align-items: center;
   gap: 0.5rem;
   pointer-events: auto;
+  animation: caDropUpRight 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.45s both;
 }
 
 @media (min-width: 768px) {
   .ca-sticky-note-right {
     bottom: -32px;
     right: -55px;
-    transform: rotate(5deg);
   }
 }
 
@@ -487,6 +583,11 @@ body {
   font-size: 1.6rem;
   color: var(--ca-ink);
   box-shadow: 2px 3px 8px rgba(17, 18, 18, 0.18);
+  transition: transform 0.2s ease;
+}
+
+.ca-hand-tape-box:hover {
+  transform: scale(1.06);
 }
 
 .ca-hand-tape-box.yellow { background-color: var(--ca-yellow); }
@@ -539,11 +640,6 @@ body {
   animation: caSpin 12s linear infinite;
 }
 
-@keyframes caSpin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
 /* Contact Button */
 .ca-hero-contact-cta {
   display: inline-flex;
@@ -561,12 +657,13 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.2em;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .ca-hero-contact-cta:hover {
   background-color: transparent;
   color: var(--ca-ink);
+  transform: translateY(-2px);
 }
 
 .ca-blue-arrow-box {
@@ -608,11 +705,11 @@ body {
   box-shadow: 0 6px 18px rgba(17, 18, 18, 0.22);
   width: 190px;
   transform: rotate(-3deg);
-  transition: transform 0.2s ease;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .ca-polaroid-taped:hover {
-  transform: scale(1.05) rotate(0deg);
+  transform: scale(1.06) rotate(0deg);
 }
 
 .ca-polaroid-taped.right {
@@ -710,6 +807,7 @@ body {
 .ca-jagged-label.blue { background-color: var(--ca-blue); color: #fff; }
 
 .ca-jagged-icon {
+  position: relative;
   width: 54px;
   height: 54px;
   display: flex;
@@ -784,6 +882,12 @@ body {
   }
 }
 
+/* Staggered Folder Tab Handles */
+.ca-tab-handle-0 { margin-left: 0; }
+.ca-tab-handle-1 { margin-left: min(calc(21% - 30px), calc(100% - 320px)); }
+.ca-tab-handle-2 { margin-left: min(calc(42% - 30px), calc(100% - 320px)); }
+.ca-tab-handle-3 { margin-left: min(calc(63% - 30px), calc(100% - 320px)); }
+
 .ca-card-tab {
   display: inline-flex;
   align-items: center;
@@ -796,6 +900,11 @@ body {
   letter-spacing: 0.18em;
   color: #ffffff;
   clip-path: polygon(0 0, calc(100% - 30px) 0, 100% 100%, 0 100%);
+}
+
+.ca-card-tab.trapezoid {
+  clip-path: polygon(30px 0, calc(100% - 30px) 0, 100% 100%, 0 100%);
+  padding-left: 2.25rem;
 }
 
 .ca-work-card {
@@ -862,6 +971,11 @@ body {
   padding-bottom: 0.2rem;
   margin-top: 1.75rem;
   color: inherit;
+  transition: transform 0.2s ease;
+}
+
+.ca-work-link:hover {
+  transform: translateX(4px);
 }
 
 .ca-work-tags {
@@ -961,6 +1075,11 @@ body {
   align-items: center;
   justify-content: center;
   padding: 0 1.5rem;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.ca-client-tape-card:hover {
+  transform: scale(1.08) rotate(0deg) !important;
 }
 
 .ca-tape-strip-bg {
@@ -991,20 +1110,20 @@ body {
   height: 160px;
   margin: 0 auto 1.5rem;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .ca-mascot-smiley:hover {
-  transform: scale(1.08) rotate(4deg);
+  transform: scale(1.1) rotate(6deg);
 }
 
 .ca-blink {
   animation: caBlinkAnim 3.5s infinite ease-in-out;
 }
 
-@keyframes caBlinkAnim {
-  0%, 94%, 100% { transform: scaleY(1); }
-  97% { transform: scaleY(0.1); }
+.ca-lets-talk-wrap {
+  position: relative;
+  display: inline-block;
 }
 
 .ca-lets-talk-title {
