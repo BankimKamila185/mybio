@@ -268,7 +268,7 @@ export default function App() {
           </svg>
         </div>
 
-        {/* Main Name Canvas with Orange Contour Box, Taped Notes & Unique Sparkle Pop */}
+        {/* Main Name Canvas with Highlighter Sweep and Clean Card Lift */}
         <div className="ca-name-canvas-wrap">
           {/* Top-Left Pill Sticker: MADE THINGS */}
           <span className="ca-pill-tag purple ca-gentle-float" style={{ '--rot': '-12deg' }}>
@@ -280,14 +280,9 @@ export default function App() {
             SWEAT THE DETAILS
           </span>
 
-          {/* Playful Floating Sparkle / Star Doodles that burst on Hover */}
-          <span className="ca-sparkle-doodle tl" aria-hidden="true">✦</span>
-          <span className="ca-sparkle-doodle tr" aria-hidden="true">🌸</span>
-          <span className="ca-sparkle-doodle bl" aria-hidden="true">⭐</span>
-          <span className="ca-sparkle-doodle br" aria-hidden="true">✨</span>
-
-          {/* The Big Orange Contour Box with Pixel Name */}
+          {/* The Big Orange Contour Box with Highlighter Sweep Behind Pixel Name */}
           <div className="ca-orange-contour-box">
+            <span className="ca-highlighter-sweep" aria-hidden="true" />
             <h1 className="ca-pixel-hero-name">
               {renderStaggerText("BANKIM", 0.2, 0.08)}
             </h1>
