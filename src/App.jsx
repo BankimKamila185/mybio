@@ -6,10 +6,9 @@ import { PERSONAL_INFO } from './data/portfolioData';
 const FEATURED_WORKS = [
   {
     num: "01",
-    tabId: "tab-1",
-    tabText: "✦ PROJECT 01",
-    inactiveColor: "#2563eb",
-    inactiveTextColor: "#ffffff",
+    tabClass: "tab-pos-0",
+    tabBg: "#2563eb",
+    tabTextColor: "#ffffff",
     cardClass: "ca-card-blue",
     date: "MAR 19, 2026",
     title: "Wayline",
@@ -22,10 +21,9 @@ const FEATURED_WORKS = [
   },
   {
     num: "02",
-    tabId: "tab-2",
-    tabText: "✦ PROJECT 02",
-    inactiveColor: "#ff2d78",
-    inactiveTextColor: "#ffffff",
+    tabClass: "tab-pos-1",
+    tabBg: "#191510",
+    tabTextColor: "#ffffff",
     cardClass: "ca-card-magenta",
     date: "MAR 16, 2026",
     title: "Volt",
@@ -38,10 +36,9 @@ const FEATURED_WORKS = [
   },
   {
     num: "03",
-    tabId: "tab-3",
-    tabText: "✦ PROJECT 03",
-    inactiveColor: "#f59e0b",
-    inactiveTextColor: "#191510",
+    tabClass: "tab-pos-2",
+    tabBg: "#f59e0b",
+    tabTextColor: "#191510",
     cardClass: "ca-card-yellow",
     date: "FEB 28, 2026",
     title: "Aura",
@@ -54,10 +51,9 @@ const FEATURED_WORKS = [
   },
   {
     num: "04",
-    tabId: "tab-4",
-    tabText: "✦ PROJECT 04",
-    inactiveColor: "#ff2d78",
-    inactiveTextColor: "#191510",
+    tabClass: "tab-pos-3",
+    tabBg: "#ff2d78",
+    tabTextColor: "#191510",
     cardClass: "ca-card-mint",
     date: "JAN 14, 2026",
     title: "Orbit",
@@ -72,7 +68,6 @@ const FEATURED_WORKS = [
 
 export default function App() {
   const [activeNav, setActiveNav] = useState('home');
-  const [activeProjectIdx, setActiveProjectIdx] = useState(1); // Default to Volt (Project 02) to match reference screenshot!
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeCaseStudy, setActiveCaseStudy] = useState(null);
@@ -105,8 +100,6 @@ export default function App() {
       </span>
     ));
   };
-
-  const currentProject = FEATURED_WORKS[activeProjectIdx];
 
   return (
     <div className="ca-app ca-grid min-h-screen">
@@ -404,7 +397,7 @@ export default function App() {
       </section>
 
       {/* ══════════════════════════════════════════════
-          FEATURED WORKS - EXACT 1:1 TAB BINDER SYSTEM
+          FEATURED WORKS - AUTHENTIC STICKY STACKING SCROLL
          ══════════════════════════════════════════════ */}
       <section ref={worksRef} className="ca-works-wrap" id="works">
         <div className="ca-works-head">
@@ -421,76 +414,76 @@ export default function App() {
           </span>
         </div>
 
-        {/* Exact 1:1 Overlapping Binder Container */}
-        <div className="ca-binder-wrapper">
-          {/* Continuous interlocking tab row */}
-          <div className="ca-tab-bar">
-            {FEATURED_WORKS.map((work, idx) => {
-              const isActive = activeProjectIdx === idx;
-              const tabBg = isActive ? "#191510" : work.inactiveColor;
-              const tabColor = isActive ? "#ffffff" : work.inactiveTextColor;
+        {/* Authentic Sticky Scroll Stacking Container */}
+        <div className="ca-stack-container">
+          {FEATURED_WORKS.map((p, idx) => {
+            return (
+              <article
+                key={p.title}
+                className="ca-stack-article"
+                style={{ zIndex: idx + 1 }}
+              >
+                {/* Each card's own tab positioned flush on top */}
+                <div className={`ca-tab-handle-row ${p.tabClass}`}>
+                  <span
+                    className={`ca-stack-tab-pill ${idx > 0 ? 'trapezoid' : ''}`}
+                    style={{
+                      backgroundColor: p.tabBg,
+                      color: p.tabTextColor
+                    }}
+                  >
+                    ✦ PROJECT {p.num}
+                  </span>
+                </div>
 
-              return (
-                <button
-                  key={work.num}
-                  className={`ca-tab-btn ${work.tabId} ${isActive ? 'active' : ''}`}
-                  style={{
-                    backgroundColor: tabBg,
-                    color: tabColor
-                  }}
-                  onClick={() => setActiveProjectIdx(idx)}
-                >
-                  {work.tabText}
-                </button>
-              );
-            })}
-          </div>
+                {/* Card Body */}
+                <div className={`ca-work-card ${p.cardClass}`}>
+                  {/* Left Column: Info */}
+                  <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                    <div>
+                      <span className="ca-mono" style={{ fontSize: '0.85rem', fontWeight: 700, letterSpacing: '0.15em', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                        <span style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', backgroundColor: p.cardClass === 'ca-card-magenta' || p.cardClass === 'ca-card-yellow' ? '#191510' : '#ffffff' }}></span>
+                        {p.date}
+                      </span>
+                      <h2 className="ca-work-title" style={{ color: p.cardClass === 'ca-card-magenta' || p.cardClass === 'ca-card-yellow' ? '#191510' : '#ffffff' }}>
+                        {p.title}
+                      </h2>
+                      <p className="ca-work-desc" style={{ color: p.cardClass === 'ca-card-magenta' || p.cardClass === 'ca-card-yellow' ? '#191510' : 'rgba(255,255,255,0.92)' }}>
+                        {p.desc}
+                      </p>
+                      
+                      <button
+                        onClick={() => setActiveCaseStudy(p)}
+                        className="ca-work-link"
+                        style={{ color: p.cardClass === 'ca-card-magenta' || p.cardClass === 'ca-card-yellow' ? '#191510' : '#ffffff' }}
+                      >
+                        VIEW PROJECT ↗
+                      </button>
+                    </div>
 
-          {/* Connected Card Body without any gap or stripe */}
-          <div className={`ca-work-card ${currentProject.cardClass}`}>
-            {/* Left Column: Info */}
-            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-              <div>
-                <span className="ca-mono" style={{ fontSize: '0.85rem', fontWeight: 700, letterSpacing: '0.15em', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                  <span style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#191510' }}></span>
-                  {currentProject.date}
-                </span>
-                <h2 className="ca-work-title" style={{ color: currentProject.cardClass === 'ca-card-magenta' ? '#191510' : '#ffffff' }}>
-                  {currentProject.title}
-                </h2>
-                <p className="ca-work-desc" style={{ color: currentProject.cardClass === 'ca-card-magenta' ? '#191510' : 'rgba(255,255,255,0.92)' }}>
-                  {currentProject.desc}
-                </p>
-                
-                <button
-                  onClick={() => setActiveCaseStudy(currentProject)}
-                  className="ca-work-link"
-                  style={{ color: currentProject.cardClass === 'ca-card-magenta' ? '#191510' : '#ffffff' }}
-                >
-                  VIEW PROJECT ↗
-                </button>
-              </div>
+                    <div className="ca-work-tags">
+                      {p.tags.map(t => (
+                        <span key={t} className="ca-work-tag-badge">{t}</span>
+                      ))}
+                    </div>
+                  </div>
 
-              <div className="ca-work-tags">
-                {currentProject.tags.map(t => (
-                  <span key={t} className="ca-work-tag-badge">{t}</span>
-                ))}
-              </div>
-            </div>
-
-            {/* Right Column: Framed Mockup with Corner Washi Tapes */}
-            <div style={{ alignSelf: 'center' }}>
-              <div className="ca-work-mockup-frame">
-                <span className="ca-tape-mockup-tl" aria-hidden="true" />
-                <span className="ca-tape-mockup-tr" aria-hidden="true" />
-                <img
-                  src={currentProject.img}
-                  alt={currentProject.title}
-                  style={{ width: '100%', height: '360px', objectFit: 'cover', display: 'block' }}
-                />
-              </div>
-            </div>
-          </div>
+                  {/* Right Column: Polaroid Device Mockup Frame with Tapes */}
+                  <div style={{ alignSelf: 'center' }}>
+                    <div className="ca-work-mockup-frame">
+                      <span className="ca-tape-mockup-tl" aria-hidden="true" />
+                      <span className="ca-tape-mockup-tr" aria-hidden="true" />
+                      <img
+                        src={p.img}
+                        alt={p.title}
+                        style={{ width: '100%', height: '360px', objectFit: 'cover', display: 'block' }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
         </div>
       </section>
 

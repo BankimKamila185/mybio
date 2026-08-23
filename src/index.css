@@ -729,18 +729,18 @@ body {
 .ca-jagged-icon.blue { background-color: var(--ca-blue); }
 
 /* ══════════════════════════════════════════════
-   FEATURED WORKS - EXACT 1:1 TAB BINDER CARD
-   ══════════════════════════════════════════════ */
+   FEATURED WORKS - AUTHENTIC STICKY STACKING SCROLL
+   ============================================== */
 .ca-works-wrap {
   position: relative;
-  padding: 5rem 1.5rem 8rem;
+  padding: 5rem 1.5rem 10rem;
   max-width: 1240px;
   margin: 0 auto;
 }
 
 .ca-works-head {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
 }
 
 .ca-featured-title {
@@ -765,85 +765,72 @@ body {
   box-shadow: 0 2px 6px rgba(25, 21, 16, 0.15);
 }
 
-/* Tab Binder Wrapper */
-.ca-binder-wrapper {
-  width: 100%;
+/* Stacking Scroll Container */
+.ca-stack-container {
   display: flex;
   flex-direction: column;
+  gap: 6rem;
 }
 
-/* Continuous Overlapping Tab Bar */
-.ca-tab-bar {
+@media (min-width: 1024px) {
+  .ca-stack-container {
+    gap: 30vh;
+    padding-bottom: 12vh;
+  }
+}
+
+.ca-stack-article {
+  position: relative;
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .ca-stack-article {
+    position: sticky;
+    top: 7rem;
+  }
+}
+
+/* Staggered Tab Row positioned flush with card */
+.ca-tab-handle-row {
   display: flex;
   align-items: flex-end;
-  width: 100%;
+  background: transparent;
   margin-bottom: 0;
-  position: relative;
-  z-index: 5;
 }
 
-.ca-tab-btn {
+.ca-tab-handle-row.tab-pos-0 { margin-left: 0; }
+.ca-tab-handle-row.tab-pos-1 { margin-left: min(calc(24% - 20px), calc(100% - 290px)); }
+.ca-tab-handle-row.tab-pos-2 { margin-left: min(calc(48% - 20px), calc(100% - 290px)); }
+.ca-tab-handle-row.tab-pos-3 { margin-left: min(calc(72% - 20px), calc(100% - 290px)); }
+
+.ca-stack-tab-pill {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
   gap: 0.5rem;
-  padding: 1rem 2.8rem;
+  padding: 0.9rem 2.6rem 0.9rem 1.6rem;
   font-family: var(--font-artsy-mono);
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.18em;
   border: none;
-  cursor: pointer;
-  transition: transform 0.15s ease, filter 0.15s ease;
-  position: relative;
+  clip-path: polygon(0 0, calc(100% - 34px) 0, 100% 100%, 0 100%);
 }
 
-/* Tab 1 (Leftmost): Straight left, angled right */
-.ca-tab-btn.tab-1 {
-  clip-path: polygon(0 0, calc(100% - 32px) 0, 100% 100%, 0 100%);
-  padding-left: 2rem;
-  z-index: 4;
+.ca-stack-tab-pill.trapezoid {
+  clip-path: polygon(34px 0, calc(100% - 34px) 0, 100% 100%, 0 100%);
+  padding-left: 2.6rem;
 }
 
-/* Tabs 2, 3, 4: Trapezoid angled both sides */
-.ca-tab-btn.tab-2 {
-  clip-path: polygon(32px 0, calc(100% - 32px) 0, 100% 100%, 0 100%);
-  margin-left: -30px;
-  z-index: 3;
-}
-
-.ca-tab-btn.tab-3 {
-  clip-path: polygon(32px 0, calc(100% - 32px) 0, 100% 100%, 0 100%);
-  margin-left: -30px;
-  z-index: 2;
-}
-
-.ca-tab-btn.tab-4 {
-  clip-path: polygon(32px 0, calc(100% - 32px) 0, 100% 100%, 0 100%);
-  margin-left: -30px;
-  z-index: 1;
-}
-
-.ca-tab-btn.active {
-  z-index: 10 !important;
-}
-
-.ca-tab-btn:hover:not(.active) {
-  filter: brightness(1.08);
-}
-
-/* Card Body - Perfectly Connected with NO Gap */
+/* Unified Card Body */
 .ca-work-card {
   padding: 3rem 2rem;
   display: grid;
   grid-template-columns: 1fr;
   gap: 2.5rem;
   min-height: 480px;
-  box-shadow: 0 16px 36px rgba(25, 21, 16, 0.12);
-  margin-top: 0;
-  position: relative;
-  z-index: 4;
+  box-shadow: 0 16px 36px rgba(25, 21, 16, 0.16);
 }
 
 @media (min-width: 1024px) {
@@ -855,8 +842,8 @@ body {
 }
 
 .ca-card-blue { background-color: var(--ca-blue); color: #fff; }
-.ca-card-magenta { background-color: var(--ca-magenta); color: #fff; }
-.ca-card-yellow { background-color: #f59e0b; color: var(--ca-ink); }
+.ca-card-magenta { background-color: var(--ca-magenta); color: #191510; }
+.ca-card-yellow { background-color: #f59e0b; color: #191510; }
 .ca-card-mint { background-color: #10b981; color: #fff; }
 
 .ca-work-title {
@@ -921,7 +908,8 @@ body {
   color: #ffffff;
 }
 
-.ca-card-blue .ca-work-tag-badge {
+.ca-card-blue .ca-work-tag-badge,
+.ca-card-mint .ca-work-tag-badge {
   background-color: #ffffff;
   color: var(--ca-ink);
 }
