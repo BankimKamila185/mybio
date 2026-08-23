@@ -12,6 +12,7 @@ const FEATURED_WORKS = [
     title: "Wayline",
     desc: "Making a whole city's transit app feel less like decoding a puzzle.",
     tags: ["MOBILITY", "CONSUMER APP"],
+    tagStyle: "ca-tag-white",
     img: "https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=1200&auto=format&fit=crop",
     problem: "The app had every number and told you nothing. Commuters stared at confusing tables, had no idea which connection was delayed, and gave up before navigating unfamiliar transfers.",
     solution: "Rebuilt the entire transit companion from scratch around glanceable progress and intuitive live departure cards. Cut 55% of intermediate clicks.",
@@ -25,6 +26,7 @@ const FEATURED_WORKS = [
     title: "Volt",
     desc: "Helping people actually understand the energy they use at home.",
     tags: ["CLIMATE", "DATA DESIGN"],
+    tagStyle: "ca-tag-black",
     img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
     problem: "People stared at complex kilowatt charts they couldn't read and had no idea what appliances were costing them.",
     solution: "Cut the dashboard down to plain summaries: what am I using, what is it costing, and what should I do about it. Deep charts are one tap away.",
@@ -38,6 +40,7 @@ const FEATURED_WORKS = [
     title: "Aura",
     desc: "Smart ambient assistant that adapts lighting and focus sounds to your flow state.",
     tags: ["HARDWARE", "AI INTERACTION"],
+    tagStyle: "ca-tag-black",
     img: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=1200&auto=format&fit=crop",
     problem: "Work environments are noisy and static, leading to context-switching fatigue and lost deep focus time.",
     solution: "Connected biometrics and IDE signals to deliver unobtrusive ambient soundscapes and intelligent lighting cues.",
@@ -51,6 +54,7 @@ const FEATURED_WORKS = [
     title: "Orbit",
     desc: "Real-time collaborative canvas for engineering teams to architect distributed systems together.",
     tags: ["DEVTOOLS", "REALTIME"],
+    tagStyle: "ca-tag-white",
     img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
     problem: "System architecture diagrams go stale the moment they're drawn because they aren't connected to live infrastructure state.",
     solution: "Engineered a high-performance WebGL diagramming engine that syncs with Terraform and Kubernetes clusters in real time.",
@@ -60,6 +64,7 @@ const FEATURED_WORKS = [
 
 export default function App() {
   const [activeNav, setActiveNav] = useState('home');
+  const [activeProjectIdx, setActiveProjectIdx] = useState(1); // Volt active by default as shown in Screenshot 1
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeCaseStudy, setActiveCaseStudy] = useState(null);
@@ -92,6 +97,8 @@ export default function App() {
       </span>
     ));
   };
+
+  const currentProject = FEATURED_WORKS[activeProjectIdx];
 
   return (
     <div className="ca-app ca-grid min-h-screen">
@@ -392,7 +399,7 @@ export default function App() {
       </section>
 
       {/* ══════════════════════════════════════════════
-          FEATURED CASE STUDIES (AUTHENTIC STICKY STACKING FOLDER SCROLL)
+          FEATURED CASE STUDIES (EXACT 1:1 TO SCREENSHOT 1)
          ══════════════════════════════════════════════ */}
       <section ref={worksRef} className="ca-works-wrap" id="works">
         <div className="ca-works-head">
@@ -409,70 +416,76 @@ export default function App() {
           </span>
         </div>
 
-        {/* Authentic Sticky Scroll Stacking Container */}
-        <div className="ca-stack-scroll-container">
-          {FEATURED_WORKS.map((p, idx) => {
-            const posClass = `pos-${idx}`;
+        {/* The Exact Folder Card Frame */}
+        <div className="ca-folder-unit">
+          {/* Contiguous Trapezoid Tabs Header Strip with Right Shoulder */}
+          <div className="ca-folder-header-strip">
+            {FEATURED_WORKS.map((work, idx) => {
+              const isActive = activeProjectIdx === idx;
+              // In Screenshot 1, active tab turns Black (#191510)
+              const tabBg = isActive ? '#191510' : work.tabColor;
 
-            return (
-              <article
-                key={p.title}
-                className="ca-sticky-folder-card"
-                style={{ zIndex: idx + 1 }}
-              >
-                {/* Each card's own trapezoid tab positioned at its respective offset */}
-                <div className={`ca-folder-tab-row ${posClass}`}>
-                  <span
-                    className={`ca-folder-tab-btn ${idx > 0 ? 'trapezoid' : ''}`}
-                    style={{ backgroundColor: p.tabColor }}
-                  >
-                    ✦ PROJECT {p.num}
-                  </span>
-                </div>
+              return (
+                <button
+                  key={work.num}
+                  className={`ca-folder-tab tab-${idx}`}
+                  style={{
+                    backgroundColor: tabBg,
+                    zIndex: isActive ? 10 : 4 - idx
+                  }}
+                  onClick={() => setActiveProjectIdx(idx)}
+                >
+                  ✦ PROJECT {work.num}
+                </button>
+              );
+            })}
+            {/* Smooth Right Shoulder Notch matching the active card color */}
+            <div
+              className="ca-folder-shoulder"
+              style={{ backgroundColor: currentProject.tabColor }}
+            />
+          </div>
 
-                {/* Card Body */}
-                <div className={`ca-work-card ${p.cardClass}`}>
-                  {/* Left Column: Info */}
-                  <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                    <div>
-                      <span className="ca-mono" style={{ fontSize: '0.85rem', fontWeight: 700, letterSpacing: '0.15em', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                        <span style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#ffffff' }}></span>
-                        {p.date}
-                      </span>
-                      <h2 className="ca-work-title">{p.title}</h2>
-                      <p className="ca-work-desc">{p.desc}</p>
-                      
-                      <button
-                        onClick={() => setActiveCaseStudy(p)}
-                        className="ca-work-link"
-                      >
-                        VIEW PROJECT ↗
-                      </button>
-                    </div>
+          {/* Card Body with Exact Colors, Typography, Badges & Mockup Frame */}
+          <div className={`ca-work-card ${currentProject.cardClass}`}>
+            {/* Left Column: Info */}
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+              <div>
+                <span className="ca-mono" style={{ fontSize: '0.9rem', fontWeight: 700, letterSpacing: '0.15em', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                  <span style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#ffffff' }}></span>
+                  {currentProject.date}
+                </span>
+                <h2 className="ca-work-title">{currentProject.title}</h2>
+                <p className="ca-work-desc">{currentProject.desc}</p>
+                
+                <button
+                  onClick={() => setActiveCaseStudy(currentProject)}
+                  className="ca-work-link"
+                >
+                  VIEW PROJECT ↗
+                </button>
+              </div>
 
-                    <div className="ca-work-tags">
-                      {p.tags.map(t => (
-                        <span key={t} className="ca-work-tag-badge">{t}</span>
-                      ))}
-                    </div>
-                  </div>
+              <div className="ca-work-tags">
+                {currentProject.tags.map(t => (
+                  <span key={t} className={`ca-work-tag-badge ${currentProject.tagStyle}`}>{t}</span>
+                ))}
+              </div>
+            </div>
 
-                  {/* Right Column: Polaroid Device Mockup Frame with Tapes */}
-                  <div style={{ alignSelf: 'center' }}>
-                    <div className="ca-work-mockup-frame">
-                      <span className="ca-tape-mockup-tl" aria-hidden="true" />
-                      <span className="ca-tape-mockup-tr" aria-hidden="true" />
-                      <img
-                        src={p.img}
-                        alt={p.title}
-                        style={{ width: '100%', height: '340px', objectFit: 'cover', display: 'block' }}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </article>
-            );
-          })}
+            {/* Right Column: Thick Black Framed App Screens Mockup with Dual Washi Tapes */}
+            <div style={{ alignSelf: 'center' }}>
+              <div className="ca-work-mockup-frame">
+                <span className="ca-tape-mockup-tl" aria-hidden="true" />
+                <span className="ca-tape-mockup-tr" aria-hidden="true" />
+                <img
+                  src={currentProject.img}
+                  alt={currentProject.title}
+                  style={{ width: '100%', height: '360px', objectFit: 'cover', display: 'block' }}
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
