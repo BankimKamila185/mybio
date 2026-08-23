@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import './App.css';
 
 import { PERSONAL_INFO } from './data/portfolioData';
@@ -24,15 +24,15 @@ const FEATURED_WORKS = [
     tabClass: "tab-pos-1",
     tabBg: "#191510",
     tabTextColor: "#ffffff",
-    cardClass: "ca-card-magenta",
-    date: "MAR 16, 2026",
-    title: "Volt",
-    desc: "Helping people actually understand the energy they use at home.",
-    tags: ["CLIMATE", "DATA DESIGN"],
+    cardClass: "ca-card-charcoal",
+    date: "MAR 2, 2026",
+    title: "Tandem",
+    desc: "From 'who owes who' to money that finally feels shared.",
+    tags: ["FINTECH", "CONSUMER APP"],
     img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
-    problem: "People stared at complex kilowatt charts they couldn't read and had no idea what appliances were costing them.",
-    solution: "Cut the dashboard down to plain summaries: what am I using, what is it costing, and what should I do about it. Deep charts are one tap away.",
-    result: "2× more return check-ins, 3.5k+ daily energy habits saved in Q1, and guesswork eliminated."
+    problem: "Splitting rent, groceries, and travel bills causes friction and awkward conversations among housemates and couples.",
+    solution: "Designed a collaborative transparent ledger where shared balances settle automatically without tedious manual math.",
+    result: "Over $12M in shared expenses reconciled monthly with 88% organic referral adoption."
   },
   {
     num: "03",
@@ -40,29 +40,29 @@ const FEATURED_WORKS = [
     tabBg: "#f59e0b",
     tabTextColor: "#191510",
     cardClass: "ca-card-yellow",
-    date: "FEB 28, 2026",
-    title: "Aura",
-    desc: "Smart ambient assistant that adapts lighting and focus sounds to your flow state.",
-    tags: ["HARDWARE", "AI INTERACTION"],
+    date: "JAN 2, 2026",
+    title: "Forge",
+    desc: "Getting a new engineer from day one to shipping without the panic.",
+    tags: ["DEVTOOLS", "ONBOARDING"],
     img: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=1200&auto=format&fit=crop",
-    problem: "Work environments are noisy and static, leading to context-switching fatigue and lost deep focus time.",
-    solution: "Connected biometrics and IDE signals to deliver unobtrusive ambient soundscapes and intelligent lighting cues.",
-    result: "Over 80,000 deep work hours logged with a 94% positive user satisfaction rating."
+    problem: "New engineering hires take an average of 3 weeks to configure local dev environments and land their first pull request.",
+    solution: "Built a step-by-step interactive onboarding terminal with automated environment validation and instant sandbox tests.",
+    result: "Time-to-first-commit reduced from 21 days down to 4 hours across 400+ engineering teams."
   },
   {
     num: "04",
     tabClass: "tab-pos-3",
     tabBg: "#ff2d78",
     tabTextColor: "#191510",
-    cardClass: "ca-card-mint",
-    date: "JAN 14, 2026",
-    title: "Orbit",
-    desc: "Real-time collaborative canvas for engineering teams to architect distributed systems together.",
-    tags: ["DEVTOOLS", "REALTIME"],
+    cardClass: "ca-card-magenta",
+    date: "MAR 16, 2026",
+    title: "Volt",
+    desc: "Helping people actually understand the energy they use at home.",
+    tags: ["CLIMATE", "DATA DESIGN"],
     img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
-    problem: "System architecture diagrams go stale the moment they're drawn because they aren't connected to live infrastructure state.",
-    solution: "Engineered a high-performance WebGL diagramming engine that syncs with Terraform and Kubernetes clusters in real time.",
-    result: "Adopted by 300+ engineering teams with sub-16ms latency for 50+ concurrent diagram collaborators."
+    problem: "People stared at complex kilowatt charts they couldn't read and had no idea what appliances were costing them.",
+    solution: "Cut the dashboard down to plain summaries: what am I using, what is it costing, and what should I do about it. Deep charts are one tap away.",
+    result: "2× more return check-ins, 3.5k+ daily energy habits saved in Q1, and guesswork eliminated."
   }
 ];
 
@@ -397,7 +397,7 @@ export default function App() {
       </section>
 
       {/* ══════════════════════════════════════════════
-          FEATURED WORKS - AUTHENTIC STICKY STACKING SCROLL
+          FEATURED WORKS - EXACT 1:1 STICKY STACKING FOLDERS
          ══════════════════════════════════════════════ */}
       <section ref={worksRef} className="ca-works-wrap" id="works">
         <div className="ca-works-head">
@@ -414,7 +414,7 @@ export default function App() {
           </span>
         </div>
 
-        {/* Authentic Sticky Scroll Stacking Container */}
+        {/* Pure Scroll Stacking Container */}
         <div className="ca-stack-container">
           {FEATURED_WORKS.map((p, idx) => {
             return (
@@ -423,7 +423,7 @@ export default function App() {
                 className="ca-stack-article"
                 style={{ zIndex: idx + 1 }}
               >
-                {/* Each card's own tab positioned flush on top */}
+                {/* Individual Tab Handle Connected Directly to Card */}
                 <div className={`ca-tab-handle-row ${p.tabClass}`}>
                   <span
                     className={`ca-stack-tab-pill ${idx > 0 ? 'trapezoid' : ''}`}

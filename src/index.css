@@ -729,11 +729,11 @@ body {
 .ca-jagged-icon.blue { background-color: var(--ca-blue); }
 
 /* ══════════════════════════════════════════════
-   FEATURED WORKS - AUTHENTIC STICKY STACKING SCROLL
-   ============================================== */
+   FEATURED WORKS - EXACT 1:1 STICKY STACKING FOLDER SYSTEM
+   ══════════════════════════════════════════════ */
 .ca-works-wrap {
   position: relative;
-  padding: 5rem 1.5rem 10rem;
+  padding: 5rem 1.5rem 12rem;
   max-width: 1240px;
   margin: 0 auto;
 }
@@ -765,17 +765,17 @@ body {
   box-shadow: 0 2px 6px rgba(25, 21, 16, 0.15);
 }
 
-/* Stacking Scroll Container */
+/* Stacking Container with Vertical Travel Room for Scrolling */
 .ca-stack-container {
   display: flex;
   flex-direction: column;
-  gap: 6rem;
+  gap: 8rem;
 }
 
 @media (min-width: 1024px) {
   .ca-stack-container {
-    gap: 30vh;
-    padding-bottom: 12vh;
+    gap: 40vh;
+    padding-bottom: 15vh;
   }
 }
 
@@ -791,46 +791,62 @@ body {
   }
 }
 
-/* Staggered Tab Row positioned flush with card */
+/* Tab Row: EXACT PLACEMENT & POSITION */
 .ca-tab-handle-row {
   display: flex;
   align-items: flex-end;
   background: transparent;
   margin-bottom: 0;
+  line-height: 1;
 }
 
-.ca-tab-handle-row.tab-pos-0 { margin-left: 0; }
-.ca-tab-handle-row.tab-pos-1 { margin-left: min(calc(24% - 20px), calc(100% - 290px)); }
-.ca-tab-handle-row.tab-pos-2 { margin-left: min(calc(48% - 20px), calc(100% - 290px)); }
-.ca-tab-handle-row.tab-pos-3 { margin-left: min(calc(72% - 20px), calc(100% - 290px)); }
+/* Offsets matching the reference binder layout */
+.ca-tab-handle-row.tab-pos-0 {
+  margin-left: 0;
+}
 
+.ca-tab-handle-row.tab-pos-1 {
+  margin-left: min(calc(22% - 20px), calc(100% - 300px));
+}
+
+.ca-tab-handle-row.tab-pos-2 {
+  margin-left: min(calc(44% - 20px), calc(100% - 300px));
+}
+
+.ca-tab-handle-row.tab-pos-3 {
+  margin-left: min(calc(66% - 20px), calc(100% - 300px));
+}
+
+/* Tab Clip-Paths */
 .ca-stack-tab-pill {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.9rem 2.6rem 0.9rem 1.6rem;
+  height: 52px;
+  padding: 0 3.2rem 0 1.8rem;
   font-family: var(--font-artsy-mono);
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.18em;
   border: none;
-  clip-path: polygon(0 0, calc(100% - 34px) 0, 100% 100%, 0 100%);
+  clip-path: polygon(0 0, calc(100% - 36px) 0, 100% 100%, 0 100%);
 }
 
 .ca-stack-tab-pill.trapezoid {
-  clip-path: polygon(34px 0, calc(100% - 34px) 0, 100% 100%, 0 100%);
-  padding-left: 2.6rem;
+  clip-path: polygon(36px 0, calc(100% - 36px) 0, 100% 100%, 0 100%);
+  padding-left: 3rem;
 }
 
-/* Unified Card Body */
+/* Unified Card Body - Connected Seamlessly to Tab with ZERO GAPS */
 .ca-work-card {
   padding: 3rem 2rem;
   display: grid;
   grid-template-columns: 1fr;
   gap: 2.5rem;
   min-height: 480px;
-  box-shadow: 0 16px 36px rgba(25, 21, 16, 0.16);
+  box-shadow: 0 20px 40px rgba(25, 21, 16, 0.18);
+  margin-top: 0;
 }
 
 @media (min-width: 1024px) {
@@ -842,13 +858,13 @@ body {
 }
 
 .ca-card-blue { background-color: var(--ca-blue); color: #fff; }
-.ca-card-magenta { background-color: var(--ca-magenta); color: #191510; }
+.ca-card-charcoal { background-color: #191510; color: #fff; }
 .ca-card-yellow { background-color: #f59e0b; color: #191510; }
-.ca-card-mint { background-color: #10b981; color: #fff; }
+.ca-card-magenta { background-color: #ff2d78; color: #191510; }
 
 .ca-work-title {
   font-family: var(--font-sans);
-  font-size: clamp(3rem, 6vw, 5.5rem);
+  font-size: clamp(3.2rem, 6.5vw, 5.8rem);
   font-weight: 700;
   line-height: 0.95;
   letter-spacing: -0.03em;
@@ -909,7 +925,7 @@ body {
 }
 
 .ca-card-blue .ca-work-tag-badge,
-.ca-card-mint .ca-work-tag-badge {
+.ca-card-charcoal .ca-work-tag-badge {
   background-color: #ffffff;
   color: var(--ca-ink);
 }
@@ -923,7 +939,8 @@ body {
   box-shadow: 0 10px 24px rgba(25, 21, 16, 0.2);
 }
 
-.ca-card-blue .ca-work-mockup-frame {
+.ca-card-blue .ca-work-mockup-frame,
+.ca-card-charcoal .ca-work-mockup-frame {
   border-color: #ffffff;
   background-color: #ffffff;
 }
