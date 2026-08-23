@@ -6,13 +6,15 @@ import { PERSONAL_INFO } from './data/portfolioData';
 const FEATURED_WORKS = [
   {
     num: "01",
-    tabColor: "#2563eb",
+    tabId: "tab-1",
+    tabText: "✦ PROJECT 01",
+    inactiveColor: "#2563eb",
+    inactiveTextColor: "#ffffff",
     cardClass: "ca-card-blue",
     date: "MAR 19, 2026",
     title: "Wayline",
     desc: "Making a whole city's transit app feel less like decoding a puzzle.",
     tags: ["MOBILITY", "CONSUMER APP"],
-    tagStyle: "ca-tag-white",
     img: "https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=1200&auto=format&fit=crop",
     problem: "The app had every number and told you nothing. Commuters stared at confusing tables, had no idea which connection was delayed, and gave up before navigating unfamiliar transfers.",
     solution: "Rebuilt the entire transit companion from scratch around glanceable progress and intuitive live departure cards. Cut 55% of intermediate clicks.",
@@ -20,13 +22,15 @@ const FEATURED_WORKS = [
   },
   {
     num: "02",
-    tabColor: "#ff2d78",
+    tabId: "tab-2",
+    tabText: "✦ PROJECT 02",
+    inactiveColor: "#ff2d78",
+    inactiveTextColor: "#ffffff",
     cardClass: "ca-card-magenta",
     date: "MAR 16, 2026",
     title: "Volt",
     desc: "Helping people actually understand the energy they use at home.",
     tags: ["CLIMATE", "DATA DESIGN"],
-    tagStyle: "ca-tag-black",
     img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
     problem: "People stared at complex kilowatt charts they couldn't read and had no idea what appliances were costing them.",
     solution: "Cut the dashboard down to plain summaries: what am I using, what is it costing, and what should I do about it. Deep charts are one tap away.",
@@ -34,13 +38,15 @@ const FEATURED_WORKS = [
   },
   {
     num: "03",
-    tabColor: "#f59e0b",
+    tabId: "tab-3",
+    tabText: "✦ PROJECT 03",
+    inactiveColor: "#f59e0b",
+    inactiveTextColor: "#191510",
     cardClass: "ca-card-yellow",
     date: "FEB 28, 2026",
     title: "Aura",
     desc: "Smart ambient assistant that adapts lighting and focus sounds to your flow state.",
     tags: ["HARDWARE", "AI INTERACTION"],
-    tagStyle: "ca-tag-black",
     img: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=1200&auto=format&fit=crop",
     problem: "Work environments are noisy and static, leading to context-switching fatigue and lost deep focus time.",
     solution: "Connected biometrics and IDE signals to deliver unobtrusive ambient soundscapes and intelligent lighting cues.",
@@ -48,13 +54,15 @@ const FEATURED_WORKS = [
   },
   {
     num: "04",
-    tabColor: "#10b981",
+    tabId: "tab-4",
+    tabText: "✦ PROJECT 04",
+    inactiveColor: "#ff2d78",
+    inactiveTextColor: "#191510",
     cardClass: "ca-card-mint",
     date: "JAN 14, 2026",
     title: "Orbit",
     desc: "Real-time collaborative canvas for engineering teams to architect distributed systems together.",
     tags: ["DEVTOOLS", "REALTIME"],
-    tagStyle: "ca-tag-white",
     img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
     problem: "System architecture diagrams go stale the moment they're drawn because they aren't connected to live infrastructure state.",
     solution: "Engineered a high-performance WebGL diagramming engine that syncs with Terraform and Kubernetes clusters in real time.",
@@ -64,7 +72,7 @@ const FEATURED_WORKS = [
 
 export default function App() {
   const [activeNav, setActiveNav] = useState('home');
-  const [activeProjectIdx, setActiveProjectIdx] = useState(1); // Volt active by default as shown in Screenshot 1
+  const [activeProjectIdx, setActiveProjectIdx] = useState(1); // Default to Volt (Project 02) to match reference screenshot!
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeCaseStudy, setActiveCaseStudy] = useState(null);
@@ -126,7 +134,6 @@ export default function App() {
             </button>
 
             <nav className="ca-nav-tabs" aria-label="Main Navigation">
-              {/* HOME Tab */}
               <button
                 className={`ca-nav-tab ${activeNav === 'home' ? 'active' : ''}`}
                 onClick={() => scrollTo(homeRef, 'home')}
@@ -135,7 +142,6 @@ export default function App() {
                 Home
               </button>
 
-              {/* ABOUT Tab */}
               <button
                 className={`ca-nav-tab ${activeNav === 'about' ? 'active' : ''}`}
                 onClick={() => scrollTo(aboutRef, 'about')}
@@ -144,7 +150,6 @@ export default function App() {
                 About
               </button>
 
-              {/* CASE STUDY Tab */}
               <button
                 className={`ca-nav-tab ${activeNav === 'works' ? 'active' : ''}`}
                 onClick={() => scrollTo(worksRef, 'works')}
@@ -399,7 +404,7 @@ export default function App() {
       </section>
 
       {/* ══════════════════════════════════════════════
-          FEATURED CASE STUDIES (EXACT 1:1 TO SCREENSHOT 1)
+          FEATURED WORKS - EXACT 1:1 TAB BINDER SYSTEM
          ══════════════════════════════════════════════ */}
       <section ref={worksRef} className="ca-works-wrap" id="works">
         <div className="ca-works-head">
@@ -416,51 +421,51 @@ export default function App() {
           </span>
         </div>
 
-        {/* The Exact Folder Card Frame */}
-        <div className="ca-folder-unit">
-          {/* Contiguous Trapezoid Tabs Header Strip with Right Shoulder */}
-          <div className="ca-folder-header-strip">
+        {/* Exact 1:1 Overlapping Binder Container */}
+        <div className="ca-binder-wrapper">
+          {/* Continuous interlocking tab row */}
+          <div className="ca-tab-bar">
             {FEATURED_WORKS.map((work, idx) => {
               const isActive = activeProjectIdx === idx;
-              // In Screenshot 1, active tab turns Black (#191510)
-              const tabBg = isActive ? '#191510' : work.tabColor;
+              const tabBg = isActive ? "#191510" : work.inactiveColor;
+              const tabColor = isActive ? "#ffffff" : work.inactiveTextColor;
 
               return (
                 <button
                   key={work.num}
-                  className={`ca-folder-tab tab-${idx}`}
+                  className={`ca-tab-btn ${work.tabId} ${isActive ? 'active' : ''}`}
                   style={{
                     backgroundColor: tabBg,
-                    zIndex: isActive ? 10 : 4 - idx
+                    color: tabColor
                   }}
                   onClick={() => setActiveProjectIdx(idx)}
                 >
-                  ✦ PROJECT {work.num}
+                  {work.tabText}
                 </button>
               );
             })}
-            {/* Smooth Right Shoulder Notch matching the active card color */}
-            <div
-              className="ca-folder-shoulder"
-              style={{ backgroundColor: currentProject.tabColor }}
-            />
           </div>
 
-          {/* Card Body with Exact Colors, Typography, Badges & Mockup Frame */}
+          {/* Connected Card Body without any gap or stripe */}
           <div className={`ca-work-card ${currentProject.cardClass}`}>
             {/* Left Column: Info */}
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
               <div>
-                <span className="ca-mono" style={{ fontSize: '0.9rem', fontWeight: 700, letterSpacing: '0.15em', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                  <span style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#ffffff' }}></span>
+                <span className="ca-mono" style={{ fontSize: '0.85rem', fontWeight: 700, letterSpacing: '0.15em', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                  <span style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#191510' }}></span>
                   {currentProject.date}
                 </span>
-                <h2 className="ca-work-title">{currentProject.title}</h2>
-                <p className="ca-work-desc">{currentProject.desc}</p>
+                <h2 className="ca-work-title" style={{ color: currentProject.cardClass === 'ca-card-magenta' ? '#191510' : '#ffffff' }}>
+                  {currentProject.title}
+                </h2>
+                <p className="ca-work-desc" style={{ color: currentProject.cardClass === 'ca-card-magenta' ? '#191510' : 'rgba(255,255,255,0.92)' }}>
+                  {currentProject.desc}
+                </p>
                 
                 <button
                   onClick={() => setActiveCaseStudy(currentProject)}
                   className="ca-work-link"
+                  style={{ color: currentProject.cardClass === 'ca-card-magenta' ? '#191510' : '#ffffff' }}
                 >
                   VIEW PROJECT ↗
                 </button>
@@ -468,12 +473,12 @@ export default function App() {
 
               <div className="ca-work-tags">
                 {currentProject.tags.map(t => (
-                  <span key={t} className={`ca-work-tag-badge ${currentProject.tagStyle}`}>{t}</span>
+                  <span key={t} className="ca-work-tag-badge">{t}</span>
                 ))}
               </div>
             </div>
 
-            {/* Right Column: Thick Black Framed App Screens Mockup with Dual Washi Tapes */}
+            {/* Right Column: Framed Mockup with Corner Washi Tapes */}
             <div style={{ alignSelf: 'center' }}>
               <div className="ca-work-mockup-frame">
                 <span className="ca-tape-mockup-tl" aria-hidden="true" />
@@ -593,7 +598,7 @@ export default function App() {
       </footer>
 
       {/* ══════════════════════════════════════════════
-          CASE STUDY DEEP-DIVE MODAL
+          CASE STUDY DETAIL MODAL
          ══════════════════════════════════════════════ */}
       {activeCaseStudy && (
         <div className="ca-modal-backdrop" onClick={() => setActiveCaseStudy(null)}>
