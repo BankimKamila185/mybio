@@ -153,7 +153,7 @@ body {
 .ca-emoji-b { opacity: 0; animation: ca-emoji-swap 4.4s ease-in-out -2.2s infinite; }
 
 /* ══════════════════════════════════════════════
-   HEADER
+   HEADER & NAVIGATION
    ══════════════════════════════════════════════ */
 .ca-header {
   position: sticky;
@@ -203,7 +203,7 @@ body {
   display: flex;
   align-items: center;
   gap: 0.55rem;
-  padding: 0 1.25rem;
+  padding: 0 1.4rem;
   font-family: var(--font-artsy-mono);
   font-size: 0.85rem;
   font-weight: 700;
@@ -212,8 +212,9 @@ body {
   color: var(--ca-ink);
   background: transparent;
   border: none;
+  border-bottom: 2px solid transparent;
   cursor: pointer;
-  transition: background-color 0.15s ease;
+  transition: all 0.15s ease;
 }
 
 .ca-nav-tab:hover {
@@ -222,6 +223,9 @@ body {
 
 .ca-nav-tab.active {
   background-color: var(--ca-yellow);
+  border: 2px solid #2563eb;
+  border-top: none;
+  color: var(--ca-ink);
 }
 
 .ca-header-right {
