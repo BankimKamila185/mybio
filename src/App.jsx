@@ -367,6 +367,76 @@ export default function App() {
             </button>
           </section>
 
+          {/* ABOUT ME SECTION (IMMEDIATELY AFTER HERO) */}
+          <section className="ca-about-wrap" id="about">
+            <p className="ca-about-eyebrow">about me!</p>
+            <div className="ca-doodle-frame-title">
+              <span>what's up</span>
+            </div>
+
+            <div className="ca-about-center-stage">
+              <div className="ca-flank-polaroid-left">
+                <span className="ca-tape-corner-left" aria-hidden="true" />
+                <span className="ca-tape-corner-right" aria-hidden="true" />
+                <img src="/profile.png" alt="2026" className="ca-polaroid-img-taped" />
+                <p className="ca-hand" style={{ fontSize: '1.25rem', marginTop: '0.6rem' }}>2026</p>
+              </div>
+
+              <div className="ca-flank-polaroid-right">
+                <span className="ca-tape-corner-left" aria-hidden="true" />
+                <span className="ca-tape-corner-right" aria-hidden="true" />
+                <img src="/hero.png" alt="my workspace" className="ca-polaroid-img-taped" />
+                <p className="ca-hand" style={{ fontSize: '1.25rem', marginTop: '0.6rem' }}>my workspace</p>
+              </div>
+
+              <p className="ca-manifesto-large">
+                I'm a technologist and product builder from Mumbai serving as CTO & COO at The Outliers Studio. ✨ I engineer full-stack web apps, Python backends, real-time WebSocket systems, and AI models that solve real problems. 🚀
+              </p>
+            </div>
+
+            <div className="ca-skills-sticker-grid">
+              <div className="ca-skill-sticker sticker-yellow">
+                <div className="ca-sticker-icon-wrap">
+                  <span>⚡</span>
+                </div>
+                <div className="ca-sticker-info">
+                  <span className="ca-sticker-title">Full-Stack Web</span>
+                  <span className="ca-sticker-sub">React · Node.js · Express · Vite</span>
+                </div>
+              </div>
+
+              <div className="ca-skill-sticker sticker-green">
+                <div className="ca-sticker-icon-wrap">
+                  <span>🐍</span>
+                </div>
+                <div className="ca-sticker-info">
+                  <span className="ca-sticker-title">Python &amp; FastAPI</span>
+                  <span className="ca-sticker-sub">REST APIs · PostgreSQL · Microservices</span>
+                </div>
+              </div>
+
+              <div className="ca-skill-sticker sticker-magenta">
+                <div className="ca-sticker-icon-wrap">
+                  <span>🤖</span>
+                </div>
+                <div className="ca-sticker-info">
+                  <span className="ca-sticker-title">AI &amp; Computer Vision</span>
+                  <span className="ca-sticker-sub">K-Means · Neural Filters · OpenCV</span>
+                </div>
+              </div>
+
+              <div className="ca-skill-sticker sticker-blue">
+                <div className="ca-sticker-icon-wrap">
+                  <span>📡</span>
+                </div>
+                <div className="ca-sticker-info">
+                  <span className="ca-sticker-title">Real-Time WebSockets</span>
+                  <span className="ca-sticker-sub">Socket.io · Live Tallies · High Concurrency</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
           {/* FEATURED WORKS - SCROLL-DRIVEN STACKING FOLDERS */}
           <section className="ca-works-wrap" id="works">
             <div className="ca-works-head">
@@ -379,7 +449,7 @@ export default function App() {
                 {renderStaggerText("FEATURED WORKS", 0.1, 0.04)}
               </h2>
               <span className="ca-works-tape-desc">
-                A few products I helped make simpler, calmer, and easier to trust.
+                Real-world web apps, AI systems, and fintech platforms shipped to production.
               </span>
             </div>
 
@@ -478,76 +548,6 @@ export default function App() {
                   </div>
                 </article>
               ))}
-            </div>
-          </section>
-
-          {/* ABOUT ME PREVIEW SECTION */}
-          <section className="ca-about-wrap" id="about">
-            <p className="ca-about-eyebrow">about me!</p>
-            <div className="ca-doodle-frame-title">
-              <span>what's up</span>
-            </div>
-
-            <div className="ca-about-center-stage">
-              <div className="ca-flank-polaroid-left">
-                <span className="ca-tape-corner-left" aria-hidden="true" />
-                <span className="ca-tape-corner-right" aria-hidden="true" />
-                <img src="/profile.png" alt="2026" className="ca-polaroid-img-taped" />
-                <p className="ca-hand" style={{ fontSize: '1.25rem', marginTop: '0.6rem' }}>2026</p>
-              </div>
-
-              <div className="ca-flank-polaroid-right">
-                <span className="ca-tape-corner-left" aria-hidden="true" />
-                <span className="ca-tape-corner-right" aria-hidden="true" />
-                <img src="/hero.png" alt="my workspace" className="ca-polaroid-img-taped" />
-                <p className="ca-hand" style={{ fontSize: '1.25rem', marginTop: '0.6rem' }}>my workspace</p>
-              </div>
-
-              <p className="ca-manifesto-large">
-                I'm a technologist and product builder from Mumbai serving as CTO & COO at The Outliers Studio. ✨ I engineer full-stack web apps, Python backends, real-time WebSocket systems, and AI models that solve real problems. 🚀
-              </p>
-            </div>
-
-            <div className="ca-skills-sticker-grid">
-              <div className="ca-skill-sticker sticker-yellow">
-                <div className="ca-sticker-icon-wrap">
-                  <span>⚡</span>
-                </div>
-                <div className="ca-sticker-info">
-                  <span className="ca-sticker-title">Full-Stack Web</span>
-                  <span className="ca-sticker-sub">React · Node.js · Express · Vite</span>
-                </div>
-              </div>
-
-              <div className="ca-skill-sticker sticker-green">
-                <div className="ca-sticker-icon-wrap">
-                  <span>🐍</span>
-                </div>
-                <div className="ca-sticker-info">
-                  <span className="ca-sticker-title">Python &amp; FastAPI</span>
-                  <span className="ca-sticker-sub">REST APIs · PostgreSQL · Microservices</span>
-                </div>
-              </div>
-
-              <div className="ca-skill-sticker sticker-magenta">
-                <div className="ca-sticker-icon-wrap">
-                  <span>🤖</span>
-                </div>
-                <div className="ca-sticker-info">
-                  <span className="ca-sticker-title">AI &amp; Computer Vision</span>
-                  <span className="ca-sticker-sub">K-Means · Neural Filters · OpenCV</span>
-                </div>
-              </div>
-
-              <div className="ca-skill-sticker sticker-blue">
-                <div className="ca-sticker-icon-wrap">
-                  <span>📡</span>
-                </div>
-                <div className="ca-sticker-info">
-                  <span className="ca-sticker-title">Real-Time WebSockets</span>
-                  <span className="ca-sticker-sub">Socket.io · Live Tallies · High Concurrency</span>
-                </div>
-              </div>
             </div>
           </section>
         </>
