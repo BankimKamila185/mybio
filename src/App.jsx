@@ -508,38 +508,44 @@ export default function App() {
               </p>
             </div>
 
-            <div className="ca-jagged-skills-container">
-              <div className="ca-jagged-row">
-                <div className="ca-jagged-item">
-                  <span className="ca-jagged-label yellow">Full-Stack Web</span>
-                  <span className="ca-jagged-icon yellow">
-                    <span className="ca-emoji-a">⚡</span>
-                    <span className="ca-emoji-b">⚛️</span>
-                  </span>
+            <div className="ca-skills-sticker-grid">
+              <div className="ca-skill-sticker sticker-yellow">
+                <div className="ca-sticker-icon-wrap">
+                  <span>⚡</span>
                 </div>
-                <div className="ca-jagged-item">
-                  <span className="ca-jagged-label green">Python &amp; FastAPI</span>
-                  <span className="ca-jagged-icon green">
-                    <span className="ca-emoji-a">🐍</span>
-                    <span className="ca-emoji-b">🚀</span>
-                  </span>
+                <div className="ca-sticker-info">
+                  <span className="ca-sticker-title">Full-Stack Web</span>
+                  <span className="ca-sticker-sub">React · Node.js · Express · Vite</span>
                 </div>
               </div>
 
-              <div className="ca-jagged-row">
-                <div className="ca-jagged-item">
-                  <span className="ca-jagged-label magenta">AI &amp; Computer Vision</span>
-                  <span className="ca-jagged-icon magenta">
-                    <span className="ca-emoji-a">🤖</span>
-                    <span className="ca-emoji-b">👁️</span>
-                  </span>
+              <div className="ca-skill-sticker sticker-green">
+                <div className="ca-sticker-icon-wrap">
+                  <span>🐍</span>
                 </div>
-                <div className="ca-jagged-item">
-                  <span className="ca-jagged-label blue">Real-Time WebSockets</span>
-                  <span className="ca-jagged-icon blue">
-                    <span className="ca-emoji-a">🔌</span>
-                    <span className="ca-emoji-b">📡</span>
-                  </span>
+                <div className="ca-sticker-info">
+                  <span className="ca-sticker-title">Python &amp; FastAPI</span>
+                  <span className="ca-sticker-sub">REST APIs · PostgreSQL · Microservices</span>
+                </div>
+              </div>
+
+              <div className="ca-skill-sticker sticker-magenta">
+                <div className="ca-sticker-icon-wrap">
+                  <span>🤖</span>
+                </div>
+                <div className="ca-sticker-info">
+                  <span className="ca-sticker-title">AI &amp; Computer Vision</span>
+                  <span className="ca-sticker-sub">K-Means · Neural Filters · OpenCV</span>
+                </div>
+              </div>
+
+              <div className="ca-skill-sticker sticker-blue">
+                <div className="ca-sticker-icon-wrap">
+                  <span>📡</span>
+                </div>
+                <div className="ca-sticker-info">
+                  <span className="ca-sticker-title">Real-Time WebSockets</span>
+                  <span className="ca-sticker-sub">Socket.io · Live Tallies · High Concurrency</span>
                 </div>
               </div>
             </div>
@@ -578,38 +584,44 @@ export default function App() {
               </p>
             </div>
 
-            <div className="ca-jagged-skills-container">
-              <div className="ca-jagged-row">
-                <div className="ca-jagged-item">
-                  <span className="ca-jagged-label yellow">Full-Stack Web</span>
-                  <span className="ca-jagged-icon yellow">
-                    <span className="ca-emoji-a">⚡</span>
-                    <span className="ca-emoji-b">⚛️</span>
-                  </span>
+            <div className="ca-skills-sticker-grid">
+              <div className="ca-skill-sticker sticker-yellow">
+                <div className="ca-sticker-icon-wrap">
+                  <span>⚡</span>
                 </div>
-                <div className="ca-jagged-item">
-                  <span className="ca-jagged-label green">Python &amp; FastAPI</span>
-                  <span className="ca-jagged-icon green">
-                    <span className="ca-emoji-a">🐍</span>
-                    <span className="ca-emoji-b">🚀</span>
-                  </span>
+                <div className="ca-sticker-info">
+                  <span className="ca-sticker-title">Full-Stack Web</span>
+                  <span className="ca-sticker-sub">React · Node.js · Express · Vite</span>
                 </div>
               </div>
 
-              <div className="ca-jagged-row">
-                <div className="ca-jagged-item">
-                  <span className="ca-jagged-label magenta">AI &amp; Computer Vision</span>
-                  <span className="ca-jagged-icon magenta">
-                    <span className="ca-emoji-a">🤖</span>
-                    <span className="ca-emoji-b">👁️</span>
-                  </span>
+              <div className="ca-skill-sticker sticker-green">
+                <div className="ca-sticker-icon-wrap">
+                  <span>🐍</span>
                 </div>
-                <div className="ca-jagged-item">
-                  <span className="ca-jagged-label blue">Real-Time WebSockets</span>
-                  <span className="ca-jagged-icon blue">
-                    <span className="ca-emoji-a">🔌</span>
-                    <span className="ca-emoji-b">📡</span>
-                  </span>
+                <div className="ca-sticker-info">
+                  <span className="ca-sticker-title">Python &amp; FastAPI</span>
+                  <span className="ca-sticker-sub">REST APIs · PostgreSQL · Microservices</span>
+                </div>
+              </div>
+
+              <div className="ca-skill-sticker sticker-magenta">
+                <div className="ca-sticker-icon-wrap">
+                  <span>🤖</span>
+                </div>
+                <div className="ca-sticker-info">
+                  <span className="ca-sticker-title">AI &amp; Computer Vision</span>
+                  <span className="ca-sticker-sub">K-Means · Neural Filters · OpenCV</span>
+                </div>
+              </div>
+
+              <div className="ca-skill-sticker sticker-blue">
+                <div className="ca-sticker-icon-wrap">
+                  <span>📡</span>
+                </div>
+                <div className="ca-sticker-info">
+                  <span className="ca-sticker-title">Real-Time WebSockets</span>
+                  <span className="ca-sticker-sub">Socket.io · Live Tallies · High Concurrency</span>
                 </div>
               </div>
             </div>
