@@ -10,14 +10,20 @@ const FEATURED_WORKS = [
     tabBg: "#2563eb",
     tabTextColor: "#ffffff",
     cardClass: "ca-card-blue",
-    date: "MAR 19, 2026",
-    title: "Wayline",
-    desc: "Making a whole city's transit app feel less like decoding a puzzle.",
-    tags: ["MOBILITY", "CONSUMER APP"],
-    img: "https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=1200&auto=format&fit=crop",
-    problem: "The app had every number and told you nothing. Commuters stared at confusing tables, had no idea which connection was delayed, and gave up before navigating unfamiliar transfers.",
-    solution: "Rebuilt the entire transit companion from scratch around glanceable progress and intuitive live departure cards. Cut 55% of intermediate clicks.",
-    result: "47% faster journey planning, 2.4× weekly return visits, and 99.98% session completion during peak morning rush hours."
+    date: "2026 · FULL-STACK WEB",
+    title: "Reactify",
+    desc: "Real-time anonymous live voting engine with WebSockets, instant room codes, and zero sign-up friction.",
+    tags: ["REACT", "NODE.JS", "SOCKET.IO", "MONGODB"],
+    img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
+    role: "Full-Stack Engineer & Architect",
+    timeline: "3 Months",
+    team: "Lead Developer",
+    year: "2026",
+    link: "https://reactify-pink.vercel.app",
+    github: "https://github.com/BankimKamila185/Reactify",
+    problem: "Traditional polling tools mandate lengthy account sign-ups, suffer from high websocket latency during live audience interaction, and fail under sudden concurrent traffic bursts.",
+    solution: "Engineered high-concurrency anonymous voting rooms with zero-latency WebSocket broadcasting, animated live tally charts, and clean responsive UI with instant room code sharing.",
+    result: "Sub-50ms sync latency across 100+ connected clients, zero barrier to entry for participants, and 100% session reliability during live presentations."
   },
   {
     num: "02",
@@ -25,14 +31,20 @@ const FEATURED_WORKS = [
     tabBg: "#191510",
     tabTextColor: "#ffffff",
     cardClass: "ca-card-charcoal",
-    date: "MAR 2, 2026",
-    title: "Tandem",
-    desc: "From 'who owes who' to money that finally feels shared.",
-    tags: ["FINTECH", "CONSUMER APP"],
-    img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
-    problem: "Splitting rent, groceries, and travel bills causes friction and awkward conversations among housemates and couples.",
-    solution: "Designed a collaborative transparent ledger where shared balances settle automatically without tedious manual math.",
-    result: "Over $12M in shared expenses reconciled monthly with 88% organic referral adoption."
+    date: "2026 · FINTECH TOOL",
+    title: "PayIt",
+    desc: "Automated invoice calculation, tax rendering, and historical ledger powered by a Python & FastAPI backend.",
+    tags: ["PYTHON", "FASTAPI", "REACT", "POSTGRESQL"],
+    img: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=1200&auto=format&fit=crop",
+    role: "Backend & Systems Developer",
+    timeline: "2 Months",
+    team: "Solo Project",
+    year: "2026",
+    link: "https://payit-mu.vercel.app",
+    github: "https://github.com/BankimKamila185/payit-",
+    problem: "Freelancers and small agencies lose hours manually calculating invoice tax splits, generating error-prone billing PDFs, and tracking overdue payment states.",
+    solution: "Built a robust invoicing engine powered by Python and FastAPI with automated tax calculations, dynamic PDF invoice rendering, and persistent ledger storage.",
+    result: "Eliminated calculation errors, reduced invoice generation time to under 30 seconds, and provided one-click downloadable PDF exports."
   },
   {
     num: "03",
@@ -40,14 +52,20 @@ const FEATURED_WORKS = [
     tabBg: "#f59e0b",
     tabTextColor: "#191510",
     cardClass: "ca-card-yellow",
-    date: "JAN 2, 2026",
-    title: "Forge",
-    desc: "Getting a new engineer from day one to shipping without the panic.",
-    tags: ["DEVTOOLS", "ONBOARDING"],
+    date: "2026 · AI & ML",
+    title: "Pixora",
+    desc: "AI Image Studio extracting dominant color palettes via K-Means clustering and applying neural filters in real time.",
+    tags: ["PYTHON", "OPENCV", "K-MEANS", "REACT"],
     img: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=1200&auto=format&fit=crop",
-    problem: "New engineering hires take an average of 3 weeks to configure local dev environments and land their first pull request.",
-    solution: "Built a step-by-step interactive onboarding terminal with automated environment validation and instant sandbox tests.",
-    result: "Time-to-first-commit reduced from 21 days down to 4 hours across 400+ engineering teams."
+    role: "AI / ML Developer",
+    timeline: "2 Months",
+    team: "Lead Developer",
+    year: "2026",
+    link: "https://pixora-lake.vercel.app",
+    github: "https://github.com/BankimKamila185/pixora",
+    problem: "Designers and developers often lack quick tools to mathematically isolate dominant color schemes and harmonize assets directly from raw photo uploads.",
+    solution: "Applied unsupervised K-Means clustering in Python to extract prominent RGB/HEX color clusters, combined with instant browser canvas neural filter previews.",
+    result: "Sub-second palette extraction, exact HEX/RGB copying for design workflows, and seamless in-browser canvas transformations."
   },
   {
     num: "04",
@@ -55,14 +73,41 @@ const FEATURED_WORKS = [
     tabBg: "#ff2d78",
     tabTextColor: "#191510",
     cardClass: "ca-card-magenta",
-    date: "MAR 16, 2026",
-    title: "Volt",
-    desc: "Helping people actually understand the energy they use at home.",
-    tags: ["CLIMATE", "DATA DESIGN"],
+    date: "2026 · MARKETPLACE",
+    title: "WastCraft",
+    desc: "Circular economy platform connecting households with localized recyclers with scrap categorization and pricing.",
+    tags: ["REACT", "JAVASCRIPT", "TAILWIND", "VERCEL"],
+    img: "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?q=80&w=1200&auto=format&fit=crop",
+    role: "Full Stack Developer",
+    timeline: "3 Months",
+    team: "Core Contributor",
+    year: "2026",
+    link: "https://wastcraft.vercel.app",
+    github: "https://github.com/BankimKamila185/wastcraft",
+    problem: "Household recyclables are often discarded as trash due to lack of price transparency and disconnected scrap pickup services.",
+    solution: "Created an intuitive marketplace connecting scrap sellers with verified local recyclers, featuring transparent itemized scrap rate estimation.",
+    result: "Empowered urban households to monetize sorted recyclables and reduced neighborhood landfill waste."
+  },
+  {
+    num: "05",
+    tabClass: "tab-pos-4",
+    tabBg: "#8b5cf6",
+    tabTextColor: "#ffffff",
+    cardClass: "ca-card-purple",
+    date: "2026 · DESIGN SYSTEM",
+    title: "Brand Studio",
+    desc: "Fluid typography scales, CSS token architecture, and high-performance interactive micro-animations.",
+    tags: ["REACT", "VITE", "CSS TOKENS", "UI/UX"],
     img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
-    problem: "People stared at complex kilowatt charts they couldn't read and had no idea what appliances were costing them.",
-    solution: "Cut the dashboard down to plain summaries: what am I using, what is it costing, and what should I do about it. Deep charts are one tap away.",
-    result: "2× more return check-ins, 3.5k+ daily energy habits saved in Q1, and guesswork eliminated."
+    role: "Design Engineer",
+    timeline: "1 Month",
+    team: "Solo Project",
+    year: "2026",
+    link: "https://brand-two-mocha.vercel.app",
+    github: "https://github.com/BankimKamila185/brand",
+    problem: "Modern web applications frequently suffer from inconsistent typography scales, jarring layout shifts, and fragmented UI tokens across pages.",
+    solution: "Engineered a living design showcase featuring mathematical fluid clamp() typography scales, dark-mode CSS custom properties, and buttery micro-animations.",
+    result: "100/100 Lighthouse performance, zero layout shift, and clean reusable design tokens ready for production deployment."
   }
 ];
 
@@ -347,7 +392,7 @@ export default function App() {
                 >
                   <div className={`ca-tab-handle-row ${p.tabClass}`}>
                     <span
-                      className={`ca-stack-tab-pill ${idx > 0 ? (idx === 3 ? 'trapezoid tab-last' : 'trapezoid') : ''}`}
+                      className={`ca-stack-tab-pill ${idx > 0 ? (idx === FEATURED_WORKS.length - 1 ? 'trapezoid tab-last' : 'trapezoid') : ''}`}
                       style={{
                         backgroundColor: p.tabBg,
                         color: p.tabTextColor
@@ -371,13 +416,45 @@ export default function App() {
                           {p.desc}
                         </p>
                         
-                        <button
-                          onClick={() => setActiveCaseStudy(p)}
-                          className="ca-work-link"
-                          style={{ color: p.cardClass === 'ca-card-magenta' || p.cardClass === 'ca-card-yellow' ? '#191510' : '#ffffff' }}
-                        >
-                          VIEW PROJECT ↗
-                        </button>
+                        <div style={{ display: 'flex', gap: '0.85rem', alignItems: 'center', marginTop: '1.25rem', flexWrap: 'wrap' }}>
+                          <button
+                            onClick={() => setActiveCaseStudy(p)}
+                            className="ca-work-link"
+                            style={{ color: p.cardClass === 'ca-card-magenta' || p.cardClass === 'ca-card-yellow' ? '#191510' : '#ffffff' }}
+                          >
+                            VIEW CASE STUDY ↗
+                          </button>
+                          {p.link && (
+                            <a
+                              href={p.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="ca-work-link"
+                              style={{
+                                color: p.cardClass === 'ca-card-magenta' || p.cardClass === 'ca-card-yellow' ? '#191510' : '#ffffff',
+                                borderBottomStyle: 'dashed',
+                                opacity: 0.95
+                              }}
+                            >
+                              LIVE APP ↗
+                            </a>
+                          )}
+                          {p.github && (
+                            <a
+                              href={p.github}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="ca-work-link"
+                              style={{
+                                color: p.cardClass === 'ca-card-magenta' || p.cardClass === 'ca-card-yellow' ? '#191510' : '#ffffff',
+                                borderBottomStyle: 'dashed',
+                                opacity: 0.95
+                              }}
+                            >
+                              GITHUB ↗
+                            </a>
+                          )}
+                        </div>
                       </div>
 
                       <div className="ca-work-tags">
@@ -427,41 +504,41 @@ export default function App() {
               </div>
 
               <p className="ca-manifesto-large">
-                I'm a product designer who gets a little too excited about making complicated things feel simple. ✨ I care about the small details, the edge cases everyone forgets, and shipping work that genuinely makes someone's day easier. 🎨
+                I'm a technologist and product builder from Mumbai serving as CTO & COO at The Outliers Studio. ✨ I engineer full-stack web apps, Python backends, real-time WebSocket systems, and AI models that solve real problems. 🚀
               </p>
             </div>
 
             <div className="ca-jagged-skills-container">
               <div className="ca-jagged-row">
                 <div className="ca-jagged-item">
-                  <span className="ca-jagged-label yellow">Interaction Design</span>
+                  <span className="ca-jagged-label yellow">Full-Stack Web</span>
                   <span className="ca-jagged-icon yellow">
-                    <span className="ca-emoji-a">🎨</span>
-                    <span className="ca-emoji-b">✨</span>
+                    <span className="ca-emoji-a">⚡</span>
+                    <span className="ca-emoji-b">⚛️</span>
                   </span>
                 </div>
                 <div className="ca-jagged-item">
-                  <span className="ca-jagged-label green">Prototyping</span>
+                  <span className="ca-jagged-label green">Python &amp; FastAPI</span>
                   <span className="ca-jagged-icon green">
-                    <span className="ca-emoji-a">🧩</span>
-                    <span className="ca-emoji-b">🎨</span>
+                    <span className="ca-emoji-a">🐍</span>
+                    <span className="ca-emoji-b">🚀</span>
                   </span>
                 </div>
               </div>
 
               <div className="ca-jagged-row">
                 <div className="ca-jagged-item">
-                  <span className="ca-jagged-label magenta">User Research</span>
+                  <span className="ca-jagged-label magenta">AI &amp; Computer Vision</span>
                   <span className="ca-jagged-icon magenta">
-                    <span className="ca-emoji-a">👀</span>
-                    <span className="ca-emoji-b">🧩</span>
+                    <span className="ca-emoji-a">🤖</span>
+                    <span className="ca-emoji-b">👁️</span>
                   </span>
                 </div>
                 <div className="ca-jagged-item">
-                  <span className="ca-jagged-label blue">Motion Design</span>
+                  <span className="ca-jagged-label blue">Real-Time WebSockets</span>
                   <span className="ca-jagged-icon blue">
-                    <span className="ca-emoji-a">💡</span>
-                    <span className="ca-emoji-b">👀</span>
+                    <span className="ca-emoji-a">🔌</span>
+                    <span className="ca-emoji-b">📡</span>
                   </span>
                 </div>
               </div>
@@ -497,41 +574,41 @@ export default function App() {
               </div>
 
               <p className="ca-manifesto-large">
-                I'm a product designer who gets a little too excited about making complicated things feel simple. ✨ I care about the small details, the edge cases everyone forgets, and shipping work that genuinely makes someone's day easier. 🎨
+                I'm a technologist and product builder from Mumbai serving as CTO & COO at The Outliers Studio. ✨ I engineer full-stack web apps, Python backends, real-time WebSocket systems, and AI models that solve real problems. 🚀
               </p>
             </div>
 
             <div className="ca-jagged-skills-container">
               <div className="ca-jagged-row">
                 <div className="ca-jagged-item">
-                  <span className="ca-jagged-label yellow">Interaction Design</span>
+                  <span className="ca-jagged-label yellow">Full-Stack Web</span>
                   <span className="ca-jagged-icon yellow">
-                    <span className="ca-emoji-a">🎨</span>
-                    <span className="ca-emoji-b">✨</span>
+                    <span className="ca-emoji-a">⚡</span>
+                    <span className="ca-emoji-b">⚛️</span>
                   </span>
                 </div>
                 <div className="ca-jagged-item">
-                  <span className="ca-jagged-label green">Prototyping</span>
+                  <span className="ca-jagged-label green">Python &amp; FastAPI</span>
                   <span className="ca-jagged-icon green">
-                    <span className="ca-emoji-a">🧩</span>
-                    <span className="ca-emoji-b">🎨</span>
+                    <span className="ca-emoji-a">🐍</span>
+                    <span className="ca-emoji-b">🚀</span>
                   </span>
                 </div>
               </div>
 
               <div className="ca-jagged-row">
                 <div className="ca-jagged-item">
-                  <span className="ca-jagged-label magenta">User Research</span>
+                  <span className="ca-jagged-label magenta">AI &amp; Computer Vision</span>
                   <span className="ca-jagged-icon magenta">
-                    <span className="ca-emoji-a">👀</span>
-                    <span className="ca-emoji-b">🧩</span>
+                    <span className="ca-emoji-a">🤖</span>
+                    <span className="ca-emoji-b">👁️</span>
                   </span>
                 </div>
                 <div className="ca-jagged-item">
-                  <span className="ca-jagged-label blue">Motion Design</span>
+                  <span className="ca-jagged-label blue">Real-Time WebSockets</span>
                   <span className="ca-jagged-icon blue">
-                    <span className="ca-emoji-a">💡</span>
-                    <span className="ca-emoji-b">👀</span>
+                    <span className="ca-emoji-a">🔌</span>
+                    <span className="ca-emoji-b">📡</span>
                   </span>
                 </div>
               </div>
@@ -542,14 +619,14 @@ export default function App() {
               <div style={{ backgroundColor: '#ffffff', border: '3px solid var(--ca-ink)', padding: '2rem', boxShadow: '6px 6px 0 var(--ca-ink)' }}>
                 <span className="ca-hand-tape-box yellow" style={{ fontSize: '1.4rem' }}>my philosophy</span>
                 <p style={{ marginTop: '1rem', fontSize: '1.1rem', lineHeight: 1.7, color: 'var(--ca-ink)' }}>
-                  Good software should feel effortless. I combine user-centric design principles with deep engineering empathy to build interfaces that empower people rather than slowing them down.
+                  Great software should be blazingly fast, reliable, and intuitive. I combine deep engineering rigor with user empathy to architect products that deliver exceptional performance and solve real operational needs.
                 </p>
               </div>
 
               <div style={{ backgroundColor: '#ffffff', border: '3px solid var(--ca-ink)', padding: '2rem', boxShadow: '6px 6px 0 var(--ca-ink)' }}>
                 <span className="ca-hand-tape-box mint" style={{ fontSize: '1.4rem' }}>background &amp; experience</span>
                 <p style={{ marginTop: '1rem', fontSize: '1.1rem', lineHeight: 1.7, color: 'var(--ca-ink)' }}>
-                  Over the past 5+ years, I've designed and scaled consumer platforms, developer tooling, and distributed systems, taking products from whiteboard sketches to hundreds of thousands of daily active users.
+                  Currently CTO & COO at The Outliers Studio, studying AI & Machine Learning at ITM Skills University. I have shipped 10+ production web and backend applications, created 55+ open-source repositories, and specialize in high-concurrency systems, Python microservices, and modern frontend platforms.
                 </p>
               </div>
             </div>
@@ -573,7 +650,7 @@ export default function App() {
                 {renderStaggerText("FEATURED WORKS", 0.1, 0.04)}
               </h2>
               <span className="ca-works-tape-desc">
-                A few products I helped make simpler, calmer, and easier to trust.
+                Real-world web apps, AI systems, and fintech platforms shipped to production.
               </span>
             </div>
 
@@ -586,7 +663,7 @@ export default function App() {
                 >
                   <div className={`ca-tab-handle-row ${p.tabClass}`}>
                     <span
-                      className={`ca-stack-tab-pill ${idx > 0 ? (idx === 3 ? 'trapezoid tab-last' : 'trapezoid') : ''}`}
+                      className={`ca-stack-tab-pill ${idx > 0 ? (idx === FEATURED_WORKS.length - 1 ? 'trapezoid tab-last' : 'trapezoid') : ''}`}
                       style={{
                         backgroundColor: p.tabBg,
                         color: p.tabTextColor
@@ -610,13 +687,45 @@ export default function App() {
                           {p.desc}
                         </p>
                         
-                        <button
-                          onClick={() => setActiveCaseStudy(p)}
-                          className="ca-work-link"
-                          style={{ color: p.cardClass === 'ca-card-magenta' || p.cardClass === 'ca-card-yellow' ? '#191510' : '#ffffff' }}
-                        >
-                          VIEW PROJECT ↗
-                        </button>
+                        <div style={{ display: 'flex', gap: '0.85rem', alignItems: 'center', marginTop: '1.25rem', flexWrap: 'wrap' }}>
+                          <button
+                            onClick={() => setActiveCaseStudy(p)}
+                            className="ca-work-link"
+                            style={{ color: p.cardClass === 'ca-card-magenta' || p.cardClass === 'ca-card-yellow' ? '#191510' : '#ffffff' }}
+                          >
+                            VIEW CASE STUDY ↗
+                          </button>
+                          {p.link && (
+                            <a
+                              href={p.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="ca-work-link"
+                              style={{
+                                color: p.cardClass === 'ca-card-magenta' || p.cardClass === 'ca-card-yellow' ? '#191510' : '#ffffff',
+                                borderBottomStyle: 'dashed',
+                                opacity: 0.95
+                              }}
+                            >
+                              LIVE APP ↗
+                            </a>
+                          )}
+                          {p.github && (
+                            <a
+                              href={p.github}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="ca-work-link"
+                              style={{
+                                color: p.cardClass === 'ca-card-magenta' || p.cardClass === 'ca-card-yellow' ? '#191510' : '#ffffff',
+                                borderBottomStyle: 'dashed',
+                                opacity: 0.95
+                              }}
+                            >
+                              GITHUB ↗
+                            </a>
+                          )}
+                        </div>
                       </div>
 
                       <div className="ca-work-tags">
@@ -665,7 +774,7 @@ export default function App() {
         </h2>
 
         <p className="ca-manifesto-large" style={{ fontSize: '1.6rem', marginTop: '1rem', maxWidth: '720px' }}>
-          Got a project, a hard problem, or just want to say hi? Send it over. I read every message.
+          Got a project, a technical problem, or an idea to build together? Drop a line.
         </p>
 
         <div style={{ position: 'relative', maxWidth: '820px', margin: '3.5rem auto 0' }}>
@@ -674,14 +783,14 @@ export default function App() {
             <span style={{ position: 'absolute', top: '-10px', right: '-12px', width: '55px', height: '18px', backgroundColor: 'rgba(251, 207, 232, 0.8)', transform: 'rotate(38deg)', boxShadow: '0 1px 3px rgba(17,18,18,0.15)', zIndex: 10 }} />
             
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.5rem' }}>
-              <img src="/profile.png" alt="Robin Vale" style={{ width: '36px', height: '36px', borderRadius: '50%', objectFit: 'cover' }} />
-              <span style={{ fontWeight: 700, fontSize: '0.95rem' }}>Robin Vale</span>
+              <img src="/profile.png" alt="Bankim Chandra Kamila" style={{ width: '36px', height: '36px', borderRadius: '50%', objectFit: 'cover' }} />
+              <span style={{ fontWeight: 700, fontSize: '0.95rem' }}>Bankim Chandra Kamila</span>
             </div>
             <p style={{ fontSize: '0.88rem', lineHeight: 1.4, color: 'var(--ca-ink)' }}>
-              Open to contract work, full-time roles, and interesting conversations about hard design problems.
+              CTO &amp; COO @ The Outliers Studio. Open to technology leadership, software engineering collaborations, and high-impact systems work.
             </p>
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem', marginTop: '0.75rem', border: '1.5px solid var(--ca-ink)', backgroundColor: '#ffffff', padding: '0.15rem 0.55rem', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 700 }}>
-              ⚡ 1
+              ⚡ 55+ Repos
             </span>
           </div>
 
@@ -708,10 +817,10 @@ export default function App() {
         <div className="ca-footer-inner">
           <div className="ca-footer-top-row">
             <div>
-              <p className="ca-display" style={{ fontSize: 'clamp(2.4rem, 6vw, 4.5rem)', lineHeight: 0.95 }}>ROBIN VALE</p>
+              <p className="ca-display" style={{ fontSize: 'clamp(2.4rem, 6vw, 4.5rem)', lineHeight: 0.95 }}>BANKIM KAMILA</p>
               <p className="ca-mono" style={{ fontSize: '0.85rem', marginTop: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'var(--ca-blue)' }}></span>
-                PRODUCT DESIGNER
+                CTO &amp; COO · FULL-STACK &amp; AI ENGINEER
               </p>
             </div>
 
@@ -737,9 +846,9 @@ export default function App() {
           </div>
 
           <div className="ca-footer-bot-row">
-            <span style={{ fontSize: '0.85rem', color: 'rgba(25,21,16,0.7)' }}>© 2026 Robin Vale</span>
+            <span style={{ fontSize: '0.85rem', color: 'rgba(25,21,16,0.7)' }}>© 2026 Bankim Chandra Kamila</span>
             <span className="ca-mono" style={{ fontSize: '0.75rem', fontWeight: 700, backgroundColor: 'var(--ca-chrome)', padding: '0.35rem 0.85rem', borderRadius: '9999px' }}>
-              ✦ MADE WITH PORTFOLIOFY
+              ✦ BUILT WITH PASSION
             </span>
           </div>
         </div>
@@ -760,7 +869,7 @@ export default function App() {
             </button>
 
             <span className="ca-mono" style={{ fontSize: '0.85rem', color: 'var(--ca-blue)', fontWeight: 700 }}>
-              ● {activeCaseStudy.title} · Case Study
+              ● {activeCaseStudy.title} · Production Case Study
             </span>
             <h2 className="ca-display" style={{ fontSize: 'clamp(2.5rem, 6vw, 4rem)', marginTop: '0.5rem', lineHeight: 1 }}>
               {activeCaseStudy.title}
@@ -769,18 +878,26 @@ export default function App() {
               {activeCaseStudy.desc}
             </p>
 
+            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: '1rem' }}>
+              {activeCaseStudy.tags?.map((t) => (
+                <span key={t} className="ca-work-tag-badge" style={{ backgroundColor: '#ffffff', color: 'var(--ca-ink)' }}>
+                  {t}
+                </span>
+              ))}
+            </div>
+
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '1rem', margin: '2rem 0', padding: '1.25rem', backgroundColor: 'var(--ca-chrome)', border: '2px solid var(--ca-ink)' }}>
               <div>
                 <p className="ca-mono" style={{ fontSize: '0.75rem', opacity: 0.7 }}>ROLE</p>
-                <p style={{ fontWeight: 700 }}>Lead Product Designer</p>
+                <p style={{ fontWeight: 700 }}>{activeCaseStudy.role || "Lead Developer"}</p>
               </div>
               <div>
                 <p className="ca-mono" style={{ fontSize: '0.75rem', opacity: 0.7 }}>TIMELINE</p>
-                <p style={{ fontWeight: 700 }}>5 Months</p>
+                <p style={{ fontWeight: 700 }}>{activeCaseStudy.timeline || "2-3 Months"}</p>
               </div>
               <div>
-                <p className="ca-mono" style={{ fontSize: '0.75rem', opacity: 0.7 }}>TEAM</p>
-                <p style={{ fontWeight: 700 }}>2 designers, 4 engineers</p>
+                <p className="ca-mono" style={{ fontSize: '0.75rem', opacity: 0.7 }}>AUTHOR</p>
+                <p style={{ fontWeight: 700 }}>Bankim Chandra Kamila</p>
               </div>
               <div>
                 <p className="ca-mono" style={{ fontSize: '0.75rem', opacity: 0.7 }}>YEAR</p>
@@ -797,18 +914,48 @@ export default function App() {
               </div>
 
               <div>
-                <span className="ca-hand-tape-box mint" style={{ fontSize: '1.3rem' }}>the approach</span>
+                <span className="ca-hand-tape-box mint" style={{ fontSize: '1.3rem' }}>the architectural solution</span>
                 <p style={{ marginTop: '0.75rem', fontSize: '1.05rem', lineHeight: 1.7 }}>
                   {activeCaseStudy.solution}
                 </p>
               </div>
 
               <div>
-                <span className="ca-hand-tape-box yellow" style={{ fontSize: '1.3rem' }}>the results</span>
+                <span className="ca-hand-tape-box yellow" style={{ fontSize: '1.3rem' }}>the outcome &amp; metrics</span>
                 <p style={{ marginTop: '0.75rem', fontSize: '1.05rem', lineHeight: 1.7 }}>
                   {activeCaseStudy.result}
                 </p>
               </div>
+            </div>
+
+            <div style={{ display: 'flex', gap: '1rem', marginTop: '2.5rem', flexWrap: 'wrap' }}>
+              {activeCaseStudy.link && (
+                <a
+                  href={activeCaseStudy.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="ca-hero-contact-cta"
+                  style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.6rem' }}
+                >
+                  <span className="ca-blue-arrow-box">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8">
+                      <path d="M7 17 17 7M9 7h8v8" />
+                    </svg>
+                  </span>
+                  Open Live Application ↗
+                </a>
+              )}
+              {activeCaseStudy.github && (
+                <a
+                  href={activeCaseStudy.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="ca-hero-contact-cta"
+                  style={{ textDecoration: 'none', backgroundColor: '#ffffff', color: 'var(--ca-ink)' }}
+                >
+                  View GitHub Source Code ↗
+                </a>
+              )}
             </div>
           </div>
         </div>
